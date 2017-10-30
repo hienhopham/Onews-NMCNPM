@@ -1,6 +1,17 @@
 doctype html
-html(lang="en")
-   head
-      title Index
-   body
-      h1 Hello World    
+html
+  include assets/index.pug
+  head
+    meta(charset='utf8')
+    title #{title}Onews
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="theme-color", content="#0C7CD5")
+    link(rel='icon', type='image/png', href='images/onews-logo.png')
+
+    link(rel='stylesheet', href='frontend/styles.min.css')
+    script(type='text/javascript', src='frontend/onews.min.js')
+
+  body(ng-app="Onews")
+    onews-header
+
+    onews-footer
