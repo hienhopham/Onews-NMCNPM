@@ -1,0 +1,30 @@
+{
+  "name": "onews-web",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "hien"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/hienhp/Onews-NMCNPM",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "^1.6.6",
+    "bootstrap": "boostrap#^3.3.7"
+  },
+  "overrides":{
+    "bootstrap" : {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js"
+      ]
+    }
+  }
+}
