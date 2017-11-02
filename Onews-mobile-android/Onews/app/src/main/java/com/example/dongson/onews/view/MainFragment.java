@@ -22,7 +22,7 @@ public class MainFragment extends Fragment {
 
     public MainFragment() {
     }
-    
+
     public static MainFragment newInstance() {
         MainFragment fragment = new MainFragment();
         return fragment;
