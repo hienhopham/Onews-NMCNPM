@@ -19,12 +19,15 @@ public class MainFragment extends Fragment {
     public MainFragment() {
     }
 
+    public static MainFragment newInstance() {
+        MainFragment fragment = new MainFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        FrameLayout relativeLayout = (FrameLayout) rootView.findViewById(R.id.rl_fragment);
-        relativeLayout.setBackgroundColor(Color.RED);
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         textView.setText("Kteam");
         return rootView;
