@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     xmlns:app="http://schemas.android.com/apk/res-auto"
+=======
+>>>>>>> add some fragment for all tab and some models
     android:id="@+id/rl_fragment"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,3 +22,7 @@
         android:layout_height="match_parent" />
 
 </FrameLayout>
+<<<<<<< HEAD
+=======
+
+>>>>>>> add some fragment for all tab and some models
