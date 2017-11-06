@@ -1,5 +1,6 @@
 package com.example.dongson.onews.view;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.dongson.onews.Adapters.SectionsPagerAdapter;
 import com.example.dongson.onews.Models.Tab;
 import com.example.dongson.onews.R;
 
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), listTab);
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -107,6 +109,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_contact) {
 
+
         } else if (id == R.id.nav_edit) {
 
         } else if (id == R.id.nav_logout) {
@@ -114,7 +117,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_seting) {
 
         } else if (id == R.id.nav_info) {
-
+            Intent infoApp = new Intent(getApplicationContext(), InfoAppActivity.class);
+            startActivity(infoApp);
+            overridePendingTransition(0, 0);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -122,28 +127,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return MainFragment.newInstance();
-        }
-
-        @Override
-        public int getCount() {
-            return listTab.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return listTab.get(position).getTab_name();
-
-        }
-    }
 
 
 //    private void setupViewPager(ViewPager viewPager) {
