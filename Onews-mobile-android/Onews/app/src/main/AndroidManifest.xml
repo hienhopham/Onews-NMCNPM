@@ -19,7 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.InfoAppActivity"></activity>
+        <activity android:name=".view.InfoAppActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.RegisterActivity" />
+        <activity android:name=".view.EditPasswordActivity" />
+        <activity android:name=".view.InforUserActivity"></activity>
     </application>
 
 </manifest>
