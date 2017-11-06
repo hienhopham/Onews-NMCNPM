@@ -21,7 +21,6 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="Toolbar Title"
                 android:src="@drawable/onew"
                 android:layout_gravity="center"
                 android:id="@+id/toolbar_title" />
