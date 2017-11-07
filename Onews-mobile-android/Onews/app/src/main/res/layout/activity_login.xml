@@ -88,7 +88,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:text="Or"
-            android:textColor="#f42d2d"
+            android:textColor="#f73d4b"
             android:textSize="15dp" />
 
         <TextView
