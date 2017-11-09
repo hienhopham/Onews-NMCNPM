@@ -1,0 +1,80 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardElevation="10dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@color/transparent"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:weightSum="5">
+
+
+            <ImageView
+                android:id="@+id/img_article_type_two"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_weight="3"
+                android:scaleType="centerCrop"
+                android:src="@drawable/wtc" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="2"
+                android:background="@color/transparent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_category_type_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@color/black"
+                    android:text="Thời sự"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_title_type_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_category_type_two"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="Nạn nhân chấn thương sọ não đang nguy kịch tại bệnh viện Bạch Mai"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_created_time_type_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="6dp"
+                    android:text="10h15-8/10/2017"
+                    android:textColor="@color/black"
+                    android:textSize="11dp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
+
