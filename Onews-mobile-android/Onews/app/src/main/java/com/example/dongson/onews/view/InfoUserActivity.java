@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.example.dongson.onews.R;
 
-public class InforUserActivity extends AppCompatActivity {
+public class InfoUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_infor_user);
+        setContentView(R.layout.activity_info_user);
     }
 }

@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_contact) {
 
-
         } else if (id == R.id.nav_edit) {
 
         } else if (id == R.id.nav_logout) {

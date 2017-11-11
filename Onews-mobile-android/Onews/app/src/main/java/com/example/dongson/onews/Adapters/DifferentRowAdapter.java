@@ -6,11 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.example.dongson.onews.Models.Articles;
 import com.example.dongson.onews.R;
-
 import java.util.List;
+
 
 public class DifferentRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
