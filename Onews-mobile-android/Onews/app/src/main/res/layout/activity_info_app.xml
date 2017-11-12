@@ -12,15 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/transparent"
         app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/onew"
-            android:layout_gravity="center"
-            android:id="@+id/toolbar_title" />
 
     </android.support.v7.widget.Toolbar>
     <ImageView

@@ -9,10 +9,12 @@
     <ImageView
         android:id="@+id/img_logo"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/onew" />
+        android:src="@drawable/onew"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/tv_nameuser"
+            android:id="@+id/tv_nameuser_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -65,7 +67,7 @@
             android:text="Email Address" />
 
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_email_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -90,7 +92,7 @@
             android:textSize="15dp" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_createdtime_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
