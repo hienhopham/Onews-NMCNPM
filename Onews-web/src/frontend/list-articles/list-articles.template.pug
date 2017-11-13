@@ -1,0 +1,5 @@
+header
+  h3.title-head {{ctrl.category.name}}-{{ctrl.category.id}}
+div.list-articles(ng-repeat="article in ctrl.articles")
+  article-info(article='article', ng-if="ctrl.listArticlesType==1")
+  article-info-less(article='article', ng-if="ctrl.listArticlesType==2")
