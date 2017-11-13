@@ -1,8 +1,46 @@
-nav.navbar.navbar-inverse(role='navigation')
-  .navbar-header
-    a.navbar-brand(ui-sref='#') AngularUI Router
-  ul.nav.navbar-nav
-    li
-      a(ui-sref='home') Home
-    li
-      a(ui-sref='about') About
+.header
+  .header-top
+    .wrap
+      .top-menu
+        ul
+          li
+            a(href="/#/home") Trang chủ
+          li
+            a(href="/#/contact") Liên hệ
+          li
+            a(href="/#/privacy") Điểu khoản
+      .num
+        p(ng-if="!ctrl.curentUser")  Call us : 032 2352 782
+        p(ng-if="ctrl.curentUser")  {{ctrl.curentUser.username}}
+      .clearfix
+  .header-bottom
+    .logo.text-center
+      a(href="/#/home")
+        img(src="images/onews-logo-small.png", alt="")
+    .navigation
+      nav.navbar.navbar-default(role="navigation")
+        .wrap
+          .navbar-header
+            button.navbar-toggle(type="button", data-toggle="collapse", data-target="#bs-example-navbar-collapse-1")
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          // /.navbar-header
+          #bs-example-navbar-collapse-1.collapse.navbar-collapse
+            ul.nav.navbar-nav
+              tree(menu="ctrl.menu")
+              .clearfix
+            .search
+              // start search
+              .search-box
+                #sb-search.sb-search
+                  form
+                    input#search.sb-search-input(placeholder="Enter your search term...", type="search", name="search")
+                    input.sb-search-submit(type="submit", value="")
+                    span.sb-icon-search
+                    script.
+                      new UISearch( document.getElementById( 'sb-search' ) );
+            .clearfix
+        // /.navbar-collapse
+        // /.navbar

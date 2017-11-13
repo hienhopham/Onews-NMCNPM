@@ -1,0 +1,12 @@
+.wrap
+  .move-text
+    .breaking_news
+      h2 Breaking News
+    .marquee
+      .sub-marquee(ng-repeat="hotTopic in ctrl.hotTopics")
+        a.breaking(href='single.html') >>{{hotTopic.title}}
+      .clearfix
+    .clearfix
+    //- script(type='text/javascript', src='js/jquery.marquee.min.js')
+    script.
+      $('.marquee').marquee({ pauseOnHover: true });

@@ -4,14 +4,28 @@ html
   head
     meta(charset='utf8')
     title #{title}Onews
-    meta(name="viewport", content="width=device-width, initial-scale=1")
-    meta(name="theme-color", content="#0C7CD5")
-    link(rel='icon', type='image/png', href='images/onews-logo.png')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width,initial-scale=1')
+    link(rel='icon', type='image/png', href='images/onews-favicon.png')
 
     link(rel='stylesheet', href='frontend/styles.min.css')
     script(type='text/javascript', src='frontend/onews.min.js')
 
+    //- temporary, delete after having API
+    script(type='text/javascript', src='assets/core/onews-core.min.js')
+    script(type='text/javascript', src='assets/js/onews-assets.min.js')
+
   body(ng-app="Onews")
     onews-header
-
+    hot-topics
+    div.main-container
+      .wrap
+        .col-md-8.content-left
+          div(ui-view="")
+          some-articles
+      .col-md-4.side-bar
+        login
+        recent-posts
+        tags
+      .clearfix
     onews-footer

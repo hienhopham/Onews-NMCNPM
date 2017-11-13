@@ -1,0 +1,44 @@
+[
+  {
+      "id": "1", 
+      "name": "Thể thao",
+      "level": "0",
+      "parents_id": "0",
+      "deleted": "0"   
+  },
+  {
+    "id": "2", 
+    "name": "Giải trí",
+    "level": "0",
+    "parents_id": "0",
+    "deleted": "0"   
+  },
+  {
+    "id": "3", 
+    "name": "Phim ảnh",
+    "level": "1",
+    "parents_id": "2",
+    "deleted": "0"   
+  },
+  {
+    "id": "4", 
+    "name": "Stars",
+    "level": "1",
+    "parents_id": "2",
+    "deleted": "0"   
+  },
+  {
+    "id": "5", 
+    "name": "Âm nhạc",
+    "level": "1",
+    "parents_id": "2",
+    "deleted": "0"   
+  },
+  {
+    "id": "6", 
+    "name": "Xã hội",
+    "level": "0",
+    "parents_id": "0",
+    "deleted": "0"   
+  }
+]

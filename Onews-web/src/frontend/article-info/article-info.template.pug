@@ -1,0 +1,25 @@
+.article
+  .article-left
+    a(href="single.html")
+      img(src="{{ctrl.article.thumbnail}}")
+  .article-right
+    .article-title
+      p
+        | {{ctrl.article.created_time}}
+        a.span_link(href="#")
+          span.glyphicon.glyphicon-comment
+          | 0
+        a.span_link(href="#")
+          span.glyphicon.glyphicon-eye-open
+          | 104
+        a.span_link(href="#")
+          span.glyphicon.glyphicon-thumbs-up
+          | 52
+      a.title(href="single.html")  {{ctrl.article.title}}
+    .article-text
+      p
+        | {{ctrl.article.content}}
+      a(href="single.html")
+        img(src="images/more.png", alt="")
+      .clearfix
+  .clearfix
