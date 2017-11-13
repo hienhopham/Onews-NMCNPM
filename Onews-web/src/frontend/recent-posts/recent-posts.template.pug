@@ -1,0 +1,27 @@
+.list_vertical
+  section.accordation_menu
+    div
+      label#item2(for='label-2')
+        i#i2.icon-leaf
+        | Recent Posts
+        i.icon-plus-sign.i-right1
+        i.icon-minus-sign.i-right2
+      #a2.content
+        #style-2.scrollbar
+          .force-overflow
+            .popular-post-grids(ng-repeat="article in ctrl.articles")
+              .popular-post-grid
+                .post-img
+                  a(href='single.html')
+                    img(src='{{article.thumbnail}}', alt='')
+                .post-text
+                  a.pp-title(href='single.html')  {{article.title}}
+                  p
+                    | {{article.created_time}}
+                    a.span_link(href='#')
+                      span.glyphicon.glyphicon-comment
+                      | 3
+                    a.span_link(href='#')
+                      span.glyphicon.glyphicon-eye-open
+                      | 56
+                .clearfix

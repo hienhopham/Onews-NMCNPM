@@ -1,0 +1,5 @@
+li(ng-repeat="child in menu.children", ng-class="{dropdown: {{child.children.length>0}}}")
+  a(href="index.html", ng-class="{'dropdown-toggle': {{child.children.length>0}}}", data-toggle="{{child.children.length>0 ? 'dropdown' : ''}}") {{child.name}}
+    b.caret(ng-if="child.children.length>0")
+  ul.dropdown-menu(ng-if="child.children.length>0")
+    tree(menu="child")

@@ -1,0 +1,10 @@
+.login
+  h1.side-title-head(ng-if='ctrl.unauthenticated') Login here or Register
+  h1.side-title-head(ng-if='!ctrl.unauthenticated', ng-style="{'margin-top': '17%'}") Welcome !
+  form(ng-submit="ctrl.submit(ctrl.credentials)", ng-if='ctrl.unauthenticated')
+    .email.input
+      input.text(ng-model='ctrl.credentials.username', type='text', value='Email Address', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Email Address';}")
+    .password.input
+      input.text(ng-model="ctrl.credentials.password", type='password', value='Password', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Email Address';}")
+    .submit.input
+      input(type='submit', value='submit', ng-click="ctrl.submit()")
