@@ -1,0 +1,37 @@
+#registerModal.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h1.side-title-head ĐĂNG KÍ TÀI KHOẢN
+      .modal-body
+        .col-md-10.col-md-offset-1.register-form
+          form(name='form', ng-submit='ctrl.register()', data-toggle="validator", role='form')
+            .form-group(ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }")
+              label(for='lastName', class="control-label") Nhập họ
+              input#lastName.form-control(type='text', name='lastName', ng-model='ctrl.user.lastName', required='')
+              //- span.help-block(ng-show='form.firstName.$dirty && form.firstName.$error.required') Không được bỏ trống trường này
+            .form-group(ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }")
+              label(for='firstName', class="control-label") Nhập tên
+              input#firstName.form-control(type='text', name='firstName', ng-model='ctrl.user.firstName', required='')
+              //- span.help-block(ng-show='form.lastName.$dirty && form.lastName.$error.required') Không được bỏ trống trường này
+            .form-group(ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }")
+              label(for='username', class="control-label") Nhập tên tài khoản hoặc email
+              input#username.form-control(type='text', name='username', ng-model='ctrl.user.username', required='')
+              //- span.help-block(ng-show='form.username.$dirty && form.username.$error.required') Không được bỏ trống trường này
+            .form-group(ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }")
+              label(for='password', class="control-label") Nhập mật khẩu
+              input#password.form-control(type='password', name='password', ng-model='ctrl.user.password', required='')
+              //- span.help-block(ng-show='form.password.$dirty && form.password.$error.required') Không được bỏ trống trường này
+            .form-group(ng-class="{ 'has-error': (form.confirmPassword.$dirty && form.confirmPassword.$error.required) || (form.confirmPassword.$dirty && (ctrl.user.confirmPassword !== ctrl.user.password))}")
+              label(for='confirmPassword', class="control-label") Nhập lại mật khẩu
+              input#confirmPassword.form-control(type='password', name='confirmPassword', ng-model='ctrl.user.confirmPassword', required='')
+              span.help-block(ng-show='form.confirmPassword.$dirty && (ctrl.user.confirmPassword !== ctrl.user.password)') Mật khẩu không khớp
+              //- span.help-block(ng-show='ctrl.user.confirmPassword !== ctrl.user.password')
+            .form-actions
+              button.btn.btn-primary(type='submit', ng-disabled='form.$invalid || ctrl.dataLoading') Đăng kí
+              img(ng-if='ctrl.dataLoading', src='data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==')
+              a.btn.btn-link(href='#/login', data-dismiss='modal') Hủy bỏ
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') Close

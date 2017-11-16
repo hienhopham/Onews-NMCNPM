@@ -1,1 +1,1 @@
-angular.module('Onews', ['ui.router']);
+angular.module('Onews', ['ui.router', 'ngCookies']);

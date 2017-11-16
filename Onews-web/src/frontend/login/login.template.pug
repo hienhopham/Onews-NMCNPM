@@ -1,10 +1,16 @@
 .login
-  h1.side-title-head(ng-if='ctrl.unauthenticated') Login here or Register
-  h1.side-title-head(ng-if='!ctrl.unauthenticated', ng-style="{'margin-top': '17%'}") Welcome !
-  form(ng-submit="ctrl.submit(ctrl.credentials)", ng-if='ctrl.unauthenticated')
-    .email.input
-      input.text(ng-model='ctrl.credentials.username', type='text', value='Email Address', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Email Address';}")
-    .password.input
-      input.text(ng-model="ctrl.credentials.password", type='password', value='Password', onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Email Address';}")
-    .submit.input
-      input(type='submit', value='submit', ng-click="ctrl.submit()")
+  h1.side-title-head Đăng nhập
+  form(name='form', ng-submit='ctrl.login()', role='form')
+    .form-group(ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }")
+      input#username.form-control(type='text', name='username', ng-model='ctrl.username', required='', placeholder="Nhập tên tài khoản hoặc email")
+      span.help-block(ng-show='form.username.$dirty && form.username.$error.required') Không bỏ trống trường này
+    .form-group(ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }")
+      input#password.form-control(type='password', name='password', ng-model='ctrl.password', required='', placeholder="Nhập mật khẩu")
+      span.help-block(ng-show='form.password.$dirty && form.password.$error.required') Không bỏ trống trường này
+    .form-actions
+      button.btn.btn-primary(type='submit', ng-disabled='form.$invalid || ctrl.dataLoading') Đăng nhập
+      img(ng-if='ctrl.dataLoading', src='data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==')
+      a.btn.btn-link(href='#/register', data-toggle="modal" data-target="#registerModal") Đăng ký
+      a.btn.btn-link(ng-click="ctrl.loginByFacebook()") Facebook
+      a.btn.btn-link(ng-click="ctrl.loginByGoogle()") Google
+register
