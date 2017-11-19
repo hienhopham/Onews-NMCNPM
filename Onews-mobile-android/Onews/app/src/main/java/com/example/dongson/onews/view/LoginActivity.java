@@ -1,16 +1,14 @@
 package com.example.dongson.onews.view;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.dongson.onews.Common.AlertDialogManager;
-import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.R;
 
@@ -54,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (username.equals("admin") || password.equals("admin")) {
                         session.createLoginSession("admin", "admin@gmail.com");
                         Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(main);
                         finish();
                     } else {

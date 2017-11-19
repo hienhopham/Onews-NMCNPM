@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity
         CircleImageView nav_ava = (CircleImageView) hView.findViewById(R.id.img_ava);
         if (session.checkLogin() == false) {
             nav_user.setText("");
-            nav_email.setText("you dont login");
+            nav_email.setText("you dont login:     LOGIN HERE");
             nav_ava.setVisibility(View.INVISIBLE);
             nav_email.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -80,6 +80,14 @@ public class MainActivity extends AppCompatActivity
             String email = user.get(SessionManager.KEY_EMAIL);
             nav_user.setText(name);
             nav_email.setText(email);
+            nav_ava.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent info_user = new Intent(getApplicationContext(), InfoUserActivity.class);
+                    startActivity(info_user);
+                    overridePendingTransition(0, 0);
+                }
+            });
         }
 
 
@@ -142,7 +150,9 @@ public class MainActivity extends AppCompatActivity
             } else {
                 session.logoutUser();
                 Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(main);
+                overridePendingTransition(0, 0);
             }
 
         } else if (id == R.id.nav_seting) {
