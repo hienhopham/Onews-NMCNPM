@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dongson.onews.Models.Articles;
+import com.example.dongson.onews.Models.OnItemClickListener;
 import com.example.dongson.onews.R;
 
 import java.util.List;
@@ -15,10 +16,7 @@ import java.util.List;
 
 public class DifferentRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public interface OnItemClickListener {
-        void onItemClick(Articles item);
 
-    }
     private List<Articles> mList;
     private OnItemClickListener listener;
 
@@ -115,8 +113,4 @@ public class DifferentRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
 
     }
-
-
-
-
 }
