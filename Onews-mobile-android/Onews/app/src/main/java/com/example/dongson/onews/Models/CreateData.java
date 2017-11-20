@@ -24,4 +24,18 @@ public final class CreateData {
         return list;
     }
 
+    public static List<Comments> getCommentData() {
+        List<Comments> list = new ArrayList<>();
+
+        list.add(new Comments("1", "1", "nghe kinh the", "20/11/2017", "no"));
+        list.add(new Comments("1", "1", "chuyen the nao vay cac ban", "20/11/2017", "no"));
+        list.add(new Comments("1", "1", "cho nay que minh", "20/11/2017", "no"));
+        list.add(new Comments("1", "1", "so that day", "20/11/2017", "no"));
+        list.add(new Comments("1", "1", "eo!!", "20/11/2017", "no"));
+        list.add(new Comments("1", "1", "nghe kinh the", "20/11/2017", "no"));
+
+        return list;
+
+
+    }
 }

@@ -24,6 +24,8 @@
         <activity android:name=".view.RegisterActivity" />
         <activity android:name=".view.EditPasswordActivity" />
         <activity android:name=".view.InfoUserActivity" />
+        <activity android:name=".view.ArticleContentActivity" />
+
     </application>
 
 </manifest>
