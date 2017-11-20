@@ -1,5 +1,7 @@
 package com.example.dongson.onews.Models;
 
+import java.util.ArrayList;
+
 /**
  * Created by Dong Son on 01-Nov-17.
  */
@@ -9,13 +11,13 @@ public class Articles {
     private String category_id;
     private String title;
     private String content;
-    private String comments;
+    private ArrayList<Comments> comments;
     private String author;
     private String created_time;
     private String deleted;
     private String able_to_comment;
 
-    public Articles(Integer id, String category_id, String title, String content, String comments, String author, String created_time, String deleted, String able_to_comment) {
+    public Articles(Integer id, String category_id, String title, String content, ArrayList<Comments> comments, String author, String created_time, String deleted, String able_to_comment) {
         this.id = id;
         this.category_id = category_id;
         this.title = title;
@@ -59,11 +61,11 @@ public class Articles {
         this.content = content;
     }
 
-    public String getComments() {
+    public ArrayList<Comments> getComments() {
         return comments;
     }
 
-    public void setComments(String comments) {
+    public void setComments(ArrayList<Comments> comments) {
         this.comments = comments;
     }
 
