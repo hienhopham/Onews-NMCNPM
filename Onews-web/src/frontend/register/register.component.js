@@ -3,7 +3,7 @@
 
   angular.module('Onews')
     .component('register', {
-      controller: 'RegisterController',
+      controller: 'registerController',
       controllerAs: 'ctrl',
       templateUrl: 'frontend/register/register.template.html'
     });

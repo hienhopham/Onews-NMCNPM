@@ -1,28 +1,31 @@
 'use strict';
 
-angular.module('Onews').config(['$locationProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider',
-  function ($locationProvider, $httpProvider, $stateProvider, $routeProvider) {
+angular.module('Onews')
+  .config(['$locationProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider',
+    function ($locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
-    $stateProvider
-      .state('home', {
-        url: '/home',
-        templateUrl: 'frontend/home/home.html',
-        controller: 'homeController'
-      })
-      .state('dashboard', {
-        url: '/dashboard',
-        parent: 'common',
-      })
-      .state('crm', {
-        url: '/crm',
-        parent: 'common',
-      })
-      .state('login', {
-        url: '/login',
-      });
+      $stateProvider
+        .state('home', {
+          url: '/',
+          views: {
+            'content': {
+              templateUrl: 'frontend/partials/home/home.template.html',
+              controller: 'homeController'
+            }
+          }
+        })
+        .state('article', {
+          url: '/article/:id',
+          views: {
+            'content': {
+              templateUrl: 'frontend/partials/single-article/single-article.template.html',
+              controller: 'singleArticleController'
+            }
+          }
+        });
 
-    $routeProvider.otherwise('/home');
+      $urlRouterProvider.otherwise('/');
 
-    $locationProvider.hashPrefix('');
-  }
-]);
+      $locationProvider.hashPrefix('');
+    }
+  ]);

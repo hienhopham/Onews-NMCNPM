@@ -5,8 +5,8 @@
     .module('Onews')
     .controller('loginController', loginController);
 
-  loginController.$inject = ['$location', '$scope', 'AuthenticationService', 'FlashService'];
-  function loginController($location, $scope, AuthenticationService, FlashService) {
+  loginController.$inject = ['$window', '$rootScope', 'UserService', 'AuthenticationService', 'FlashService'];
+  function loginController($window, $rootScope, UserService, AuthenticationService, FlashService) {
     var self = this;
 
     self.gmail = {
@@ -25,21 +25,25 @@
 
     function onInit() {
       // reset login status
-      AuthenticationService.ClearCredentials();
+      //AuthenticationService.ClearCredentials();
     }
 
     function login() {
       self.dataLoading = true;
-      AuthenticationService.Login(self.username, self.password, function (response) {
+      AuthenticationService.Login(self.user.username, self.user.password, function (response) {
         if (response.success) {
-          AuthenticationService.SetCredentials(self.username, self.password);
-          $location.path('/');
+          setCurrentUser(response.currentUser);
         } else {
           FlashService.Error(response.message);
           self.dataLoading = false;
         }
       });
     };
+
+    function setCurrentUser(currentUser) {
+      AuthenticationService.SetCredentials(currentUser);
+      $window.location.reload();
+    }
 
     function loginByGoogle() {
       var params = {
@@ -52,9 +56,12 @@
                 'path': '/plus/v1/people/me',
                 'method': 'GET',
                 'callback': function (userInfo) {
-                  $scope.$apply(function() {
+                  console.log(userInfo);
+                  $rootScope.$apply(function() {
+                    
                     self.gmail.username = userInfo.displayName;
                     self.gmail.email = userInfo.emails[0];
+                    //setCurrentUser(self.gmail);
                   });
                 }
               }
@@ -72,9 +79,11 @@
       FB.login(function(response) {
         if(response.authResponse) {
           FB.api('/me', 'GET', {fields: 'email, first_name, name, id, picture'}, function(response) {
-            $scope.$apply(function() {
+            $rootScope.$apply(function() {
+              console.log(response);
               self.facebook.username = response.name;
               self.facebook.email = response.email;
+              //setCurrentUser(self.facebook);
             })
           })
         } else {

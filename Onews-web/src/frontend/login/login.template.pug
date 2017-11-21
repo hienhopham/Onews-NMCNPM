@@ -2,10 +2,10 @@
   h1.side-title-head Đăng nhập
   form(name='form', ng-submit='ctrl.login()', role='form')
     .form-group(ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }")
-      input#username.form-control(type='text', name='username', ng-model='ctrl.username', required='', placeholder="Nhập tên tài khoản hoặc email")
+      input#username.form-control(type='text', name='username', ng-model='ctrl.user.username', required='', placeholder="Nhập tên tài khoản hoặc email")
       span.help-block(ng-show='form.username.$dirty && form.username.$error.required') Không bỏ trống trường này
     .form-group(ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }")
-      input#password.form-control(type='password', name='password', ng-model='ctrl.password', required='', placeholder="Nhập mật khẩu")
+      input#password.form-control(type='password', name='password', ng-model='ctrl.user.password', required='', placeholder="Nhập mật khẩu")
       span.help-block(ng-show='form.password.$dirty && form.password.$error.required') Không bỏ trống trường này
     .form-actions
       button.btn.btn-primary(type='submit', ng-disabled='form.$invalid || ctrl.dataLoading') Đăng nhập

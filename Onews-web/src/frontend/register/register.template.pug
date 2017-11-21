@@ -24,14 +24,14 @@
               label(for='password', class="control-label") Nhập mật khẩu
               input#password.form-control(type='password', name='password', ng-model='ctrl.user.password', required='')
               //- span.help-block(ng-show='form.password.$dirty && form.password.$error.required') Không được bỏ trống trường này
-            .form-group(ng-class="{ 'has-error': (form.confirmPassword.$dirty && form.confirmPassword.$error.required) || (form.confirmPassword.$dirty && (ctrl.user.confirmPassword !== ctrl.user.password))}")
+            .form-group(ng-class="{ 'has-error': (form.confirmPassword.$dirty && form.confirmPassword.$error.required) || (form.confirmPassword.$dirty && (ctrl.confirmPassword !== ctrl.user.password))}")
               label(for='confirmPassword', class="control-label") Nhập lại mật khẩu
-              input#confirmPassword.form-control(type='password', name='confirmPassword', ng-model='ctrl.user.confirmPassword', required='')
-              span.help-block(ng-show='form.confirmPassword.$dirty && (ctrl.user.confirmPassword !== ctrl.user.password)') Mật khẩu không khớp
+              input#confirmPassword.form-control(type='password', name='confirmPassword', ng-model='ctrl.confirmPassword', required='')
+              span.help-block(ng-show='form.confirmPassword.$dirty && (ctrl.confirmPassword !== ctrl.user.password)') Mật khẩu không khớp
               //- span.help-block(ng-show='ctrl.user.confirmPassword !== ctrl.user.password')
             .form-actions
               button.btn.btn-primary(type='submit', ng-disabled='form.$invalid || ctrl.dataLoading') Đăng kí
               img(ng-if='ctrl.dataLoading', src='data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==')
               a.btn.btn-link(href='#/login', data-dismiss='modal') Hủy bỏ
-      .modal-footer
-        button.btn.btn-default(type='button', data-dismiss='modal') Close
+      //- .modal-footer
+      //-   button.btn.btn-default(type='button', data-dismiss='modal') Close

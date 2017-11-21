@@ -88,6 +88,8 @@
         return output;
       }
     };
+
+    return Base64;
   }
 
 })();

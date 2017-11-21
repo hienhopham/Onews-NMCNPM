@@ -1,0 +1,11 @@
+.media.response-info
+  .media-left.response-text-left
+    a(href='#')
+      img.media-object(src='images/c3.jpg', alt='')
+    h5
+      a(href='#') Username + {{ctrl.response.id_user}}
+  .media-body.response-text-right
+    p {{ctrl.response.content}}
+    ul
+      li {{ctrl.response.created_time}}
+  .clearfix 

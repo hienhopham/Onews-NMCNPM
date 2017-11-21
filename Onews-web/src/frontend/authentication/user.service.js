@@ -3,10 +3,10 @@
 
   angular
     .module('Onews')
-    .factory('UserService', UserService);
+    .factory('UserServiceA', UserServiceA);
 
-  UserService.$inject = ['$http'];
-  function UserService($http) {
+    UserServiceA.$inject = ['$http'];
+  function UserServiceA($http) {
       var service = {};
 
       service.GetAll = GetAll;

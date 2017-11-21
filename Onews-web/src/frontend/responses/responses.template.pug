@@ -1,0 +1,9 @@
+.response
+  h4 Responses
+  response(ng-repeat="response in ctrl.responses", response="response")
+.coment-form
+  h4 Leave your comment
+  form
+    textarea(onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Your Comment...';}", required='') Your Comment...
+    input(type='submit', value='Submit Comment', ng-click="ctrl.addResponse()")
+.clearfix
