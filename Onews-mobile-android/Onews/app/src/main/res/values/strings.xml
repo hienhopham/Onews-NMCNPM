@@ -5,6 +5,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="content">  Như thời gian trên, theo thông tin ban đầu của người dân có mặt tại hiện trường cho biết,
+    một người điều khiển ô tô nghi là say rượu đã mất lái tông đổ cây và 2 xe máy đang đỗ trên vỉa hè.
+    Như thời gian trên, theo thông tin ban đầu của người dân có mặt tại hiện trường cho biết,
+        một người điều khiển ô tô nghi là say rượu đã mất lái tông đổ cây và 2 xe máy đang đỗ trên vỉa hè.
+    Hiện trường vụ tai nạn. Nguồn Tien Lam/ Otofun
+    Ngay sau đó, tài xế lùi xe trốn khỏi hiện trường. Rất may, tại thời điểm đó trên vỉa hè không có người</string>
+    <string name="author">Đưa tin: Đồng Sơn</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

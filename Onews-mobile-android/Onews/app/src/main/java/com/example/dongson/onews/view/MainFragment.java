@@ -44,6 +44,8 @@ public class MainFragment extends Fragment {
             }
         }));
 
+//        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+//        textView.setText("Kteam");
         return rootView;
     }
 }
