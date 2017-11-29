@@ -1,9 +1,11 @@
 .response
-  h4 Responses
+  h4 Phản hồi
   response(ng-repeat="response in ctrl.responses", response="response")
 .coment-form
-  h4 Leave your comment
+  h4 Phản hồi
   form
-    textarea(onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Your Comment...';}", required='') Your Comment...
-    input(type='submit', value='Submit Comment', ng-click="ctrl.addResponse()")
+    textarea(onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Viết phản hồi tại đây ...';}", required='') Viết phản hồi tại đây ...
+    button.btn.btn-primary(type='submit', ng-click="ctrl.addResponse()", ng-disabled='!ctrl.user') Phản hồi
+  div.notice(ng-if='!ctrl.user')
+    span Bạn cần đăng nhập để sử dụng chức năng này.
 .clearfix

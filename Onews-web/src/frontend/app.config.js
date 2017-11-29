@@ -22,6 +22,24 @@ angular.module('Onews')
               controller: 'singleArticleController'
             }
           }
+        })
+        .state('info', {
+          url: '/personal-info',
+          views: {
+            'content': {
+              templateUrl: 'frontend/partials/user-info/user-info.template.html',
+              controller: 'userInfoController'
+            }
+          }
+        })
+        .state('category', {
+          url: '/category/:id',
+          views: {
+            'content': {
+              templateUrl: 'frontend/partials/category/category.template.html',
+              controller: 'categoryController'
+            }
+          }
         });
 
       $urlRouterProvider.otherwise('/');

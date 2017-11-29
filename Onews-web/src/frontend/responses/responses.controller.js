@@ -2,13 +2,16 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('responsesController', ['$compile', '$scope', '$element', function($compile, $scope, $element) {
+    .controller('responsesController', ['$compile', '$scope', '$element', '$rootScope', 'UserService', function($compile, $scope, $element, $rootScope, UserService) {
       var self = this;
 
       self.$onInit = $onInit;
       self.addResponse = addResponse;
 
       function $onInit() {
+        if($rootScope.globals.currentUser) {
+          loadCurrentUser();
+        }
         self.responses = [
           {
             id: 4,
@@ -51,6 +54,13 @@
 
         $element.find('.response').append(newElt);
 
+      }
+
+      function loadCurrentUser() {
+        UserService.GetByUsername($rootScope.globals.currentUser.username)
+          .then(function (user) {
+            self.user = user;
+          });
       }
 
     }]);
