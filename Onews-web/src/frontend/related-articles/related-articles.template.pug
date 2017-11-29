@@ -1,0 +1,7 @@
+.row.related-posts
+  h4 Có thể bạn sẽ thích
+  .col-xs-6.col-md-3.related-grids(ng-repeat="article in ctrl.relatedArticles")
+    a.thumbnail(href='single.html')
+      img(src='{{article.thumbnail}}', alt='')
+    h5
+      a(href='single.html') {{article.title}}

@@ -3,6 +3,6 @@
 
   angular.module('Onews')
     .component('onewsFooter', {
-      templateUrl: 'frontend/footer/footer.template.html'
+      templateUrl: 'frontend/partials/footer/footer.template.html'
     });
 })();

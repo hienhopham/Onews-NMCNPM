@@ -1,6 +1,6 @@
 .article
   .article-left
-    a(href="single.html")
+    a(ui-sref=".article({id: ctrl.article.id})")
       img(src="{{ctrl.article.thumbnail}}")
   .article-right
     .article-title
@@ -15,7 +15,7 @@
         a.span_link(href="#")
           span.glyphicon.glyphicon-thumbs-up
           | 52
-      a.title(href="single.html")  {{ctrl.article.title}}
+      a.title(ui-sref=".article({id: ctrl.article.id})")  {{ctrl.article.title}}
     .article-text
       p
         | {{ctrl.article.content}}

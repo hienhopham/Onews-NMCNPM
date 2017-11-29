@@ -3,8 +3,8 @@
 
   angular.module('Onews')
     .component('onewsHeader', {
-      templateUrl: 'frontend/header/header.template.html',
+      controller: 'headerController',
       controllerAs: 'ctrl',
-      controller: 'headerController'
+      templateUrl: 'frontend/partials/header/header.template.html'
     });
 })();
