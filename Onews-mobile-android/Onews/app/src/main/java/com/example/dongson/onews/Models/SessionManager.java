@@ -30,6 +30,12 @@ public class SessionManager {
     // Email address (make variable public to access from outside)
     public static final String KEY_EMAIL = "email";
 
+    // image url (make variable public to access from outside)
+    public static final String KEY_IMAGE = "image_url";
+
+    // login with (make variable public to access from outside)
+    public static final String KEY_WITH = "with";
+
     // Constructor
     public SessionManager(Context context) {
         this._context = context;
@@ -40,10 +46,12 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String name, String email) {
+    public void createLoginSession(String name, String email,String image_url,String with) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_EMAIL, email);
+        editor.putString(KEY_IMAGE, image_url);
+        editor.putString(KEY_WITH, with);
         editor.commit();
     }
 
@@ -62,6 +70,8 @@ public class SessionManager {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        user.put(KEY_IMAGE, pref.getString(KEY_IMAGE, null));
+        user.put(KEY_WITH, pref.getString(KEY_WITH, null));
         return user;
     }
 

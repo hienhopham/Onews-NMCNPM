@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "134942589412",
+    "project_id": "firebase-onew"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:134942589412:android:80571ff54219a4dd",
+        "android_client_info": {
+          "package_name": "com.example.dongson.onews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "134942589412-bhkhtk1d226heovekke76jbmjiltehvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dongson.onews",
+            "certificate_hash": "34d68f978ecb0c63a749c79496ab1697e4bc6475"
+          }
+        },
+        {
+          "client_id": "134942589412-b9vpkj83aenmoc9jn7j8s6spburlra42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg5DAJJtAw9PyQhoehM7Nuy3ubwowH2kc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

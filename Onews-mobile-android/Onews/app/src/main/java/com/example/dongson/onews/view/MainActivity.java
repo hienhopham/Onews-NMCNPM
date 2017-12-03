@@ -2,6 +2,7 @@ package com.example.dongson.onews.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,16 @@ import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.Models.Tab;
 import com.example.dongson.onews.R;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +39,14 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private ArrayList<Tab> listTab;
     private SessionManager session;
     private AlertDialogManager alert = new AlertDialogManager();
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +54,14 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         listTab = new ArrayList<>();
         setList(listTab);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
 
         session = new SessionManager(getApplicationContext());
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,8 +98,17 @@ public class MainActivity extends AppCompatActivity
             HashMap<String, String> user = session.getUserDetails();
             String name = user.get(SessionManager.KEY_NAME);
             String email = user.get(SessionManager.KEY_EMAIL);
+            String img = user.get(SessionManager.KEY_IMAGE);
+            String with = user.get(SessionManager.KEY_WITH);
+
+
             nav_user.setText(name);
             nav_email.setText(email);
+            if(with!=getString(R.string.login_register)){
+                Picasso.with(this).load(img).into(nav_ava);
+            }else{
+                nav_ava.setImageResource(R.drawable.if_ninja_479478);
+            }
             nav_ava.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -148,6 +177,15 @@ public class MainActivity extends AppCompatActivity
             if (session.checkLogin() == false) {
                 alert.showAlertDialog(MainActivity.this, "Logout failed..", "You dont login", false);
             } else {
+                HashMap<String, String> user = session.getUserDetails();
+                String with = user.get(SessionManager.KEY_WITH);
+                if(with.equals(getString(R.string.login_facebook))){
+                    LoginManager.getInstance().logOut();
+                }else{
+                    if(with.equals(getString(R.string.login_google))){
+                        signOut();
+                    }
+                }
                 session.logoutUser();
                 Intent main = new Intent(getApplicationContext(), MainActivity.class);
                 main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -165,5 +203,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }
