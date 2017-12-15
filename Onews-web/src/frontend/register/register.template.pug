@@ -7,18 +7,17 @@
         h1.side-title-head ĐĂNG KÍ TÀI KHOẢN
       .modal-body
         .col-md-10.col-md-offset-1.register-form
-          form(name='form', ng-submit='ctrl.register()', data-toggle="validator", role='form')
+          form(name='form', ng-submit='ctrl.register()', data-toggle="validator", role='form', method='post')
             .form-group(ng-class="{ 'has-error': form.lastName.$dirty && form.lastName.$error.required }")
-              label(for='lastName', class="control-label") Nhập họ
-              input#lastName.form-control(type='text', name='lastName', ng-model='ctrl.user.lastName', required='')
+              label(for='fullName', class="control-label") Nhập họ tên
+              input#lastName.form-control(type='text', name='fullName', ng-model='ctrl.user.full_name', required='')
               //- span.help-block(ng-show='form.firstName.$dirty && form.firstName.$error.required') Không được bỏ trống trường này
-            .form-group(ng-class="{ 'has-error': form.firstName.$dirty && form.firstName.$error.required }")
-              label(for='firstName', class="control-label") Nhập tên
-              input#firstName.form-control(type='text', name='firstName', ng-model='ctrl.user.firstName', required='')
-              //- span.help-block(ng-show='form.lastName.$dirty && form.lastName.$error.required') Không được bỏ trống trường này
             .form-group(ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }")
-              label(for='username', class="control-label") Nhập tên tài khoản hoặc email
+              label(for='username', class="control-label") Nhập tên tài khoản
               input#username.form-control(type='text', name='username', ng-model='ctrl.user.username', required='')
+            .form-group(ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }")
+              label(for='email', class="control-label") Nhập tài khoản email
+              input#email.form-control(type='email', name='email', ng-model='ctrl.user.email', required='')
               //- span.help-block(ng-show='form.username.$dirty && form.username.$error.required') Không được bỏ trống trường này
             .form-group(ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }")
               label(for='password', class="control-label") Nhập mật khẩu

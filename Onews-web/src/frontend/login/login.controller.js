@@ -62,14 +62,13 @@
                     var user = {
                       username: userInfo.id,
                       full_name: userInfo.displayName,
-                      email: userInfo.emails[0],
+                      email: userInfo.emails[0].value,
                       google_id: userInfo.id,
                       type: 'g',
                     };
 
                     UserService.Create(user)
                       .then(function (response) {
-                        console.log(response);
                         setCurrentUser(user);
                       });
 
