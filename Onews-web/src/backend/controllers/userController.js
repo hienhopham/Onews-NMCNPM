@@ -1,5 +1,7 @@
 var User = require('../models/user');
 
+var async = require('async');
+
 exports.user_detail_id = function (req, res) {
 
   User.findById(req.params.id)
@@ -27,14 +29,17 @@ exports.user_create_post = function (req, res) {
   req.checkBody('username', 'Username must be specified.').notEmpty(); //We won't force Alphanumeric, because people might have spaces.
   req.checkBody('full_name', 'Full name must be specified.').notEmpty();
 
+  var user = new User(
+    {
+      username: req.body.username,
+      full_name: req.body.full_name,
+      email: req.body.email.value
+    });
+
   if (req.body.type == 'f') {
-    var user = new User(
-      {
-        username: req.body.username,
-        full_name: req.body.full_name,
-        email: req.body.email,
-        face_id: req.body.face_id
-      });
+    user.face_id = req.body.face_id;
+  } else if (req.body.type == 'g') {
+    user.google_id = req.body.google_id;
   }
 
   var errors = req.validationErrors();
@@ -44,10 +49,35 @@ exports.user_create_post = function (req, res) {
     return;
   }
   else {
-    user.save(function (err) {
-      if (err) { return next(err); }
-      res.send({ success: 'Create user successfully' })
-    });
+    var isExist = false;
+    var response = {};
+
+    async.series([
+
+      function(callback) {
+        User.find({username: user.username})
+        .exec(function (err, user) {
+          if (err) { return callback(err); }
+          isExist = user.length > 0 ? true : false;
+          callback();
+        });
+      },
+
+      function(callback) {
+        console.log(isExist);
+        if (!isExist) {
+          user.save(function (err) {
+            if (err) { return callback(err); }
+            response.success = 'Successfully';
+            callback();
+          });
+        } else {
+          response.error = 'User already existed';
+        } 
+        res.send(response);
+      }
+    ]);
+
 
   }
 };

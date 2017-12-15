@@ -56,12 +56,23 @@
                 'path': '/plus/v1/people/me',
                 'method': 'GET',
                 'callback': function (userInfo) {
-                  console.log(userInfo);
-                  $rootScope.$apply(function() {
-                    
-                    self.gmail.username = userInfo.displayName;
-                    self.gmail.email = userInfo.emails[0];
-                    //setCurrentUser(self.gmail);
+
+                  $rootScope.$apply(function () {
+
+                    var user = {
+                      username: userInfo.id,
+                      full_name: userInfo.displayName,
+                      email: userInfo.emails[0],
+                      google_id: userInfo.id,
+                      type: 'g',
+                    };
+
+                    UserService.Create(user)
+                      .then(function (response) {
+                        console.log(response);
+                        setCurrentUser(user);
+                      });
+
                   });
                 }
               }
@@ -76,24 +87,22 @@
     }
 
     function loginByFacebook() {
-      FB.login(function(response) {
-        if(response.authResponse) {
-          FB.api('/me', 'GET', {fields: 'email, first_name, name, id, picture'}, function(response) {
-            $rootScope.$apply(function() {
+      FB.login(function (response) {
+        if (response.authResponse) {
+          FB.api('/me', 'GET', { fields: 'email, first_name, name, id, picture' }, function (response) {
+            $rootScope.$apply(function () {
 
               var user = {
                 username: response.id,
-                full_name : response.name,
+                full_name: response.name,
                 email: response.email,
                 face_id: response.id,
-                type : 'f',
+                type: 'f',
               };
 
               UserService.Create(user)
                 .then(function (response) {
-                  if (response.success) {
-                    setCurrentUser(user);
-                  }
+                  setCurrentUser(user);
                 });
             })
           })
@@ -101,9 +110,9 @@
           // error
         }
       }, {
-        scope: 'email, user_likes',
-        return_scopes: true
-      });
+          scope: 'email, user_likes',
+          return_scopes: true
+        });
     }
   }
 

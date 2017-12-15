@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var BookSchema = new Schema({
+var UserSchema = new Schema({
   username: {type: String, required: true},
   password: {type: String},
   email: {type: String},
@@ -15,10 +15,10 @@ var BookSchema = new Schema({
   deleted: {type: Boolean}
 });
 
-BookSchema
+UserSchema
   .virtual('url')
   .get(function () {
     return '/profile/' + this._id;
   });
 
-module.exports = mongoose.model('Book', BookSchema);
+module.exports = mongoose.model('Users', UserSchema);
