@@ -45,8 +45,8 @@
 
       function loadCurrentUser() {
         UserService.GetByUsername($rootScope.globals.currentUser.username)
-          .then(function (user) {
-            self.user = user;
+          .then(function (res) {
+            self.user = res.user[0];
           });
       }
 

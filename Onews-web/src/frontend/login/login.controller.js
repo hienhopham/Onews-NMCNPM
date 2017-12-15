@@ -80,10 +80,21 @@
         if(response.authResponse) {
           FB.api('/me', 'GET', {fields: 'email, first_name, name, id, picture'}, function(response) {
             $rootScope.$apply(function() {
-              console.log(response);
-              self.facebook.username = response.name;
-              self.facebook.email = response.email;
-              //setCurrentUser(self.facebook);
+
+              var user = {
+                username: response.id,
+                full_name : response.name,
+                email: response.email,
+                face_id: response.id,
+                type : 'f',
+              };
+
+              UserService.Create(user)
+                .then(function (response) {
+                  if (response.success) {
+                    setCurrentUser(user);
+                  }
+                });
             })
           })
         } else {
