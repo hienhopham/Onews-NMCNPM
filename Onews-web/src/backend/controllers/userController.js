@@ -21,10 +21,6 @@ exports.user_detail_username = function (req, res) {
 
 };
 
-exports.user_create_get = function (req, res) {
-  res.send('NOT IMPLEMENTED: Book create GET');
-};
-
 exports.user_create_post = function (req, res) {
   req.checkBody('username', 'Username must be specified.').notEmpty();
   req.checkBody('full_name', 'Full name must be specified.').notEmpty();
@@ -84,5 +80,20 @@ exports.user_create_post = function (req, res) {
 
 
   }
+};
+
+exports.user_authenticate_post = function (req, res) {
+
+  User.find({ username: req.body.username, password: req.body.password })
+  .exec(function (err, user) {
+    if (err) { return next(err); }
+    var isExist = user.length > 0 ? true : false;
+    if(isExist) {
+      res.send({success: 'Successfully', user: user});
+    } else {
+      res.send({error: 'Authentication failed'});
+    }
+  });
+
 };
 

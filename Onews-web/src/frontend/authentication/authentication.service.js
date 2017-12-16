@@ -5,44 +5,40 @@
     .module('Onews')
     .factory('AuthenticationService', AuthenticationService);
 
-  AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService', 'Base64Service'];
-  function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService, Base64Service) {
+  AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService', 'Base64Service', 'md5'];
+  function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService, Base64Service, md5) {
     var service = {};
 
     service.Login = Login;
+    service.Register = Register;
     service.SetCredentials = SetCredentials;
     service.ClearCredentials = ClearCredentials;
 
     return service;
 
-    function Login(username, password, callback) {
+    function Login(loginInfo, callback) {
+      var password = md5.createHash(loginInfo.password);
 
-      $timeout(function () {
-        var response;
-        UserService.GetByUsername(username)
-          .then(function (user) {
-            if (user !== null && user.password === password) {
-              response = { success: true , currentUser: user};
-            } else {
-              response = { success: false, message: 'Username or password is incorrect' };
-            }
-            callback(response);
-          });
-      }, 1000);
+      $http.post('/user/authentication', { username: loginInfo.username, password: password })
+        .then(function (response) {
+          callback(response);
+        });
 
-      /* Use this for real authentication
-       ----------------------------------------------*/
-      //$http.post('/api/authenticate', { username: username, password: password })
-      //    .success(function (response) {
-      //        callback(response);
-      //    });
+    }
 
+    function Register(user, callback) {
+      user.password = md5.createHash(user.password || '');
+
+      UserService.Create(user)
+        .then(function (response) {
+          callback(response);
+        });
     }
 
     function SetCredentials(currentUser) {
 
       $rootScope.globals.currentUser = currentUser;
-      if(currentUser.password) {
+      if (currentUser.password) {
         $rootScope.globals.currentUser.password = Base64Service.encode(currentUser.password);
       }
 
