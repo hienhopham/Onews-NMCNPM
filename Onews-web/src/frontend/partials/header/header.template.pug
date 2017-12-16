@@ -12,11 +12,11 @@
       .num
         p(ng-if="!ctrl.user")  Call us : 032 2352 782
         .dropdown(ng-if="ctrl.user")
-          a.dropdown-toggle(data-toggle='dropdown') Xin chào {{ctrl.user.username}}
+          a.dropdown-toggle(data-toggle='dropdown') Xin chào {{ctrl.user.full_name}}
             span.caret
           ul.dropdown-menu
             li
-              a(href='/#/personal-info') Thông tin tài khoản
+              a(ui-sref=".info") Thông tin tài khoản
             li
               a(ng-click="ctrl.logout()") Đăng xuất
       .clearfix

@@ -1,2 +1,15 @@
-.articles(ng-repeat="category in categories")
-  list-articles(category="category", type="main")
+onews-header
+hot-topics
+div.main-container
+  .wrap
+    .col-md-8.content-left
+      div(ui-view)
+        .articles(ng-repeat="category in categories")
+          list-articles(category="category", type="main")
+      some-articles
+  .col-md-4.side-bar
+    login
+    recent-posts
+    tags
+  .clearfix
+onews-footer

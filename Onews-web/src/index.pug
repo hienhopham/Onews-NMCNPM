@@ -10,22 +10,11 @@ html
 
     link(rel='stylesheet', href='frontend/styles.min.css')
     script(type='text/javascript', src='frontend/onews.min.js')
+    script(type='text/javascript', src='admin/onews-admin.min.js')
 
     //- temporary, delete after having API
     script(type='text/javascript', src='assets/core/onews-core.min.js')
     script(type='text/javascript', src='assets/js/onews-assets.min.js')
 
   body(ng-app="Onews")
-    onews-header
-    hot-topics
-    div.main-container
-      .wrap
-        .col-md-8.content-left
-          div(ui-view="content")
-          some-articles
-      .col-md-4.side-bar
-        login
-        recent-posts
-        tags
-      .clearfix
-    onews-footer
+    div(ui-view="")

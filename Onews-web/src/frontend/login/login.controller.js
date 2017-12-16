@@ -56,12 +56,22 @@
                 'path': '/plus/v1/people/me',
                 'method': 'GET',
                 'callback': function (userInfo) {
-                  console.log(userInfo);
-                  $rootScope.$apply(function() {
-                    
-                    self.gmail.username = userInfo.displayName;
-                    self.gmail.email = userInfo.emails[0];
-                    //setCurrentUser(self.gmail);
+
+                  $rootScope.$apply(function () {
+
+                    var user = {
+                      username: userInfo.id,
+                      full_name: userInfo.displayName,
+                      email: userInfo.emails[0].value,
+                      google_id: userInfo.id,
+                      type: 'g',
+                    };
+
+                    UserService.Create(user)
+                      .then(function (response) {
+                        setCurrentUser(user);
+                      });
+
                   });
                 }
               }
@@ -76,23 +86,32 @@
     }
 
     function loginByFacebook() {
-      FB.login(function(response) {
-        if(response.authResponse) {
-          FB.api('/me', 'GET', {fields: 'email, first_name, name, id, picture'}, function(response) {
-            $rootScope.$apply(function() {
-              console.log(response);
-              self.facebook.username = response.name;
-              self.facebook.email = response.email;
-              //setCurrentUser(self.facebook);
+      FB.login(function (response) {
+        if (response.authResponse) {
+          FB.api('/me', 'GET', { fields: 'email, first_name, name, id, picture' }, function (response) {
+            $rootScope.$apply(function () {
+
+              var user = {
+                username: response.id,
+                full_name: response.name,
+                email: response.email,
+                face_id: response.id,
+                type: 'f',
+              };
+
+              UserService.Create(user)
+                .then(function (response) {
+                  setCurrentUser(user);
+                });
             })
           })
         } else {
           // error
         }
       }, {
-        scope: 'email, user_likes',
-        return_scopes: true
-      });
+          scope: 'email, user_likes',
+          return_scopes: true
+        });
     }
   }
 

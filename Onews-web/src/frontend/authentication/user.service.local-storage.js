@@ -3,7 +3,7 @@
 
   angular
     .module('Onews')
-    .factory('UserService', UserService);
+    .factory('UserServiceA', UserService);
 
   UserService.$inject = ['$timeout', '$filter', '$q'];
   function UserService($timeout, $filter, $q) {
@@ -44,7 +44,6 @@
     function Create(user) {
       var deferred = $q.defer();
 
-      // simulate api call with $timeout
       $timeout(function () {
         GetByUsername(user.username)
           .then(function (duplicateUser) {
@@ -53,11 +52,9 @@
             } else {
               var users = getUsers();
 
-              // assign id
               var lastUser = users[users.length - 1] || { id: 0 };
               user.id = lastUser.id + 1;
 
-              // save to local storage
               users.push(user);
               setUsers(users);
 
@@ -101,8 +98,6 @@
 
       return deferred.promise;
     }
-
-    // private functions
 
     function getUsers() {
       if (!localStorage.users) {

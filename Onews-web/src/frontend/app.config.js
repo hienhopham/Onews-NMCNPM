@@ -7,39 +7,33 @@ angular.module('Onews')
       $stateProvider
         .state('home', {
           url: '/',
-          views: {
-            'content': {
-              templateUrl: 'frontend/partials/home/home.template.html',
-              controller: 'homeController'
-            }
-          }
+          templateUrl: 'frontend/partials/home/home.template.html',
+          controller: 'homeController'
         })
-        .state('article', {
-          url: '/article/:id',
-          views: {
-            'content': {
-              templateUrl: 'frontend/partials/single-article/single-article.template.html',
-              controller: 'singleArticleController'
-            }
-          }
+        .state('home.article', {
+          url: 'article/:id',
+          templateUrl: 'frontend/partials/single-article/single-article.template.html',
+          controller: 'singleArticleController'
         })
-        .state('info', {
-          url: '/personal-info',
-          views: {
-            'content': {
-              templateUrl: 'frontend/partials/user-info/user-info.template.html',
-              controller: 'userInfoController'
-            }
-          }
+        .state('home.info', {
+          url: 'personal-info',
+          templateUrl: 'frontend/partials/user-info/user-info.template.html',
+          controller: 'userInfoController'
         })
-        .state('category', {
-          url: '/category/:id',
-          views: {
-            'content': {
-              templateUrl: 'frontend/partials/category/category.template.html',
-              controller: 'categoryController'
-            }
-          }
+        .state('home.category', {
+          url: 'category/:id',
+          templateUrl: 'frontend/partials/category/category.template.html',
+          controller: 'categoryController'
+        })
+        .state('admin', {
+          url: '/admin',
+          templateUrl: 'admin/authentication.template.html',
+          controller: 'authenticationController'
+        })
+        .state('manage', {
+          url: '/admin/manage',
+          templateUrl: 'admin/authentication.template.html',
+          controller: 'authenticationController'
         });
 
       $urlRouterProvider.otherwise('/');
