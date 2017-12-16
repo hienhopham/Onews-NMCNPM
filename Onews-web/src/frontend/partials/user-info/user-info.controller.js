@@ -2,34 +2,30 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('userInfoController', ['$scope', '$rootScope', 'UserService', function ($scope, $rootScope, UserService) {
+    .controller('userInfoController', ['$scope', '$rootScope', '$window', 'UserService', 'AuthenticationService', function ($scope, $rootScope, $window, UserService, AuthenticationService) {
 
       var self = this;
 
       self.$onInit = onInit;
+      $scope.updateInfo = updateInfo;
 
       function onInit() {
         if ($rootScope.globals.currentUser) {
-          loadCurrentUser();
+          $scope.user = angular.copy($rootScope.globals.currentUser);
+          $scope.user.date_of_birth = new Date($scope.user.date_of_birth);
         }
-
-        $scope.today = function() {
-          if ($scope.today) {
-            $scope.day = new Date();
-          }
-        };
-        $scope.options = {
-          minDate: new Date(),
-          showWeeks: true
-        };
       }
 
-      function loadCurrentUser() {
-        UserService.GetByUsername($rootScope.globals.currentUser.username)
-          .then(function (user) {
-            $scope.user = user;
-            console.log(user);
-          });
+      function updateInfo() {
+        var user = angular.copy($scope.user);
+
+        UserService.Update(user)
+          .then(function(response) {
+            if (response.success) {
+              AuthenticationService.SetCredentials(user);
+              $window.location.reload();
+            }
+          })
       }
     }]);
 })();

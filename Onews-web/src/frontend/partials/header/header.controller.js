@@ -10,7 +10,7 @@
 
       function onInit() {
         if ($rootScope.globals.currentUser) {
-          loadCurrentUser();
+          self.user = angular.copy($rootScope.globals.currentUser);
         }
 
         self.menu = {
@@ -41,13 +41,6 @@
             children: []
           }]
         };
-      }
-
-      function loadCurrentUser() {
-        UserService.GetByUsername($rootScope.globals.currentUser.username)
-          .then(function (res) {
-            self.user = res.user[0];
-          });
       }
 
       function logout() {

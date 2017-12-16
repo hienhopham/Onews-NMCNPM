@@ -35,7 +35,7 @@
     }
 
     function Update(user) {
-      return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+      return $http.post('/user/update', user).then(handleSuccess, handleError('Error updating user'));
     }
 
     function Delete(id) {

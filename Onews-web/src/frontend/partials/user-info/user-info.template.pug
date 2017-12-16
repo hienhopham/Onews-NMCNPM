@@ -1,79 +1,63 @@
 .user-info
   header
     h3.title-head Thông tin cá nhân 
-  form.form-horizontal(role='form')
+  form.form-horizontal(role='form', method='post')
     fieldset
       // Text input
       .form-group
-        label.col-md-3.control-label(for='Name (Full name)') Tên
+        label.col-md-3.control-label(for='username') Tên tài khoản
         .col-md-8
           .input-group
             .input-group-addon
               i.fa.fa-user
-            input.form-control.input-md(id='Name (Full name)', name='Name (Full name)', type='text', placeholder='Tên')
+            input.form-control.input-md(id='username', name='username', type='text', placeholder='Tên tài khoản', disabled, ng-model='user.username')
 
       .form-group
-        label.col-md-3.control-label(for='Father') Họ
+        label.col-md-3.control-label(for='fullName') Họ tên
         .col-md-8
           .input-group
             .input-group-addon
-              i.fa.fa-male(style='font-size: 20px;')
-            input#Father.form-control.input-md(name='Father', type='text', placeholder="Họ")
-
+              i.fa.fa-male
+            input.form-control.input-md(id='fullName', name='fullName', type='text', placeholder='Tên', ng-model='user.full_name')
 
       // Text input
       .form-group
-        label.col-md-3.control-label(for='Date Of Birth') Ngày sinh
+        label.col-md-3.control-label(for='birthday')
         .col-md-8.dropdown
           a#dropdown2.dropdown-toggle(role='button', data-toggle='dropdown')
             .input-group
               .input-group-addon
                 i.fa.fa-birthday-cake
-              input.form-control.input-md.date-of-birth(data-ng-model="data.dateDropDownInput", id='birthday', name='Date Of Birth', type="date", placeholder='Ngày sinh')
+              input.form-control.input-md.date-of-birth(data-ng-model="user.date_of_birth", id='birthday', name='birthday', type="date", placeholder='Ngày sinh', data-on-set-time="onTimeSet(newDate, oldDate)")
 
           ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
-            datetimepicker(data-ng-model='data.dateDropDownInput', data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }")
+            datetimepicker(data-ng-model='user.date_of_birth', data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }")
       // Text input
       .form-group
-        label.col-md-3.control-label(for='Email Address') Tài khoản/ Email
+        label.col-md-3.control-label(for='email') Email
         .col-md-8
           .input-group
             .input-group-addon
               i.fa.fa-envelope-o
-            input.form-control.input-md(id='Email Address', name='Email Address', type='text', placeholder='Tài khoản/ Email')
+            input.form-control.input-md(id='email', name='email', type='text', placeholder='Email', ng-model='user.email')
 
       .form-group
-        label.col-md-3.control-label(for='Gender') Giới tính
+        label.col-md-3.control-label(for='gender') Giới tính
         .col-md-8
-          label.radio-inline(for='Gender-0')
-            input#Gender-0(type='radio', name='Gender', value='1', checked='checked')
+          label.radio-inline(for='gender-1')
+            input#Gender-1(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 1}}', value='1')
             |       Nam
-          label.radio-inline(for='Gender-1')
-            input#Gender-1(type='radio', name='Gender', value='2')
-            |       Nữ
           label.radio-inline(for='Gender-2')
-            input#Gender-2(type='radio', name='Gender', value='3')
+            input#Gender-2(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 2}}', value='2')
+            |       Nữ
+          label.radio-inline(for='Gender-3')
+            input#Gender-3(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 3}}', value='3')
             |      Khác
 
-      .form-group
-        label.col-md-3.control-label(for='Password') Mật khẩu
-        .col-md-8
-          .input-group
-            .input-group-addon
-              i.fa.fa-key
-            input.form-control.input-md(id='Password', name='Password', type='password', placeholder='Mật khẩu')
-
-      .form-group
-        label.col-md-3.control-label(for='confirmPassword') Nhập lại mật khẩu
-        .col-md-8
-          .input-group
-            .input-group-addon
-              i.fa.fa-key
-            input.form-control.input-md(id='confirmPassword', name='confirmPassword', type='password', placeholder='Nhập lại mật khẩu')
 
       .form-group
         div.submit
-          a.btn(data-toggle="modal", data-target="#confirmation")
+          button.btn(data-toggle="modal", data-target="#confirmation")
             span.glyphicon.glyphicon-thumbs-up
             |  Hoàn tất
 
@@ -86,6 +70,6 @@
               h4.modal-title Bạn có chắc chắn muốn lưu thông tin thay đổi?
             .modal-body
               button.btn.btn-danger(data-dismiss='modal') Không
-              button.btn.btn-success Đồng ý
+              button.btn.btn-success(ng-click="updateInfo()") Đồng ý
   // /.col-lg-12
 // /.row
