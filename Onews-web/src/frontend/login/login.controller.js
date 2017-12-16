@@ -5,18 +5,9 @@
     .module('Onews')
     .controller('loginController', loginController);
 
-  loginController.$inject = ['$window', '$rootScope', 'UserService', 'AuthenticationService', 'FlashService'];
-  function loginController($window, $rootScope, UserService, AuthenticationService, FlashService) {
+  loginController.$inject = ['$window', '$rootScope', 'UserService', 'AuthenticationService'];
+  function loginController($window, $rootScope, UserService, AuthenticationService) {
     var self = this;
-
-    self.gmail = {
-      username: '',
-      email: ''
-    };
-    self.facebook = {
-      username: '',
-      email: ''
-    };
 
     self.$onInit = onInit;
     self.login = login;
@@ -28,22 +19,25 @@
       //AuthenticationService.ClearCredentials();
     }
 
-    function login() {
-      self.dataLoading = true;
-      AuthenticationService.Login(self.user.username, self.user.password, function (response) {
-        if (response.success) {
-          setCurrentUser(response.currentUser);
-        } else {
-          FlashService.Error(response.message);
-          self.dataLoading = false;
-        }
-      });
-    };
-
     function setCurrentUser(currentUser) {
       AuthenticationService.SetCredentials(currentUser);
       $window.location.reload();
     }
+
+    function login() {
+      var loginInfo = angular.copy(self.user);
+
+      self.dataLoading = true;
+      AuthenticationService.Login(loginInfo, function (response) {
+        if (response.data.success) {
+          self.error = false;
+          setCurrentUser(response.data.user[0]);
+        } else {
+          self.dataLoading = false;
+          self.error = 'Tên tài khoản hoặc mật khẩu không đúng.';
+        }
+      });
+    };
 
     function loginByGoogle() {
       var params = {
