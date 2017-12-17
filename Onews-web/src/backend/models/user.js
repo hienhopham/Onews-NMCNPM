@@ -15,10 +15,4 @@ var UserSchema = new Schema({
   deleted: {type: Boolean}
 });
 
-UserSchema
-  .virtual('url')
-  .get(function () {
-    return '/profile/' + this._id;
-  });
-
 module.exports = mongoose.model('Users', UserSchema);

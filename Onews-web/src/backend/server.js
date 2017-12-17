@@ -8,6 +8,8 @@ var expressValidator = require('express-validator');
 
 var connection = require('./dbConnection');
 var user = require('./routes/user');
+var article = require('./routes/article');
+var category = require('./routes/category');
   
 var app = express();
 
@@ -16,13 +18,15 @@ connection.on('error', console.error.bind(console, 'MongoDB connection error:'))
 app.use(express.static('dist'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(expressValidator() ); // Add this after the bodyParser middleware!
+app.use(expressValidator() );
 app.use(cookieParser());
 
 app.get('/', function (req, res) {
   res.sendfile('index.html');
 });
 app.use('/user', user);
+app.use('/article', article);
+app.use('/category', category);
   
 var server = app.listen(8585, function() {
   console.log('Server listening on port ' + server.address().port);
