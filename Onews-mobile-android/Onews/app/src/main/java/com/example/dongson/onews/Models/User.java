@@ -1,45 +1,69 @@
 package com.example.dongson.onews.Models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by Dong Son on 01-Nov-17.
  */
 
 public class User implements Serializable{
-    private Integer id;
+    private String id;
     private String username;
+    private String email;
     private String password;
+    private String full_name;
     private String gender;
-    private String age;
+    private Date date_of_birth;
     private String face_id;
     private String google_id;
-    private String created_time;
-    private String role;
+    private String type;
+    private Date created_time;
 
-    public User(Integer id, String username, String password, String gender, String age, String face_id, String google_id, String created_time, String role) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.gender = gender;
-        this.age = age;
-        this.face_id = face_id;
-        this.google_id = google_id;
-        this.created_time = created_time;
-        this.role = role;
-    }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public Integer getId() {
+    public User(String username, String email, String password, String full_name, String face_id, String google_id, String type) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.full_name = full_name;
+        this.face_id = face_id;
+        this.google_id = google_id;
+        this.type = type;
+    }
+
+    public User(String id, String username, String email, String password, String full_name, String gender, Date date_of_birth, String face_id, String google_id, String type, Date created_time) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.full_name = full_name;
+        this.gender = gender;
+        this.date_of_birth = date_of_birth;
+        this.face_id = face_id;
+        this.google_id = google_id;
+        this.type = type;
+        this.created_time = created_time;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {
@@ -58,6 +82,14 @@ public class User implements Serializable{
         this.password = password;
     }
 
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public void setFull_name(String full_name) {
+        this.full_name = full_name;
+    }
+
     public String getGender() {
         return gender;
     }
@@ -66,12 +98,12 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public String getAge() {
-        return age;
+    public Date getDate_of_birth() {
+        return date_of_birth;
     }
 
-    public void setAge(String age) {
-        this.age = age;
+    public void setDate_of_birth(Date date_of_birth) {
+        this.date_of_birth = date_of_birth;
     }
 
     public String getFace_id() {
@@ -90,34 +122,20 @@ public class User implements Serializable{
         this.google_id = google_id;
     }
 
-    public String getCreated_time() {
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
+    public Date getCreated_time() {
         return created_time;
     }
 
-    public void setCreated_time(String created_time) {
+    public void setCreated_time(Date created_time) {
         this.created_time = created_time;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
-                ", age='" + age + '\'' +
-                ", face_id='" + face_id + '\'' +
-                ", google_id='" + google_id + '\'' +
-                ", created_time='" + created_time + '\'' +
-                ", role='" + role + '\'' +
-                '}';
     }
 }

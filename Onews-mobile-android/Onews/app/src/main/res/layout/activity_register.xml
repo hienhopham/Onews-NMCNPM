@@ -31,7 +31,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:src="@drawable/onew" />
 
             <TextView
@@ -48,11 +48,31 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
-                android:text="Username:" />
+                android:layout_marginTop="10dp"
+                android:text="Full name:" />
 
             <EditText
-                android:id="@+id/ed_username_register"
+                android:id="@+id/ed_full_name_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="5dp"
+                android:hint="Full name"
+                android:inputType="text"
+                android:textColor="@android:color/black"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:text="User name:" />
+
+            <EditText
+                android:id="@+id/ed_user_name_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -131,7 +151,8 @@
                 android:background="@drawable/selector_1"
                 android:text="Register"
                 android:textColor="@android:color/white"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:layout_marginBottom="20dp"/>
 
         </LinearLayout>
     </ScrollView>

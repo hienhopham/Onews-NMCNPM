@@ -10,9 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public abstract class BaseRetrofit {
-    private Retrofit retrofit;
+    private static Retrofit retrofit = null;
 
-    protected Retrofit getRetrofit() {
+    public static Retrofit getRetrofit() {
         if (retrofit == null)
             return new Retrofit.Builder()
                     .baseUrl(Constant.URL_BASE)

@@ -136,7 +136,6 @@
                     android:layout_marginRight="60dp"
                     android:layout_marginBottom="3dp"
                     android:background="@android:color/holo_blue_dark"
-                    android:onClick="onFacebookLogInClicked"
                     android:gravity="center"
                     android:text="Login with Facebook"
                     android:textColor="@color/white"

@@ -12,7 +12,7 @@
     <string name="author">Đưa tin: Đồng Sơn</string>
     <string name="facebook_app_id">127269911284332</string>
     <string name="fb_login_protocol_scheme">fb127269911284332</string>
-    <string name="login_facebook">facebook</string>
-    <string name="login_google">google</string>
+    <string name="login_facebook">f</string>
+    <string name="login_google">g</string>
     <string name="login_register">default</string>
 </resources>

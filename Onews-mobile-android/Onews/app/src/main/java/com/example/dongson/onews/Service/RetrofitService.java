@@ -1,5 +1,6 @@
 package com.example.dongson.onews.Service;
 
+import com.example.dongson.onews.Models.User;
 import com.google.gson.JsonObject;
 
 import okhttp3.RequestBody;
@@ -14,15 +15,8 @@ import retrofit2.http.Query;
  */
 
 public interface RetrofitService {
-    @POST("file")
-    Call<JsonObject> login(@Query(value = "imei", encoded = true) String imei, @Query("ten") String ten,
-                            @Query("lop") String lop,
-                            @Query("malop") String malop,
-                            @Query("masinhvien") String masinhvien,
-                            @Query("mahocphan") String mahocphan, @Body RequestBody files);
-    @POST("file")
-    Call<JsonObject> sendfile(@Query(value = "imei", encoded = true) String imei,@Body RequestBody files);
-
-    @GET("student.json")
-    Call<JsonObject> readJson();
+    @POST("create")
+    Call<User> create(@Body User user);
+    @POST("authentication")
+    Call<User> login(@Body User user);
 }
