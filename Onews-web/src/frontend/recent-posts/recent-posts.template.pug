@@ -12,12 +12,12 @@
             .popular-post-grids(ng-repeat="article in ctrl.articles")
               .popular-post-grid
                 .post-img
-                  a(href='single.html')
-                    img(src='{{article.thumbnail}}', alt='')
+                  a(ui-sref=".article({id: ctrl.article.id})")
+                    img(src='{{article.img}}', alt='')
                 .post-text
-                  a.pp-title(href='single.html')  {{article.title}}
+                  a.pp-title(ui-sref=".article({id: ctrl.article.id})")  {{article.title}}
                   p
-                    | {{article.created_time}}
+                    | {{article.created_time_string}}
                     a.span_link(href='#')
                       span.glyphicon.glyphicon-comment
                       | 3
