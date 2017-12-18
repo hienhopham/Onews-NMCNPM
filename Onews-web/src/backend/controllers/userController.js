@@ -31,7 +31,10 @@ exports.user_create_post = function (req, res) {
     {
       username: req.body.username,
       full_name: req.body.full_name,
-      email: req.body.email
+      email: req.body.email,
+      date_of_birth: null,
+      gender: null,
+      password: null
     });
 
   if (req.body.type == 'f') {
@@ -106,20 +109,17 @@ exports.user_update_post = function (req, res) {
   var errors = req.validationErrors();
   req.sanitize('date_of_birth').toDate();
 
-  var user = new User(
-    {
-      username: req.body.username,
-      full_name: req.body.full_name,
-      email: req.body.email,
-      date_of_birth: req.body.date_of_birth,
-      gender: req.body.gender
-    });
-
   if (errors) {
     res.send({ errors: errors });
     return;
 
   } else {
+
+    // User.findOneAndUpdate({ username: req.body.username }, user, {}, function(err, user) {
+    //   if (err) { return next(err); }
+      
+    //   res.send({user: user, success: 'Successfully'});
+    // })
 
     User.findOne({ username: req.body.username })
       .exec(function (err, found_user) {
@@ -127,10 +127,22 @@ exports.user_update_post = function (req, res) {
         if (err) { return next(err); }
 
         if (found_user) {
-          user.save(function (err, user) {
+          var user = new User(
+            {
+              username: req.body.username,
+              full_name: req.body.full_name,
+              email: req.body.email,
+              date_of_birth: req.body.date_of_birth,
+              gender: req.body.gender,
+              password : found_user.password,
+              _id : found_user.id
+            });
+
+          User.findByIdAndUpdate(found_user.id, user, {}, function (err,newUser) {
             if (err) { return next(err); }
-            res.send({user: user, success: 'Successfully'});
-          });
+               //successful - redirect to genre detail page.
+               res.send({user: newUser, success: 'Successfully'});
+            });
         }
         else {
           res.send({error: 'User not found'});
