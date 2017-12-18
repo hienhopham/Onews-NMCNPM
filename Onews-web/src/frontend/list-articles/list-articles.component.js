@@ -4,7 +4,7 @@
   angular.module('Onews')
     .component('listArticles', {
       bindings: {
-        category: '<',
+        category: '=',
         type: '@' // there are two types of list
       },
       controller: 'listArticlesController',

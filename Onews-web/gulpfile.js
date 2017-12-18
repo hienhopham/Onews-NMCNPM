@@ -21,7 +21,7 @@ var nodemon = require('gulp-nodemon');
 var src = {
   scripts: ['src/frontend/**/*.module.js', 'src/frontend/**/*.config.js', 'src/frontend/**/*.js'],
   styles: ['src/common.less', 'src/frontend/**/**/*.less'],
-  images: 'src/assets/images/*.*',
+  images: 'src/assets/images/**/*.*',
   templates: 'src/frontend/**/**/*.pug',
   index: 'src/index.pug',
   bower_fonts: 'src/components/**/*.{ttf,woff,eof,svg}',
@@ -45,7 +45,7 @@ var destination = {
   scripts_core: 'dist/assets/core'
 };
 
-var src_backend = 'src/backend/**/*.js',
+var src_backend = ['src/backend/**/*.js', '!src/backend/populateDb.js'],
   dest_backend = 'dist/backend';
 
 gulp.task('server', ['custom-js-backend'], function() {

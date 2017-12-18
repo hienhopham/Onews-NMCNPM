@@ -2,19 +2,24 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('homeController', ['$scope', function ($scope) {
+    .controller('homeController', ['$scope', 'CategoryService', function ($scope, CategoryService) {
 
       // $scope.message = 'test';
+      var self = this;
 
-      $scope.categories = [
-        {
-          id: 1,
-          name: 'Giải trí'
-        },
-        {
-          id: 2,
-          name: 'Xã hội'
-        }
-      ];
+      self.$onInit = onInit;
+
+      function onInit() {
+        var subCategories = [];
+        $scope.subCategories = [];
+
+        CategoryService.GetByLevel(1)
+          .then(function (response) {
+            if (response.success) {
+              $scope.categories = angular.copy(response.category_list);
+            }
+          });
+
+      }
     }]);
 })();

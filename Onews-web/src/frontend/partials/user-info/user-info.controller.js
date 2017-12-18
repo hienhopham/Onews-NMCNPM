@@ -12,7 +12,10 @@
       function onInit() {
         if ($rootScope.globals.currentUser) {
           $scope.user = angular.copy($rootScope.globals.currentUser);
-          $scope.user.date_of_birth = new Date($scope.user.date_of_birth);
+
+          if ($scope.user.date_of_birth ) {
+            $scope.user.date_of_birth = new Date($scope.user.date_of_birth);
+          }
         }
       }
 

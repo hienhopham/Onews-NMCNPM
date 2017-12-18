@@ -25,7 +25,7 @@ var ArticleSchema = new Schema({
 ArticleSchema
   .virtual('url')
   .get(function () {
-    return '/article/' + this._id;
+    return '/#/article/' + this._id;
   });
 
 ArticleSchema

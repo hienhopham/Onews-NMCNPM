@@ -1,11 +1,11 @@
 .article-info-less
   .c-image
-    a(href='single.html')
-      img(src='{{ctrl.article.thumbnail}}', alt='')
+    a(ui-sref=".article({id: ctrl.article.id})")
+      img(src='{{ctrl.article.img}}', alt='')
   .c-text
-    a.power(href='single.html') {{ctrl.article.title}}
-    p.date {{ctrl.article.created_time}}
-    a.reu(href='single.html')
+    a.power(ui-sref=".article({id: ctrl.article.id})") {{ctrl.article.title}}
+    p.date {{ctrl.article.created_time_string}}
+    a.reu(ui-sref=".article({id: ctrl.article.id})")
       img(src='images/more.png', alt='')
     .clearfix
   .clearfix

@@ -33,7 +33,7 @@ exports.article_list_by_category = function (req, res, next) {
       Article.find(conditions)
         .sort([['created_time', 'descending']])
         .limit(req.body.limit)
-        .exec(function(err, list_articles) {
+        .exec(function (err, list_articles) {
           if (err) { return callback(err); }
           response.success = 'Successfully';
           response.article_list = list_articles;
@@ -55,7 +55,7 @@ exports.article_list_by_time_order = function (req, res, next) {
   Article.find()
     .sort([['created_time', 'descending']])
     .limit(req.body.limit)
-    .exec(function(err, list_articles) {
+    .exec(function (err, list_articles) {
       if (err) { return callback(err); }
       response.success = 'Successfully';
       response.article_list = list_articles;
@@ -63,3 +63,13 @@ exports.article_list_by_time_order = function (req, res, next) {
     });
 
 }
+
+
+exports.article_by_id = function (req, res, next) {
+
+  Article.findById(req.body.id)
+    .exec(function (err, article) {
+      if (err) { return next(err); }
+      res.send({ article: article, success: 'Successfully' });
+    });
+};

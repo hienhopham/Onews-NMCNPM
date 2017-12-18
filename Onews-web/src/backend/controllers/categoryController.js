@@ -22,3 +22,12 @@ exports.category_list_all = function (req, res, next) {
       res.send({ category_list: list_categories, success: 'Successfully' });
     });
 };
+
+exports.category_by_id = function (req, res, next) {
+  
+    Category.findById(req.body.id)
+      .exec(function (err, category) {
+        if (err) { return next(err); }
+        res.send({ category: category, success: 'Successfully' });
+      });
+};
