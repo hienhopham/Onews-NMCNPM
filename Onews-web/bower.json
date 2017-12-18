@@ -24,7 +24,8 @@
     "angular-bootstrap-datetimepicker": "^1.1.4",
     "moment": "^2.19.2",
     "ng-admin": "^1.0.9",
-    "angular-md5": "^0.1.10"
+    "angular-md5": "^0.1.10",
+    "ngScrollTo": "*"
   },
   "overrides": {
     "bootstrap": {

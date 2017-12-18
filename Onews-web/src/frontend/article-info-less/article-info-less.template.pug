@@ -1,6 +1,6 @@
 .article-info-less
   .c-image
-    a(ui-sref=".article({id: ctrl.article.id})")
+    a(scroll-to="", ui-sref=".article({id: ctrl.article.id})")
       img(src='{{ctrl.article.img}}', alt='')
   .c-text
     a.power(ui-sref=".article({id: ctrl.article.id})") {{ctrl.article.title}}

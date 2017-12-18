@@ -1,6 +1,6 @@
 .article
   .article-left
-    a(ui-sref=".article({id: ctrl.article.id})")
+    a(ui-sref=".article({id: ctrl.article.id})", scroll-to="")
       img(src="{{ctrl.article.img}}")
   .article-right
     .article-title
@@ -15,11 +15,11 @@
         a.span_link(href="#")
           span.glyphicon.glyphicon-thumbs-up
           | 52
-      a.title(ui-sref=".article({id: ctrl.article.id})")  {{ctrl.article.title}}
+      a.title(ui-sref=".article({id: ctrl.article.id})", scroll-to="")  {{ctrl.article.title}}
     .article-text
       p
-        | {{ctrl.article.content}}
-      a(ui-sref=".article({id: ctrl.article.id})")
+        | {{ctrl.article.content[0]}}
+      a(ui-sref=".article({id: ctrl.article.id})", scroll-to="")
         img(src="images/more.png", alt="")
       .clearfix
   .clearfix

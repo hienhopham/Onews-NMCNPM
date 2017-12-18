@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('Onews')
-  .config(['$locationProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider',
-    function ($locationProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+  .config(['$locationProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', 'ngScrollToOptionsProvider',
+    function ($locationProvider, $httpProvider, $stateProvider, $urlRouterProvider, ngScrollToOptionsProvider) {
 
       $stateProvider
         .state('home', {
@@ -39,5 +39,12 @@ angular.module('Onews')
       $urlRouterProvider.otherwise('/');
 
       $locationProvider.hashPrefix('');
+
+      ngScrollToOptionsProvider.extend({
+        handler: function(el) {
+            
+            $(el).scrollintoview();
+        }
+    });
     }
   ]);

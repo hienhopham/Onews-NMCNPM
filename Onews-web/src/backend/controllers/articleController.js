@@ -68,6 +68,7 @@ exports.article_list_by_time_order = function (req, res, next) {
 exports.article_by_id = function (req, res, next) {
 
   Article.findById(req.body.id)
+    .populate('category_id')
     .exec(function (err, article) {
       if (err) { return next(err); }
       res.send({ article: article, success: 'Successfully' });
