@@ -13,6 +13,13 @@
           ArticleService.GetById($stateParams.id)
           .then(function(response) {
             $scope.article = response.article;
+
+            CategoryService.GetById(response.article.category_id)
+              .then(function(response) {
+                if(response.success) {
+                  $scope.category = response.category;
+                }
+              });
           });
 
           CategoryService.GetByLevel(1)

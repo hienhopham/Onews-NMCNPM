@@ -12,10 +12,10 @@
             .popular-post-grids(ng-repeat="article in ctrl.articles")
               .popular-post-grid
                 .post-img
-                  a(ui-sref=".article({id: ctrl.article.id})")
+                  a(ui-sref=".article({id: article.id})")
                     img(src='{{article.img}}', alt='')
                 .post-text
-                  a.pp-title(ui-sref=".article({id: ctrl.article.id})")  {{article.title}}
+                  a.pp-title(ui-sref=".article({id: article.id})")  {{article.title}}
                   p
                     | {{article.created_time_string}}
                     a.span_link(href='#')

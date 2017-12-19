@@ -5,8 +5,8 @@
     .module('Onews')
     .controller('loginController', loginController);
 
-  loginController.$inject = ['$window', '$rootScope', 'UserService', 'AuthenticationService'];
-  function loginController($window, $rootScope, UserService, AuthenticationService) {
+  loginController.$inject = ['$window', '$rootScope', '$timeout', 'UserService', 'AuthenticationService'];
+  function loginController($window, $rootScope, $timeout, UserService, AuthenticationService) {
     var self = this;
 
     self.$onInit = onInit;
@@ -63,7 +63,11 @@
 
                     UserService.Create(user)
                       .then(function (response) {
-                        setCurrentUser(user);
+                        if(response.error) {
+                          setCurrentUser(response.user[0]);
+                        } else {
+                          setCurrentUser(user);
+                        }
                       });
 
                   });
@@ -95,7 +99,12 @@
 
               UserService.Create(user)
                 .then(function (response) {
-                  setCurrentUser(user);
+                  if(response.error) {
+                    setCurrentUser(response.user[0]);
+                  } else {
+                    setCurrentUser(user);
+                  }
+            
                 });
             })
           })
