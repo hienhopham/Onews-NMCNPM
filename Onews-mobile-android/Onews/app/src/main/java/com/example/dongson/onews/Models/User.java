@@ -36,19 +36,6 @@ public class User implements Serializable{
         this.type = type;
     }
 
-    public User(String id, String username, String email, String password, String full_name, String gender, Date date_of_birth, String face_id, String google_id, String type, Date created_time) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.full_name = full_name;
-        this.gender = gender;
-        this.date_of_birth = date_of_birth;
-        this.face_id = face_id;
-        this.google_id = google_id;
-        this.type = type;
-        this.created_time = created_time;
-    }
 
     public String getId() {
         return id;

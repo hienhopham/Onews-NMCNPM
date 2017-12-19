@@ -1,12 +1,31 @@
 package com.example.dongson.onews.view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.dongson.onews.Common.AlertDialogManager;
+import com.example.dongson.onews.Common.FunctionCommon;
+import com.example.dongson.onews.Models.SessionManager;
+import com.example.dongson.onews.Models.User;
 import com.example.dongson.onews.R;
+import com.example.dongson.onews.Service.BaseRetrofit;
+import com.example.dongson.onews.Service.RetrofitService;
+import com.google.gson.JsonObject;
 
-public class RegisterActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RegisterActivity extends AppCompatActivity implements
+        View.OnClickListener {
+    private EditText ed_username, ed_fullname, ed_password, ed_confirm_password, ed_user_email;
+    private AlertDialogManager alert = new AlertDialogManager();
+    private SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +35,13 @@ public class RegisterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ed_username = (EditText) findViewById(R.id.ed_user_name_register);
+        ed_fullname = (EditText) findViewById(R.id.ed_full_name_register);
+        ed_user_email = (EditText) findViewById(R.id.ed_email_register);
+        ed_password = (EditText) findViewById(R.id.ed_password_register);
+        ed_confirm_password = (EditText) findViewById(R.id.ed_confirm_register);
+        findViewById(R.id.bt_register).setOnClickListener(this);
+        session = new SessionManager(getApplicationContext());
     }
 
     @Override
@@ -24,4 +50,53 @@ public class RegisterActivity extends AppCompatActivity {
         overridePendingTransition(0, 0);
         return true;
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.bt_register:
+                String username = ed_username.getText().toString();
+                String fullname = ed_fullname.getText().toString();
+                String password = ed_password.getText().toString();
+                String confirmpassword = ed_confirm_password.getText().toString();
+                String useremail = ed_user_email.getText().toString();
+                if (username.trim().length() > 0 && password.trim().length() > 0 && fullname.trim().length() > 0 && confirmpassword.trim().length() > 0 && useremail.trim().length() > 0) {
+                    if (confirmpassword.equals(password)) {
+                        User user = new User(username, useremail, FunctionCommon.md5(password), fullname, "", "", "");
+                        session.createLoginSession(username, useremail, "", getString(R.string.login_register));
+                        createUserInServer(user);
+                    } else {
+                        alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Password and confirm password is not same", false);
+                    }
+
+                } else {
+                    alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Please fill all fields", false);
+                }
+                break;
+        }
+    }
+
+    private void createUserInServer(User user) {
+        RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
+        Call<JsonObject> call = retrofit.create(user);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body().toString().contains("success") || response.body().toString().contains("User already existed")) {
+                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(main);
+                    finish();
+                } else {
+                    alert.showAlertDialog(RegisterActivity.this, "Login fail", "", false);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+
+            }
+        });
+    }
+
 }

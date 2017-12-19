@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.dongson.onews.Common.AlertDialogManager;
@@ -34,7 +33,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.gson.JsonObject;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,14 +44,10 @@ import java.util.Arrays;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
-    private Button bt_register;
-    private Button bt_login;
-    private Button bt_facebook;
     private SignInButton bt_google;
     private EditText ed_username;
     private EditText ed_password;
@@ -81,9 +78,6 @@ public class LoginActivity extends AppCompatActivity implements
         session = new SessionManager(getApplicationContext());
         ed_username = (EditText) findViewById(R.id.ed_username_login);
         ed_password = (EditText) findViewById(R.id.ed_password_login);
-        bt_login = (Button) findViewById(R.id.bt_login_login);
-        bt_register = (Button) findViewById(R.id.bt_register_login);
-        bt_facebook = (Button) findViewById(R.id.bt_facebook_login);
         bt_google = (SignInButton) findViewById(R.id.bt_google_login);
         bt_google.setSize(SignInButton.SIZE_STANDARD);
         findViewById(R.id.bt_google_login).setOnClickListener(this);
@@ -127,19 +121,15 @@ public class LoginActivity extends AppCompatActivity implements
                             GraphResponse response) {
                         try {
 //                                    String userName = FunctionCommon.deAccent((String) object.get("name"));
-                            String userName = (String) object.get("name");
+                            String username = (String) object.get("name");
 //                                    String email = response.getJSONObject().getString("email");
                             Log.e("dauxanh", "" + response.toString());
                             String userlink = (String) object.get("link");
                             String id = (String) object.get("id");
                             String userpicture = "https://graph.facebook.com/" + id + "/picture";
-                            session.createLoginSession(userName, userlink, userpicture, getString(R.string.login_facebook));
-                            User user =new User(userName,userlink,"",userName,id,"",getString(R.string.login_facebook));
+                            session.createLoginSession(username, userlink, userpicture, getString(R.string.login_facebook));
+                            User user = new User(username, userlink, "", username, id, "", getString(R.string.login_facebook));
                             createUserInServer(user);
-                            Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                            main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(main);
-                            finish();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -190,10 +180,10 @@ public class LoginActivity extends AppCompatActivity implements
                 String username = ed_username.getText().toString();
                 String password = ed_password.getText().toString();
                 if (username.trim().length() > 0 && password.trim().length() > 0) {
-                    User user = new User(username, FunctionCommon.md5(password));
+                    User user = new User(username, "", FunctionCommon.md5(password), "", "", "", "");
                     defaultLogin(user);
                 } else {
-                    alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
+                    alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please fill username and password", false);
                 }
                 break;
         }
@@ -214,17 +204,13 @@ public class LoginActivity extends AppCompatActivity implements
             GoogleSignInAccount acct = result.getSignInAccount();
             if (acct != null) {
 //                String userName = FunctionCommon.deAccent(acct.getDisplayName());
-                String userName = acct.getDisplayName();
-                String userEmail = acct.getEmail();
-                String personId = acct.getId();
+                String username = acct.getDisplayName();
+                String useremail = acct.getEmail();
+                String personid = acct.getId();
                 Uri userPhoto = acct.getPhotoUrl();
-                session.createLoginSession(userName, userEmail, "" + userPhoto, getString(R.string.login_google));
-                User user =new User(userName,userEmail,"",userName,"",personId,getString(R.string.login_google));
+                session.createLoginSession(username, useremail, "" + userPhoto, getString(R.string.login_google));
+                User user = new User(username, useremail, "", username, "", personid, getString(R.string.login_google));
                 createUserInServer(user);
-                Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(main);
-                finish();
             }
             updateUI(false);
         } else {
@@ -240,44 +226,62 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void createUserInServer(User user){
+    private void createUserInServer(User user) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
-        Call<User> call = retrofit.create(user);
-        call.enqueue(new Callback<User>() {
+        Call<JsonObject> call = retrofit.create(user);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body().toString().contains("success") || response.body().toString().contains("User already existed")) {
+                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(main);
+                    finish();
+                } else {
+                    alert.showAlertDialog(LoginActivity.this, "Login fail", "", false);
+                }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });
     }
 
 
-    private void defaultLogin(User user){
+    private void defaultLogin(User user) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
-        Call<User> call = retrofit.login(user);
-        call.enqueue(new Callback<User>() {
+        Call<JsonObject> call = retrofit.authentication(user);
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.e("login",response.toString());
-                if (response.isSuccessful()) {
-//                    session.createLoginSession("admin", "admin@gmail.com", "", getString(R.string.login_register));
-//                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
-//                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(main);
-//                    finish();
-                } else {
-                    alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    try {
+                        JSONObject jObject = new JSONObject(String.valueOf(response.body()));
+                        if (response.body().toString().contains("success")) {
+                            JSONArray jArray = jObject.getJSONArray("user");
+                            JSONObject oneObject = jArray.getJSONObject(0);
+                            String username = oneObject.getString("username");
+                            String useremail = oneObject.getString("email");
+                            session.createLoginSession(username, useremail, "", getString(R.string.login_register));
+                            Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                            main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(main);
+                            finish();
+                        } else {
+                            alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect please fill again", false);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
+            public void onFailure(Call<JsonObject> call, Throwable t) {
             }
         });
     }

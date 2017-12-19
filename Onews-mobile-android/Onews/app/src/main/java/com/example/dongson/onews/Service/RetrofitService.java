@@ -16,7 +16,7 @@ import retrofit2.http.Query;
 
 public interface RetrofitService {
     @POST("create")
-    Call<User> create(@Body User user);
+    Call<JsonObject> create(@Body User user);
     @POST("authentication")
-    Call<User> login(@Body User user);
+    Call<JsonObject> authentication(@Body User user);
 }
