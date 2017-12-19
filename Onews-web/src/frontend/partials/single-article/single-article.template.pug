@@ -1,8 +1,11 @@
 .content-left.single-post
   ol.breadcrumb
     li
-      a(href='{{article.url}}') Home
-    li.active Single Page
+      a(href='/#/') Home
+    li(ng-if='category.level == 2')
+      a(href='{{category.parent_id.url}}') {{category.parent_id.name}}
+    li.active
+      a.active(href='{{category.url}}') {{category.name}}
 
   .blog-posts
     h3.post

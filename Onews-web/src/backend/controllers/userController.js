@@ -52,14 +52,16 @@ exports.user_create_post = function (req, res) {
   } else {
     var isExist = true;
     var response = {};
+    var currentUser = {};
 
     async.series([
 
       function (callback) {
         User.find({ username: user.username })
-          .exec(function (err, user) {
+          .exec(function (err, foundUser) {
             if (err) { return callback(err); }
-            isExist = user.length > 0 ? true : false;
+            currentUser = foundUser;
+            isExist = foundUser.length > 0 ? true : false;
             callback();
           });
       },
@@ -72,6 +74,7 @@ exports.user_create_post = function (req, res) {
             callback();
           });
         } else {
+          response.user = currentUser;
           response.error = 'User already existed';
           callback();
         }
