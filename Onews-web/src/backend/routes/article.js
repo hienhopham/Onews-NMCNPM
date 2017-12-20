@@ -9,4 +9,6 @@ router.post('/list-by-time-order', article_controller.article_list_by_time_order
 
 router.post('/find-by-id', article_controller.article_by_id);
 
+router.post('/find-by-search-key', article_controller.articles_by_serch_key);
+
 module.exports = router;

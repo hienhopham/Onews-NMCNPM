@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('homeController', ['$scope', 'CategoryService', function ($scope, CategoryService) {
+    .controller('homeController', ['$scope', '$rootScope', 'CategoryService', function ($scope, $rootScope, CategoryService) {
 
       // $scope.message = 'test';
       var self = this;
@@ -19,7 +19,6 @@
               $scope.categories = angular.copy(response.category_list);
             }
           });
-
       }
     }]);
 })();

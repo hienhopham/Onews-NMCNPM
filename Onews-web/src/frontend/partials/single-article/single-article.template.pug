@@ -19,11 +19,11 @@
 
     ul.categories
       li(ng-repeat="category in categories")
-        a(href='#') {{category.name}}
+        a(href='{{category.url}}') {{category.name}}
 
     .clearfix
     // related-posts    
-    related-articles(category='category')
+    related-articles(category='{{category.id}}')
     // //related-posts
     responses(article='article.id')
 

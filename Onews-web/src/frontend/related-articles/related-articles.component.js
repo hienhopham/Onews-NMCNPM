@@ -4,7 +4,7 @@
   angular.module('Onews')
     .component('relatedArticles', {
       bindings: {
-        category: '<'
+        category: '@'
       },
       controller: 'relatedArticlesController',
       controllerAs: 'ctrl',

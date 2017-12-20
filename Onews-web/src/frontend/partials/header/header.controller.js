@@ -2,11 +2,12 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('headerController', ['$rootScope', '$window', 'CategoryService', 'AuthenticationService', function ($rootScope, $window, CategoryService, AuthenticationService) {
+    .controller('headerController', ['$rootScope', 'CategoryService', 'AuthenticationService', 'ArticleService', function ($rootScope, CategoryService, AuthenticationService, ArticleService) {
       var self = this;
 
       self.$onInit = onInit;
       self.logout = logout;
+      self.search = search;
 
       function onInit() {
         var categories = [],
@@ -41,18 +42,15 @@
 
       }
 
-      function toArray(myObj) {
-        var array = [];
-        angular.forEach(myObj, function (element) {
-          array.push(element);
-        });
 
-        return array;
-      }
 
       function logout() {
         AuthenticationService.ClearCredentials();
-        $window.location.reload();
+        window.location.reload();
+      }
+
+      function search() {
+        window.location.href = '/#/article/search/' + self.searchKey;
       }
 
     }]);

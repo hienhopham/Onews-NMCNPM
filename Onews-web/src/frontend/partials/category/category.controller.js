@@ -2,14 +2,24 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('categoryController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+    .controller('categoryController', ['$scope', '$timeout', '$location', '$stateParams', 'CategoryService', function ($scope, $timeout, $location, $stateParams, CategoryService) {
 
-      // $scope.message = 'test';
+      var self = this;
 
-      $scope.category =
-        {
-          id: $stateParams.id,
-          name: 'Giải trí'
-        };
+      $scope.articles = [];
+      self.$onInit = $onInit;
+
+      function $onInit() {
+
+          CategoryService.GetById($stateParams.id)
+            .then(function (response) {
+              if (response.success) {
+                $scope.category = response.category;
+              } else {
+                $location.path('/#/');
+              }
+            });
+
+      }
     }]);
 })();
