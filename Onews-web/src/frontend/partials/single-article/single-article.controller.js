@@ -10,19 +10,23 @@
 
       function onInit() {
 
-          ArticleService.GetById($stateParams.id)
-          .then(function(response) {
-            $scope.article = response.article;
+        ArticleService.GetById($stateParams.id)
+          .then(function (response) {
+            if (response.success) {
+              $scope.article = response.article;
 
-            CategoryService.GetById(response.article.category_id)
-              .then(function(response) {
-                if(response.success) {
-                  $scope.category = response.category;
-                }
-              });
+              CategoryService.GetById(response.article.category_id)
+                .then(function (response) {
+                  if (response.success) {
+                    $scope.category = response.category;
+                  }
+                });
+            } else {
+              console.log('err');
+            }
           });
 
-          CategoryService.GetByLevel(1)
+        CategoryService.GetByLevel(1)
           .then(function (response) {
             if (response.success) {
               $scope.categories = angular.copy(response.category_list);

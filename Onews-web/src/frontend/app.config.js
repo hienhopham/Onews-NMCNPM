@@ -25,6 +25,11 @@ angular.module('Onews')
           templateUrl: 'frontend/partials/category/category.template.html',
           controller: 'categoryController'
         })
+        .state('home.searchedArticles', {
+          url: 'article/search/:searchKey',
+          templateUrl: 'frontend/partials/searched-articles/searched-articles.template.html',
+          controller: 'searchedArticlesController'
+        })
         .state('admin', {
           url: '/admin',
           templateUrl: 'admin/authentication.template.html',

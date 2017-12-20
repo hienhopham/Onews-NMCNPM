@@ -19,7 +19,7 @@
               self.articles = response.article_list;
             }
           });
-        });
+        }, 200);
 
       }
 

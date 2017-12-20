@@ -15,7 +15,7 @@
 
     $rootScope.$on('$viewContentLoaded',
       function (event) {
-        $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 0;
+        $document[0].body.scrollTop = $document[0].documentElement.scrollTop = 100;
       });
 
     // $rootScope.$on('$locationChangeStart', function (event, next, current) {

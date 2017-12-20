@@ -2,34 +2,23 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('relatedArticlesController', function() {
+    .controller('relatedArticlesController',['$timeout', 'ArticleService', function($timeout, ArticleService) {
       var self = this;
 
       self.$onInit = $onInit;
 
       function $onInit() {
-        self.relatedArticles = [
-          {
-            title: 'The section of the mass media industry that focuses on presenting',
-            thumbnail: 'images/article1.jpg',
-            content: 'The standard chunk of Lorem Ipsum used since the 1500s. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" exact original.....',
-            created_time: 'On Feb 25, 2015'
-          },
-          {
-            title: 'The section of the mass media industry that focuses on presenting',
-            thumbnail: 'images/article1.jpg',
-            content: 'The standard chunk of Lorem Ipsum used since the 1500s. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" exact original.....',
-            created_time: 'On Feb 25, 2015'
-          },
-          {
-            title: 'The section of the mass media industry that focuses on presenting',
-            thumbnail: 'images/article1.jpg',
-            content: 'The standard chunk of Lorem Ipsum used since the 1500s. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" exact original.....',
-            created_time: 'On Feb 25, 2015'
-          }
-        ];
+
+        $timeout(function() {
+          ArticleService.GetByCategory(self.category, 5)
+          .then(function(response) {
+            if(response.success) {
+              self.relatedArticles = response.article_list;
+            }
+          });
+        },100);
 
       }
 
-    });
+    }]);
 })();

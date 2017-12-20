@@ -71,6 +71,28 @@ exports.article_by_id = function (req, res, next) {
     .populate('category_id')
     .exec(function (err, article) {
       if (err) { return next(err); }
-      res.send({ article: article, success: 'Successfully' });
+      if (article) {
+        res.send({ article: article, success: 'Successfully' });
+      } else {
+        res.send({ error: 'No such article' });
+      }
+    });
+};
+
+exports.articles_by_serch_key = function (req, res, next) {
+
+  var searchKey = '/' + req.body.searchKey + '/i';
+
+  Article.find({ $or: [ { content: new RegExp(req.body.searchKey, 'i') }, { title: new RegExp(req.body.searchKey, 'i') } ] })
+    .populate('category_id')
+    .limit(req.body.limit)
+    .sort([['created_time', 'descending']])
+    .exec(function (err, found_articles) {
+      if (err) { return next(err); }
+      if (found_articles.length) {
+        res.send({ found_articles: found_articles, success: 'Successfully' });
+      } else {
+        res.send({ error: 'No such articles' });
+      }
     });
 };
