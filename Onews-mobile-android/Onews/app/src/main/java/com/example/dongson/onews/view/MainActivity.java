@@ -39,7 +39,7 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener{
+        implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
@@ -104,19 +104,11 @@ public class MainActivity extends AppCompatActivity
 
             nav_user.setText(name);
             nav_email.setText(email);
-            if(with!=getString(R.string.login_register)){
+            if (with != getString(R.string.login_register)) {
                 Picasso.with(this).load(img).into(nav_ava);
-            }else{
+            } else {
                 nav_ava.setImageResource(R.drawable.if_ninja_479478);
             }
-            nav_ava.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent info_user = new Intent(getApplicationContext(), InfoUserActivity.class);
-                    startActivity(info_user);
-                    overridePendingTransition(0, 0);
-                }
-            });
         }
 
 
@@ -171,6 +163,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_contact) {
 
         } else if (id == R.id.nav_edit) {
+            if (session.checkLogin() == false) {
+                alert.showAlertDialog(MainActivity.this, "Logout failed..", "You dont login", false);
+            } else {
+                Intent edit_info_user = new Intent(getApplicationContext(), EditInfoActivity.class);
+                startActivity(edit_info_user);
+                overridePendingTransition(0, 0);
+            }
+
 
         } else if (id == R.id.nav_logout) {
 
@@ -179,10 +179,10 @@ public class MainActivity extends AppCompatActivity
             } else {
                 HashMap<String, String> user = session.getUserDetails();
                 String with = user.get(SessionManager.KEY_WITH);
-                if(with.equals(getString(R.string.login_facebook))){
+                if (with.equals(getString(R.string.login_facebook))) {
                     LoginManager.getInstance().logOut();
-                }else{
-                    if(with.equals(getString(R.string.login_google))){
+                } else {
+                    if (with.equals(getString(R.string.login_google))) {
                         signOut();
                     }
                 }
@@ -192,8 +192,6 @@ public class MainActivity extends AppCompatActivity
                 startActivity(main);
                 overridePendingTransition(0, 0);
             }
-
-        } else if (id == R.id.nav_seting) {
 
         } else if (id == R.id.nav_info) {
             Intent infoApp = new Intent(getApplicationContext(), InfoAppActivity.class);

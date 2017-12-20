@@ -20,18 +20,13 @@ public class SessionManager {
 
     // Sharedpref file name
     private static final String PREF_NAME = "Son";
-
-    // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
-
-    // User name (make variable public to access from outside)
     public static final String KEY_NAME = "name";
-
-    // Email address (make variable public to access from outside)
+    public static final String KEY_FULL_NAME = "full_name";
     public static final String KEY_EMAIL = "email";
-
-    // image url (make variable public to access from outside)
     public static final String KEY_IMAGE = "image_url";
+    public static final String KEY_BIRTHDAY = "birthday";
+    public static final String KEY_GENDER = "gender";
 
     // login with (make variable public to access from outside)
     public static final String KEY_WITH = "with";
@@ -46,12 +41,15 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String name, String email,String image_url,String with) {
+    public void createLoginSession(String name,String full_name, String email,String image_url,String with,String birthday,String gender) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
+        editor.putString(KEY_FULL_NAME, full_name);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_IMAGE, image_url);
         editor.putString(KEY_WITH, with);
+        editor.putString(KEY_BIRTHDAY, birthday);
+        editor.putString(KEY_GENDER, gender);
         editor.commit();
     }
 
@@ -69,9 +67,12 @@ public class SessionManager {
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_FULL_NAME, pref.getString(KEY_FULL_NAME, null));
         user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
         user.put(KEY_IMAGE, pref.getString(KEY_IMAGE, null));
         user.put(KEY_WITH, pref.getString(KEY_WITH, null));
+        user.put(KEY_BIRTHDAY, pref.getString(KEY_BIRTHDAY, null));
+        user.put(KEY_GENDER, pref.getString(KEY_GENDER, null));
         return user;
     }
 

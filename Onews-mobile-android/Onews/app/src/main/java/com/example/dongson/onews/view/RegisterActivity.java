@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.dongson.onews.Common.AlertDialogManager;
 import com.example.dongson.onews.Common.FunctionCommon;
@@ -23,7 +22,7 @@ import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements
         View.OnClickListener {
-    private EditText ed_username, ed_fullname, ed_password, ed_confirm_password, ed_user_email;
+    private EditText ed_username, ed_full_name, ed_password, ed_confirm_password, ed_user_email;
     private AlertDialogManager alert = new AlertDialogManager();
     private SessionManager session;
 
@@ -36,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ed_username = (EditText) findViewById(R.id.ed_user_name_register);
-        ed_fullname = (EditText) findViewById(R.id.ed_full_name_register);
+        ed_full_name = (EditText) findViewById(R.id.ed_full_name_register);
         ed_user_email = (EditText) findViewById(R.id.ed_email_register);
         ed_password = (EditText) findViewById(R.id.ed_password_register);
         ed_confirm_password = (EditText) findViewById(R.id.ed_confirm_register);
@@ -56,14 +55,14 @@ public class RegisterActivity extends AppCompatActivity implements
         switch (v.getId()) {
             case R.id.bt_register:
                 String username = ed_username.getText().toString();
-                String fullname = ed_fullname.getText().toString();
+                String fullname = ed_full_name.getText().toString();
                 String password = ed_password.getText().toString();
                 String confirmpassword = ed_confirm_password.getText().toString();
                 String useremail = ed_user_email.getText().toString();
                 if (username.trim().length() > 0 && password.trim().length() > 0 && fullname.trim().length() > 0 && confirmpassword.trim().length() > 0 && useremail.trim().length() > 0) {
                     if (confirmpassword.equals(password)) {
-                        User user = new User(username, useremail, FunctionCommon.md5(password), fullname, "", "", "");
-                        session.createLoginSession(username, useremail, "", getString(R.string.login_register));
+                        User user = new User(username, useremail, FunctionCommon.md5(password), fullname, "", "", "", "", "");
+                        session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), "", "");
                         createUserInServer(user);
                     } else {
                         alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Password and confirm password is not same", false);

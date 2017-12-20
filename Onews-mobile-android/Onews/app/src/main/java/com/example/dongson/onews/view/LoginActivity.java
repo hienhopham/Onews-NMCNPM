@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -31,8 +30,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -49,8 +50,7 @@ public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
     private SignInButton bt_google;
-    private EditText ed_username;
-    private EditText ed_password;
+    private EditText ed_username, ed_password;
     private SessionManager session;
     private AlertDialogManager alert = new AlertDialogManager();
     private CallbackManager callbackManager;
@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements
         callbackManager = CallbackManager.Factory.create();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
+                .requestProfile()
+                .requestScopes(new Scope(Scopes.PLUS_ME))
+                .requestScopes(new Scope(Scopes.PLUS_LOGIN))
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
@@ -88,7 +91,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     public void signInFacebook() {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("user_friends", "email", "public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("user_friends", "email", "public_profile", "user_birthday"));
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -120,15 +123,14 @@ public class LoginActivity extends AppCompatActivity implements
                             JSONObject object,
                             GraphResponse response) {
                         try {
-//                                    String userName = FunctionCommon.deAccent((String) object.get("name"));
                             String username = (String) object.get("name");
-//                                    String email = response.getJSONObject().getString("email");
-                            Log.e("dauxanh", "" + response.toString());
-                            String userlink = (String) object.get("link");
-                            String id = (String) object.get("id");
-                            String userpicture = "https://graph.facebook.com/" + id + "/picture";
-                            session.createLoginSession(username, userlink, userpicture, getString(R.string.login_facebook));
-                            User user = new User(username, userlink, "", username, id, "", getString(R.string.login_facebook));
+                            String email = response.getJSONObject().getString("email");
+                            String face_id = (String) object.get("id");
+                            String birthday = object.getString("birthday");
+                            String gender = object.getString("gender");
+                            String user_photo = "https://graph.facebook.com/" + face_id + "/picture";
+                            session.createLoginSession(username, username, email, user_photo, getString(R.string.login_facebook), birthday, gender);
+                            User user = new User(username, email, "", username, face_id, "", getString(R.string.login_facebook), "", "");
                             createUserInServer(user);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -137,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,link,birthday,picture");
+        parameters.putString("fields", "id,name,gender,birthday,picture,email");
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -180,7 +182,7 @@ public class LoginActivity extends AppCompatActivity implements
                 String username = ed_username.getText().toString();
                 String password = ed_password.getText().toString();
                 if (username.trim().length() > 0 && password.trim().length() > 0) {
-                    User user = new User(username, "", FunctionCommon.md5(password), "", "", "", "");
+                    User user = new User(username, "", FunctionCommon.md5(password), "", "", "", "", "", "");
                     defaultLogin(user);
                 } else {
                     alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please fill username and password", false);
@@ -203,13 +205,12 @@ public class LoginActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
             if (acct != null) {
-//                String userName = FunctionCommon.deAccent(acct.getDisplayName());
                 String username = acct.getDisplayName();
-                String useremail = acct.getEmail();
-                String personid = acct.getId();
-                Uri userPhoto = acct.getPhotoUrl();
-                session.createLoginSession(username, useremail, "" + userPhoto, getString(R.string.login_google));
-                User user = new User(username, useremail, "", username, "", personid, getString(R.string.login_google));
+                String email = acct.getEmail();
+                String google_id = acct.getId();
+                Uri user_photo = acct.getPhotoUrl();
+                session.createLoginSession(username, username, email, "" + user_photo, getString(R.string.login_google), "", "");
+                User user = new User(username, email, "", username, "", google_id, getString(R.string.login_google), "", "");
                 createUserInServer(user);
             }
             updateUI(false);
@@ -263,8 +264,11 @@ public class LoginActivity extends AppCompatActivity implements
                             JSONArray jArray = jObject.getJSONArray("user");
                             JSONObject oneObject = jArray.getJSONObject(0);
                             String username = oneObject.getString("username");
+                            String fullname = oneObject.getString("full_name");
                             String useremail = oneObject.getString("email");
-                            session.createLoginSession(username, useremail, "", getString(R.string.login_register));
+                            String birthday = oneObject.getString("date_of_birth");
+                            String gender = oneObject.getString("gender");
+                            session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), birthday, gender);
                             Intent main = new Intent(getApplicationContext(), MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);

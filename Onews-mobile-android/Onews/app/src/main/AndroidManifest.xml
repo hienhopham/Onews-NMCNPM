@@ -45,8 +45,7 @@
         <activity android:name=".view.InfoAppActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.RegisterActivity" />
-        <activity android:name=".view.EditPasswordActivity" />
-        <activity android:name=".view.InfoUserActivity" />
+        <activity android:name=".view.EditInfoActivity" />
         <activity android:name=".view.ArticleContentActivity" />
 
     </application>

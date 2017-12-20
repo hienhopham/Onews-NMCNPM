@@ -14,7 +14,7 @@ public class User implements Serializable{
     private String password;
     private String full_name;
     private String gender;
-    private Date date_of_birth;
+    private String date_of_birth;
     private String face_id;
     private String google_id;
     private String type;
@@ -26,7 +26,7 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public User(String username, String email, String password, String full_name, String face_id, String google_id, String type) {
+    public User(String username, String email, String password, String full_name, String face_id, String google_id, String type, String date_of_birth, String gender) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -34,6 +34,8 @@ public class User implements Serializable{
         this.face_id = face_id;
         this.google_id = google_id;
         this.type = type;
+        this.date_of_birth = date_of_birth;
+        this.gender = gender;
     }
 
 
@@ -85,11 +87,11 @@ public class User implements Serializable{
         this.gender = gender;
     }
 
-    public Date getDate_of_birth() {
+    public String getDate_of_birth() {
         return date_of_birth;
     }
 
-    public void setDate_of_birth(Date date_of_birth) {
+    public void setDate_of_birth(String date_of_birth) {
         this.date_of_birth = date_of_birth;
     }
 
