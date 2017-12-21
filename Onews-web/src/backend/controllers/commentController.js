@@ -37,6 +37,7 @@ exports.comment_create = function (req, res, next) {
 exports.comment_by_article = function (req, res, next) {
 
   Comment.find({ article_id: req.body.article_id })
+  .populate('user_id')
   .sort([['created_time', 'descending']])
   // .limit(req.body.limit)
   .exec(function (err, list_comments) {

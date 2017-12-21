@@ -16,7 +16,6 @@
     return service;
 
     function GetByArticle(article_id) {
-      console.log(article_id);
       return $http.post('/comment/comment-by-article', {article_id: article_id}).then(handleSuccess, handleError('Error getting comments list by article'));
     }
 
