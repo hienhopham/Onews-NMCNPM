@@ -87,7 +87,7 @@
       FB.login(function (response) {
         if (response.authResponse) {
           
-          FB.api('/me', 'GET', { fields: 'email, first_name, name, id, picture, token_for_business' }, function (response) {
+          FB.api('/me', 'GET', { fields: 'email, first_name, name, id, picture' }, function (response) {
             $rootScope.$apply(function () {
 
               var user = {
@@ -97,14 +97,13 @@
                 face_id: response.id,
                 type: 'f',
               };
-              console.log(response);
 
               UserService.Create(user)
                 .then(function (response) {
                   if(response.error) {
-                    //setCurrentUser(response.user[0]);
+                    setCurrentUser(response.user[0]);
                   } else {
-                    //setCurrentUser(user);
+                    setCurrentUser(user);
                   }
             
                 });
