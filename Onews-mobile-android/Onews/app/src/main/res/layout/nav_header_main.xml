@@ -15,8 +15,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/img_ava"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -37,6 +37,8 @@
         android:id="@+id/tv_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="choicehip95@gmail.com" />
+        android:text="choicehip95@gmail.com"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 
 </LinearLayout>

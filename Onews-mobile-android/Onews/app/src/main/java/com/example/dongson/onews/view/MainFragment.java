@@ -38,14 +38,11 @@ public class MainFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(new DifferentRowAdapter(CreateData.getData(), new OnItemClickListener() {
             @Override public void onItemClick(Articles item) {
-                Toast.makeText(getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(getActivity(), ArticleContentActivity.class);
-//                startActivity(intent);
+//                Toast.makeText(getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getActivity(), ArticleContentActivity.class);
+                startActivity(intent);
             }
         }));
-
-//        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-//        textView.setText("Kteam");
         return rootView;
     }
 }

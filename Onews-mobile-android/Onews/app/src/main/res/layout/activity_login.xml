@@ -130,22 +130,27 @@
 
                 <Button
                     android:id="@+id/bt_facebook_login"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@android:color/holo_blue_dark"
                     android:gravity="center"
                     android:text="Login with Facebook"
-                    android:textColor="#1b28e7"
+                    android:textColor="@color/white"
                     android:textSize="15dp" />
 
-                <Button
+                <com.google.android.gms.common.SignInButton
                     android:id="@+id/bt_google_login"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginRight="60dp"
                     android:background="@android:color/transparent"
                     android:gravity="top"
                     android:text="Login with G+"
-                    android:textColor="#fa0c1f"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <LinearLayout

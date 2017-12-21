@@ -62,6 +62,7 @@ exports.user_create_post = function (req, res) {
             if (err) { return callback(err); }
             currentUser = foundUser;
             isExist = foundUser.length > 0 ? true : false;
+			console.log({ user: foundUser });
             callback();
           });
       },
@@ -94,9 +95,11 @@ exports.user_authenticate_post = function (req, res) {
       if (err) { return next(err); }
 
       var isExist = user.length > 0 ? true : false;
-
+		
+		console.log({ username: req.body.username, password: req.body.password });
       if (isExist) {
         res.send({ success: 'Successfully', user: user });
+		console.log({ success: 'Successfully', user: user });
       } else {
         res.send({ error: 'Authentication failed' });
       }
