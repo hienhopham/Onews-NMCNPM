@@ -3,10 +3,10 @@ package com.example.dongson.onews.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,16 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dongson.onews.Adapters.SectionsPagerAdapter;
 import com.example.dongson.onews.Common.AlertDialogManager;
 import com.example.dongson.onews.Common.Constant;
-import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.Categories;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.Models.Tab;
-import com.example.dongson.onews.Models.User;
 import com.example.dongson.onews.R;
 import com.example.dongson.onews.Service.BaseRetrofit;
 import com.example.dongson.onews.Service.RetrofitService;
@@ -33,12 +30,12 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,13 +54,16 @@ public class MainActivity extends AppCompatActivity
     private SessionManager session;
     private AlertDialogManager alert = new AlertDialogManager();
     private GoogleApiClient mGoogleApiClient;
+    private ArrayList<Categories> listCategories;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listTab = new ArrayList<>();
-        setList(listTab);
+        listCategories = new ArrayList<>();
+        setTab();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -121,27 +121,13 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), listTab);
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-
-//        Categories category =new Categories("Star",1,1,"");
-//        getCategory(category);
-
     }
 
-    private void setList(ArrayList<Tab> list) {
-        list.add(new Tab("Tổng hợp", ""));
-        list.add(new Tab("Kinh tế", ""));
-        list.add(new Tab("Chính trị", ""));
-        list.add(new Tab("Văn hoá", ""));
-        list.add(new Tab("Nghệ thuật", ""));
-        list.add(new Tab("Thể Thao", ""));
+    private void setTab() {
+        Categories category = new Categories("", "", 1, "", "");
+        getCategory(category);
     }
+
 
     @Override
     public void onBackPressed() {
@@ -226,21 +212,47 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
     private void getCategory(Categories category) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_CATEGORY).create(RetrofitService.class);
         Call<JsonObject> call = retrofit.all_category(category);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Toast.makeText(getApplication(), response.body().toString(),
-                        Toast.LENGTH_LONG).show();
+                JSONObject jObject = null;
+                try {
+                    jObject = new JSONObject(String.valueOf(response.body()));
+                    JSONArray jArray = jObject.getJSONArray("category_list");
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject oneObject = jArray.getJSONObject(i);
+                        String id = oneObject.getString("id");
+                        String name = oneObject.getString("name");
+                        String level = oneObject.getString("level");
+                        String parent_id = oneObject.getString("parent_id");
+                        Categories category = new Categories(id, name, Integer.parseInt(level), parent_id, "");
+                        listCategories.add(category);
+                    }
+
+                    for (int i = 0; i < listCategories.size(); i++) {
+                        listTab.add(new Tab(listCategories.get(i).getName(), listCategories.get(i).getId()));
+                    }
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), listTab);
+                    mViewPager = (ViewPager) findViewById(R.id.container);
+                    mViewPager.setAdapter(mSectionsPagerAdapter);
+                    TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                    tabLayout.setupWithViewPager(mViewPager);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
             }
+
             @Override
-            public void onFailure (Call < JsonObject > call, Throwable t){
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });
     }
+
 }
+

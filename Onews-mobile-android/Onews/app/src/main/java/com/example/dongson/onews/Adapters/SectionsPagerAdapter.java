@@ -23,7 +23,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainFragment.newInstance();
+        String id = listTab.get(position).getTab_url();
+        return MainFragment.newInstance(id);
     }
 
     @Override
