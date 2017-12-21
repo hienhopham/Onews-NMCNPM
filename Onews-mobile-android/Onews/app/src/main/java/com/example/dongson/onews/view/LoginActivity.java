@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements
                             String gender = object.getString("gender");
                             String user_photo = "https://graph.facebook.com/" + face_id + "/picture";
 //                            session.createLoginSession(username, username, email, user_photo, getString(R.string.login_facebook), birthday, gender);
-                            User user = new User(username, email, "", username, face_id, "", getString(R.string.login_facebook), birthday, gender);
+                            User user = new User(face_id, email, "", username, face_id, "", getString(R.string.login_facebook), birthday, gender);
                             createUserInServer(user, user_photo);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -210,7 +210,7 @@ public class LoginActivity extends AppCompatActivity implements
                 String email = acct.getEmail();
                 String google_id = acct.getId();
                 Uri user_photo = acct.getPhotoUrl();
-                User user = new User(username, email, "", username, "", google_id, getString(R.string.login_google), "", "");
+                User user = new User(google_id, email, "", username, "", google_id, getString(R.string.login_google), "", "");
                 createUserInServer(user, "" + user_photo);
             }
             updateUI(false);
@@ -260,9 +260,9 @@ public class LoginActivity extends AppCompatActivity implements
                             String gender = oneObject.getString("gender");
 
                             if (account.getType().equals(getString(R.string.login_google))) {
-                                session.createLoginSession(username, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
+                                session.createLoginSession(fullname, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
                             } else {
-                                session.createLoginSession(username, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
+                                session.createLoginSession(fullname, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
                             }
 
                         } catch (JSONException e) {

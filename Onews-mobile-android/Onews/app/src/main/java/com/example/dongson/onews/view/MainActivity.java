@@ -129,8 +129,8 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setupWithViewPager(mViewPager);
 
 
-        Categories category =new Categories("Star",1,1,"");
-        getCategory(category);
+//        Categories category =new Categories("Star",1,1,"");
+//        getCategory(category);
 
     }
 
