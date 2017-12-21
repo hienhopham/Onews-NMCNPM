@@ -62,6 +62,7 @@ exports.user_create_post = function (req, res) {
             if (err) { return callback(err); }
             currentUser = foundUser;
             isExist = foundUser.length > 0 ? true : false;
+			console.log({ user: foundUser });
             callback();
           });
       },
