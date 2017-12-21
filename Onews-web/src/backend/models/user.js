@@ -15,4 +15,4 @@ var UserSchema = new Schema({
   deleted: {type: Boolean}
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('User', UserSchema);

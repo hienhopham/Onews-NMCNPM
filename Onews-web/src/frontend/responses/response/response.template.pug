@@ -1,11 +1,11 @@
 .media.response-info
   .media-left.response-text-left
     a(href='#')
-      img.media-object(src='images/c3.jpg', alt='')
+      img.media-object(src='images/user.png', alt='')
     h5
-      a(href='#') Username + {{ctrl.response.id_user}}
+      a(href='#') {{ctrl.response.user_id.full_name}}
   .media-body.response-text-right
     p {{ctrl.response.content}}
     ul
-      li {{ctrl.response.created_time}}
+      li {{ctrl.response.created_time_string}}
   .clearfix 

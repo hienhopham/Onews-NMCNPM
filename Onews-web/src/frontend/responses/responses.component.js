@@ -4,7 +4,7 @@
   angular.module('Onews')
     .component('responses', {
       bindings: {
-        article: '<'
+        article: '@'
       },
       controller: 'responsesController',
       controllerAs: 'ctrl',

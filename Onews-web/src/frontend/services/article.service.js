@@ -10,6 +10,7 @@
     var service = {};
 
     service.GetByCategory = GetByCategory;
+    service.GetByHotTopic = GetByHotTopic;
     service.GetListTimeOrder = GetListTimeOrder;
     service.GetById = GetById;
     service.GetListBySearchKey = GetListBySearchKey;
@@ -22,6 +23,12 @@
       limit = limit ? limit : 5;
 
       return $http.post('/article/list-by-category', {category_id: categoryID, limit: limit}).then(handleSuccess, handleError('Error getting article list by category'));
+    }
+
+    function GetByHotTopic(hotTopicID, limit) {
+      limit = limit ? limit : 5;
+
+      return $http.post('/article/list-by-hot-topic', {hot_topic_id: hotTopicID, limit: limit}).then(handleSuccess, handleError('Error getting article list by hot topic'));
     }
 
     function GetListTimeOrder(limit) {

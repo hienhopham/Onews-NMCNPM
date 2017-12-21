@@ -30,6 +30,11 @@ angular.module('Onews')
           templateUrl: 'frontend/partials/searched-articles/searched-articles.template.html',
           controller: 'searchedArticlesController'
         })
+        .state('home.hotTopic', {
+          url: 'hottopic/:id',
+          templateUrl: 'frontend/partials/hot-topic/hot-topic.template.html',
+          controller: 'hotTopicController'
+        })
         .state('admin', {
           url: '/admin',
           templateUrl: 'admin/authentication.template.html',

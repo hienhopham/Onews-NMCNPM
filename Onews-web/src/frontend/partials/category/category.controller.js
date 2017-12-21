@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('categoryController', ['$scope', '$timeout', '$location', '$stateParams', 'CategoryService', function ($scope, $timeout, $location, $stateParams, CategoryService) {
+    .controller('categoryController', ['$scope', '$stateParams', 'CategoryService', function ($scope, $stateParams, CategoryService) {
 
       var self = this;
 
@@ -16,7 +16,7 @@
               if (response.success) {
                 $scope.category = response.category;
               } else {
-                $location.path('/#/');
+                window.location.href = '/#/';
               }
             });
 
