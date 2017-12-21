@@ -1,8 +1,10 @@
 package com.example.dongson.onews.Service;
 
+import com.example.dongson.onews.Models.Categories;
 import com.example.dongson.onews.Models.User;
 import com.google.gson.JsonObject;
 
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -19,4 +21,8 @@ public interface RetrofitService {
     Call<JsonObject> create(@Body User user);
     @POST("authentication")
     Call<JsonObject> authentication(@Body User user);
+    @POST("update")
+    Call<JsonObject> update(@Body User user);
+    @POST(".")
+    Call<JsonObject> all_category(@Body Categories category);
 }

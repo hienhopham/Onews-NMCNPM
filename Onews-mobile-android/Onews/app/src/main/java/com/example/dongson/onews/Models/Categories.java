@@ -7,12 +7,11 @@ package com.example.dongson.onews.Models;
 public class Categories {
     private Integer id;
     private String name;
-    private String level;
+    private int level;
     private Integer parents_id;
     private String deleted;
 
-    public Categories(Integer id, String name, String level, Integer parents_id, String deleted) {
-        this.id = id;
+    public Categories(String name, int level, Integer parents_id, String deleted) {
         this.name = name;
         this.level = level;
         this.parents_id = parents_id;
@@ -35,11 +34,11 @@ public class Categories {
         this.name = name;
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(int level) {
         this.level = level;
     }
 

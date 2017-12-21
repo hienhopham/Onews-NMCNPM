@@ -15,13 +15,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dongson.onews.Adapters.SectionsPagerAdapter;
 import com.example.dongson.onews.Common.AlertDialogManager;
+import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Common.FunctionCommon;
+import com.example.dongson.onews.Models.Categories;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.Models.Tab;
+import com.example.dongson.onews.Models.User;
 import com.example.dongson.onews.R;
+import com.example.dongson.onews.Service.BaseRetrofit;
+import com.example.dongson.onews.Service.RetrofitService;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,12 +37,16 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GoogleApiClient.OnConnectionFailedListener {
@@ -117,6 +127,10 @@ public class MainActivity extends AppCompatActivity
         mViewPager.setAdapter(mSectionsPagerAdapter);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+
+        Categories category =new Categories("Star",1,1,"");
+        getCategory(category);
 
     }
 
@@ -210,5 +224,23 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+
+    private void getCategory(Categories category) {
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_CATEGORY).create(RetrofitService.class);
+        Call<JsonObject> call = retrofit.all_category(category);
+        call.enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Toast.makeText(getApplication(), response.body().toString(),
+                        Toast.LENGTH_LONG).show();
+
+            }
+            @Override
+            public void onFailure (Call < JsonObject > call, Throwable t){
+
+            }
+        });
     }
 }

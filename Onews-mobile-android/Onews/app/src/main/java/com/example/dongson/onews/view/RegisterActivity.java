@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.dongson.onews.Common.AlertDialogManager;
+import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.Models.User;
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity implements
                 if (username.trim().length() > 0 && password.trim().length() > 0 && fullname.trim().length() > 0 && confirmpassword.trim().length() > 0 && useremail.trim().length() > 0) {
                     if (confirmpassword.equals(password)) {
                         User user = new User(username, useremail, FunctionCommon.md5(password), fullname, "", "", "", "", "");
-                        session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), "", "");
+                        session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), "", "",FunctionCommon.md5(password));
                         createUserInServer(user);
                     } else {
                         alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Password and confirm password is not same", false);
@@ -76,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     private void createUserInServer(User user) {
-        RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_USER).create(RetrofitService.class);
         Call<JsonObject> call = retrofit.create(user);
         call.enqueue(new Callback<JsonObject>() {
             @Override

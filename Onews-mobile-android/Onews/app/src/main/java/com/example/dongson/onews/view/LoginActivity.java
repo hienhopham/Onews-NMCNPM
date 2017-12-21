@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.dongson.onews.Common.AlertDialogManager;
+import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.SessionManager;
 import com.example.dongson.onews.Models.User;
@@ -129,9 +130,9 @@ public class LoginActivity extends AppCompatActivity implements
                             String birthday = object.getString("birthday");
                             String gender = object.getString("gender");
                             String user_photo = "https://graph.facebook.com/" + face_id + "/picture";
-                            session.createLoginSession(username, username, email, user_photo, getString(R.string.login_facebook), birthday, gender);
-                            User user = new User(username, email, "", username, face_id, "", getString(R.string.login_facebook), "", "");
-                            createUserInServer(user);
+//                            session.createLoginSession(username, username, email, user_photo, getString(R.string.login_facebook), birthday, gender);
+                            User user = new User(username, email, "", username, face_id, "", getString(R.string.login_facebook), birthday, gender);
+                            createUserInServer(user, user_photo);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -209,9 +210,8 @@ public class LoginActivity extends AppCompatActivity implements
                 String email = acct.getEmail();
                 String google_id = acct.getId();
                 Uri user_photo = acct.getPhotoUrl();
-                session.createLoginSession(username, username, email, "" + user_photo, getString(R.string.login_google), "", "");
                 User user = new User(username, email, "", username, "", google_id, getString(R.string.login_google), "", "");
-                createUserInServer(user);
+                createUserInServer(user, "" + user_photo);
             }
             updateUI(false);
         } else {
@@ -227,19 +227,57 @@ public class LoginActivity extends AppCompatActivity implements
         }
     }
 
-    private void createUserInServer(User user) {
-        RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
+    private void createUserInServer(final User user, String ava_url) {
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_USER).create(RetrofitService.class);
         Call<JsonObject> call = retrofit.create(user);
+        final User account = user;
+        final String user_photo = ava_url;
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                if (response.body().toString().contains("success") || response.body().toString().contains("User already existed")) {
+                if (response.body().toString().contains("success")) {
+                    if (account.getType().equals(getString(R.string.login_google))) {
+                        session.createLoginSession(user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_google), "", "","");
+
+                    } else {
+                        session.createLoginSession(user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_facebook), "", "","");
+                    }
                     Intent main = new Intent(getApplicationContext(), MainActivity.class);
                     main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(main);
                     finish();
                 } else {
-                    alert.showAlertDialog(LoginActivity.this, "Login fail", "", false);
+                    if (response.body().toString().contains("error")) {
+
+                        try {
+                            JSONObject jObject = new JSONObject(String.valueOf(response.body()));
+                            JSONArray jArray = jObject.getJSONArray("user");
+                            JSONObject oneObject = jArray.getJSONObject(0);
+                            String username = oneObject.getString("username");
+                            String fullname = oneObject.getString("full_name");
+                            String useremail = oneObject.getString("email");
+                            String birthday = oneObject.getString("date_of_birth");
+                            String gender = oneObject.getString("gender");
+
+                            if (account.getType().equals(getString(R.string.login_google))) {
+                                session.createLoginSession(username, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
+                            } else {
+                                session.createLoginSession(username, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(main);
+                        finish();
+                    } else {
+                        alert.showAlertDialog(LoginActivity.this, "Login fail", "", false);
+                    }
+
                 }
             }
 
@@ -252,7 +290,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
     private void defaultLogin(User user) {
-        RetrofitService retrofit = BaseRetrofit.getRetrofit().create(RetrofitService.class);
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_USER).create(RetrofitService.class);
         Call<JsonObject> call = retrofit.authentication(user);
         call.enqueue(new Callback<JsonObject>() {
             @Override
@@ -268,7 +306,8 @@ public class LoginActivity extends AppCompatActivity implements
                             String useremail = oneObject.getString("email");
                             String birthday = oneObject.getString("date_of_birth");
                             String gender = oneObject.getString("gender");
-                            session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), birthday, gender);
+                            String password = oneObject.getString("password");
+                            session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), birthday, gender,password);
                             Intent main = new Intent(getApplicationContext(), MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);

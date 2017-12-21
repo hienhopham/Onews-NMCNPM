@@ -84,7 +84,6 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginTop="5dp"
-        android:enabled="false"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
 
@@ -114,28 +113,26 @@
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_marginLeft="40dp"
+        android:id="@+id/rg_gender_edit"
         android:layout_marginTop="5dp"
         android:layout_marginRight="40dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <RadioButton android:id="@+id/gender_male_edit"
+        <RadioButton android:id="@+id/rb_gender_male_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Male"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/gender_female_edit"
+            android:text="Male" />
+        <RadioButton android:id="@+id/rb_gender_female_edit"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
-            android:onClick="onRadioButtonClicked"/>
-        <RadioButton android:id="@+id/gender_different_edit"
+            android:text="Female" />
+        <RadioButton android:id="@+id/rb_gender_different_edit"
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Different"
-            android:onClick="onRadioButtonClicked"/>
+            android:text="Different" />
     </RadioGroup>
 
     <Button

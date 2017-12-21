@@ -27,6 +27,7 @@ public class SessionManager {
     public static final String KEY_IMAGE = "image_url";
     public static final String KEY_BIRTHDAY = "birthday";
     public static final String KEY_GENDER = "gender";
+    public static final String KEY_PASS = "password";
 
     // login with (make variable public to access from outside)
     public static final String KEY_WITH = "with";
@@ -41,7 +42,7 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String name,String full_name, String email,String image_url,String with,String birthday,String gender) {
+    public void createLoginSession(String name,String full_name, String email,String image_url,String with,String birthday,String gender, String password) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_FULL_NAME, full_name);
@@ -50,6 +51,7 @@ public class SessionManager {
         editor.putString(KEY_WITH, with);
         editor.putString(KEY_BIRTHDAY, birthday);
         editor.putString(KEY_GENDER, gender);
+        editor.putString(KEY_PASS, password);
         editor.commit();
     }
 
@@ -73,6 +75,7 @@ public class SessionManager {
         user.put(KEY_WITH, pref.getString(KEY_WITH, null));
         user.put(KEY_BIRTHDAY, pref.getString(KEY_BIRTHDAY, null));
         user.put(KEY_GENDER, pref.getString(KEY_GENDER, null));
+        user.put(KEY_PASS, pref.getString(KEY_PASS, null));
         return user;
     }
 

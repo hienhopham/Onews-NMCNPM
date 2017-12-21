@@ -5,8 +5,8 @@ package com.example.dongson.onews.Common;
  */
 
 public class Constant {
-    public static final String URL_BASE = "http://192.168.0.108:8585/user/";
-    public static final String URL_LOGIN = "";
-    public static final String URL_REGISTER = "";
-    public static final String URL_EDIT = "";
+
+    public static final String URL_BASE_USER = "http://192.168.0.108:8585/user/";
+    public static final String URL_BASE_CATEGORY = "http://192.168.0.108:8585/category/";
+    public static final String URL_BASE_ARTICLE = "http://192.168.0.108:8585/article/";
 }

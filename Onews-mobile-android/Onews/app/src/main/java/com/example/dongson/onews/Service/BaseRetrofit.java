@@ -12,10 +12,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public abstract class BaseRetrofit {
     private static Retrofit retrofit = null;
 
-    public static Retrofit getRetrofit() {
+    public static Retrofit getRetrofit(String url) {
         if (retrofit == null)
             return new Retrofit.Builder()
-                    .baseUrl(Constant.URL_BASE)
+                    .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         else return retrofit;
