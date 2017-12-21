@@ -9,8 +9,7 @@
 
       function $onInit() {
 
-          console.log(self.response.user_id.full_name);
-        
+
       }
     }]);
 })();
