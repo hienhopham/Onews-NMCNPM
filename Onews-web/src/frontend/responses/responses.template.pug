@@ -4,7 +4,7 @@
 .coment-form
   h4 Phản hồi
   form
-    textarea(onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Viết phản hồi tại đây ...';}", required='') Viết phản hồi tại đây ...
+    textarea(onfocus="this.value = '';", onblur="if (this.value == '') {this.value = 'Viết phản hồi tại đây ...';}", ng-model='ctrl.content', required='') Viết phản hồi tại đây ...
     button.btn.btn-primary(type='submit', ng-click="ctrl.addResponse()", ng-disabled='!ctrl.user') Phản hồi
   div.notice(ng-if='!ctrl.user')
     span Bạn cần đăng nhập để sử dụng chức năng này.

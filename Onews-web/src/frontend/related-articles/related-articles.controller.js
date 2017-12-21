@@ -10,7 +10,7 @@
       function $onInit() {
 
         $timeout(function() {
-          ArticleService.GetByCategory(self.category, 5)
+          ArticleService.GetByCategory(self.category, 4)
           .then(function(response) {
             if(response.success) {
               self.relatedArticles = response.article_list;

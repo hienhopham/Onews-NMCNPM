@@ -10,6 +10,8 @@ var connection = require('./dbConnection');
 var user = require('./routes/user');
 var article = require('./routes/article');
 var category = require('./routes/category');
+var hotTopic = require('./routes/hotTopic');
+var comment = require('./routes/comment');
   
 var app = express();
 
@@ -27,6 +29,8 @@ app.get('/', function (req, res) {
 app.use('/user', user);
 app.use('/article', article);
 app.use('/category', category);
+app.use('/hottopic', hotTopic);
+app.use('/comment', comment);
   
 var server = app.listen(8585, function() {
   console.log('Server listening on port ' + server.address().port);

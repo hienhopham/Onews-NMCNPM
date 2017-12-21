@@ -13,28 +13,31 @@
         self.tags = [
           {
             id: 1,
-            name: 'Lễ cưới',
-            class: 'tag'+getRandomInt()
+            name: 'Bảo Anh'
           },
           {
             id: 2,
-            name: 'Hẹn hò'
+            name: 'Hồ Quang Hiếu'
           },
           {
             id: 3,
-            name: 'Chia tay'
+            name: 'Ngô Kiến Huy'
           },
           {
             id: 4,
-            name: 'Donald Trump'
+            name: 'Hồ Quang Hiếu'
           },
           {
             id: 5,
-            name: 'Apec'
+            name: 'Shawn Mendes'
           },
           {
             id: 6,
-            name: 'Harry Styles'
+            name: 'LIME'
+          },
+          {
+            id: 7,
+            name: 'Ronaldo'
           }
         ];
       }

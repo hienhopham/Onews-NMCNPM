@@ -2,4 +2,4 @@
   header
     h3.title-head Tags
   p
-    a(href='single.html',ng-repeat="tag in ctrl.tags", ng-init='rand = ctrl.getRandomInt(1,20)', class="tag{{rand}}") {{tag.name}}
+    a(href='/#/article/search/{{tag.name}}',ng-repeat="tag in ctrl.tags", ng-init='rand = ctrl.getRandomInt(1,20)', class="tag{{rand}}") {{tag.name}}

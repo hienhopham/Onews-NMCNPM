@@ -9,6 +9,7 @@ var ArticleSchema = new Schema({
   content: [{ type: String }],
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   category_id: { type: Schema.ObjectId, ref: 'Category' },
+  hot_topic_id: { type: Schema.ObjectId, ref: 'HotTopic' },
   author: { type: String },
   created_time: { type: Date },
   deleted: { type: Boolean }
