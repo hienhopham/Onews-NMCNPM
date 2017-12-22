@@ -6,7 +6,8 @@ link(rel='stylesheet', href='admin/onews-admin.min.css')
     #output
     .avatar
     .form-box
-      form(action='', method='', ng-submit='login()')
+      form(method='post')
         input(name='user', type='text', placeholder='Tài khoản', ng-model='user.username')
         input(type='password', placeholder='Mật khẩu', ng-model='user.password')
-        button.btn.btn-info.btn-block.login(type='submit', ng-click='login()') Đăng nhập {{user.username}}
+        .btn.btn-info.btn-block.login(ng-click='login()') Đăng nhập
+        .error(ng-if='error') {{error}}

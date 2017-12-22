@@ -1,0 +1,31 @@
+link(rel='stylesheet', href='admin/onews-admin.min.css')
+
+div(class='container-fluid admin')
+  div(class='row')
+    div(class='col-sm-2')
+        ul(class='sidebar-nav')
+          li 
+            a(href='/') Home
+          li 
+            a(ui-sref=".users") All users
+          li 
+            a(href='/catalog/authors') All categories
+          li 
+            a(href='/catalog/genres') All articles
+          li 
+            a(href='/catalog/bookinstances') All hot topics
+          li 
+            a(href='/catalog/bookinstances') All comments
+          li 
+            hr
+          li 
+            a(href='/catalog/author/create') Create new user
+          li 
+            a(href='/catalog/genre/create') Create new category
+          li 
+            a(href='/catalog/book/create') Create new hot topic
+          li 
+            a(href='/catalog/bookinstance/create') Create comment
+            
+    div(class='col-sm-10')
+      div(ui-view)

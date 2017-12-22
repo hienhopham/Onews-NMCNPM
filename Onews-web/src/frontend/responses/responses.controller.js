@@ -16,7 +16,6 @@
         $timeout(function() {
           CommentService.GetByArticle(self.article)
           .then(function(response) {
-            console.log(response);
             self.responses = response.comment_list;
           });
         });

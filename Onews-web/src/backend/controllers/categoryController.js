@@ -18,7 +18,6 @@ exports.category_list_by_level = function (req, res, next) {
 exports.category_list_all = function (req, res, next) {
 
   Category.find()
-    .populate('parent_id')
     .exec(function (err, list_categories) {
       if (err) { return next(err); }
       res.send({ category_list: list_categories, success: 'Successfully' });

@@ -4,10 +4,25 @@ var async = require('async');
 
 exports.user_detail_id_post = function (req, res) {
 
-  User.findById(req.params.id)
+  User.findById(req.body.id)
     .exec(function (err, user) {
       if (err) { return next(err); }
-      res.send({ user: user });
+      if(user) {
+        res.send({ user: user, success: 'Successfully' });
+      } else {
+        res.send({error: 'No such user'});
+      }
+      
+    });
+
+};
+
+exports.user_list = function (req, res, next) {
+  User.find()
+    .sort([['full_name', 'ascending']])
+    .exec(function (err, list_users) {
+      if (err) { return next(err); }
+      res.send({ user_list: list_users, success: 'Successfully' });
     });
 
 };
@@ -140,13 +155,13 @@ exports.user_update_post = function (req, res) {
               email: req.body.email,
               date_of_birth: req.body.date_of_birth,
               gender: req.body.gender,
-              password : found_user.password,
               _id : found_user.id
             });
+          
+          user.password = req.body.password ? req.body.password : found_user.password;
 
           User.findByIdAndUpdate(found_user.id, user, {}, function (err,newUser) {
             if (err) { return next(err); }
-               //successful - redirect to genre detail page.
                res.send({user: newUser, success: 'Successfully'});
             });
         }

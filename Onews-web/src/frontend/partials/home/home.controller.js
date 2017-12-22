@@ -10,8 +10,10 @@
       self.$onInit = onInit;
 
       function onInit() {
-        var subCategories = [];
-        $scope.subCategories = [];
+
+        if ($rootScope.globals.currentUser) {
+          $scope.user = angular.copy($rootScope.globals.currentUser);
+        }
 
         CategoryService.GetByLevel(1)
           .then(function (response) {

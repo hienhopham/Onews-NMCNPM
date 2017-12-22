@@ -18,20 +18,13 @@
     }
 
     function login() {
-      AuthenticationService.Login($scope.user.username, $scope.user.password, function (response) {
-        if (response.success) {
-          setCurrentUser(response.currentUser);
-        } else {
-          FlashService.Error(response.message);
-        }
-      });
+      if($scope.user.username === "admin" && $scope.user.password === 'admin') {
+        $rootScope.admin = $scope.user;
+        window.location.href = '/#/admin/manage';
+      } else {
+        $scope.error = 'Tài khoản không đúng.';
+      }
     };
-
-    function setCurrentUser(currentUser) {
-      AuthenticationService.SetCredentials(currentUser);
-      $location.path('/manage');
-      // $window.location.reload();
-    }
   }
 
 })();
