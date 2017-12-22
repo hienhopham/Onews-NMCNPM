@@ -260,9 +260,9 @@ public class LoginActivity extends AppCompatActivity implements
                             String gender = oneObject.getString("gender");
 
                             if (account.getType().equals(getString(R.string.login_google))) {
-                                session.createLoginSession(fullname, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
+                                session.createLoginSession(username, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
                             } else {
-                                session.createLoginSession(fullname, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
+                                session.createLoginSession(username, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
                             }
 
                         } catch (JSONException e) {

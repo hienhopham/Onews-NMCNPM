@@ -60,7 +60,6 @@ public class MainFragment extends Fragment {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(new DifferentRowAdapter(CreateData.getData(), new OnItemClickListener() {
             @Override public void onItemClick(Articles item) {
-//                Toast.makeText(getContext(), "Item Clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ArticleContentActivity.class);
                 startActivity(intent);
             }
@@ -78,14 +77,18 @@ public class MainFragment extends Fragment {
                 Log.e("Son",response.body().toString());
                 try {
                     JSONObject jObject = new JSONObject(String.valueOf(response.body()));
-//                    JSONArray jArray = jObject.getJSONArray("category_list");
-//                    for (int i = 0; i < jArray.length(); i++) {
-//                        JSONObject oneObject = jArray.getJSONObject(i);
-//                        String id = oneObject.getString("id");
-//                        String name = oneObject.getString("name");
-//                        String level = oneObject.getString("level");
-//                        String parent_id = oneObject.getString("parent_id");
-//                    }
+                    JSONArray jArray = jObject.getJSONArray("category_list");
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject oneObject = jArray.getJSONObject(i);
+                        String id = oneObject.getString("_id");
+                        String img = oneObject.getString("img");
+                        String title = oneObject.getString("title");
+                        String category_id = oneObject.getString("category_id");
+                        String hot_topic_id = oneObject.getString("hot_topic_id");
+                        String author = oneObject.getString("author");
+                        String created_time = oneObject.getString("created_time");
+                        JSONArray content = oneObject.getJSONArray("content");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

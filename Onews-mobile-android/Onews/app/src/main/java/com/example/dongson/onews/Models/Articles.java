@@ -7,34 +7,44 @@ import java.util.ArrayList;
  */
 
 public class Articles {
-    private Integer id;
+    private String id;
+    private String img;
     private String category_id;
     private String title;
-    private String content;
+    private ArrayList<String> content;
     private ArrayList<Comments> comments;
+    private String hot_topic_id;
     private String author;
     private String created_time;
-    private String deleted;
-    private String able_to_comment;
+    private Boolean deleted;
 
-    public Articles(Integer id, String category_id, String title, String content, ArrayList<Comments> comments, String author, String created_time, String deleted, String able_to_comment) {
-        this.id = id;
+    public Articles(String id,String img, String category_id, String title, ArrayList<String> content, ArrayList<Comments> comments, String hot_topic_id, String author, String created_time, Boolean deleted) {
+        this.id=id;
+        this.img = img;
         this.category_id = category_id;
         this.title = title;
         this.content = content;
         this.comments = comments;
+        this.hot_topic_id = hot_topic_id;
         this.author = author;
         this.created_time = created_time;
         this.deleted = deleted;
-        this.able_to_comment = able_to_comment;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getCategory_id() {
@@ -53,11 +63,11 @@ public class Articles {
         this.title = title;
     }
 
-    public String getContent() {
+    public ArrayList<String> getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(ArrayList<String> content) {
         this.content = content;
     }
 
@@ -67,6 +77,14 @@ public class Articles {
 
     public void setComments(ArrayList<Comments> comments) {
         this.comments = comments;
+    }
+
+    public String getHot_topic_id() {
+        return hot_topic_id;
+    }
+
+    public void setHot_topic_id(String hot_topic_id) {
+        this.hot_topic_id = hot_topic_id;
     }
 
     public String getAuthor() {
@@ -85,34 +103,11 @@ public class Articles {
         this.created_time = created_time;
     }
 
-    public String getDeleted() {
+    public Boolean getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(String deleted) {
+    public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public String getAble_to_comment() {
-        return able_to_comment;
-    }
-
-    public void setAble_to_comment(String able_to_comment) {
-        this.able_to_comment = able_to_comment;
-    }
-
-    @Override
-    public String toString() {
-        return "Articles{" +
-                "id=" + id +
-                ", category_id='" + category_id + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", comments='" + comments + '\'' +
-                ", author='" + author + '\'' +
-                ", created_time='" + created_time + '\'' +
-                ", deleted='" + deleted + '\'' +
-                ", able_to_comment='" + able_to_comment + '\'' +
-                '}';
     }
 }
