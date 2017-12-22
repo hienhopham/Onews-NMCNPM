@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('userInfoController', ['$scope', '$rootScope', '$window', 'UserService', 'AuthenticationService', function ($scope, $rootScope, $window, UserService, AuthenticationService) {
+    .controller('userInfoController', ['$scope', '$rootScope', '$window', 'UserService', 'AuthenticationService', 'Base64Service', function ($scope, $rootScope, $window, UserService, AuthenticationService, Base64Service) {
 
       var self = this;
 
@@ -16,6 +16,9 @@
           if ($scope.user.date_of_birth ) {
             $scope.user.date_of_birth = new Date($scope.user.date_of_birth);
           }
+          if ($scope.user.password) {
+            $scope.user.password = Base64Service.decode($scope.user.password);
+          }
         }
       }
 
@@ -26,7 +29,7 @@
           .then(function(response) {
             if (response.success) {
               AuthenticationService.SetCredentials(user);
-              $window.location.reload();
+              $swindow.location.reload();
             }
           })
       }

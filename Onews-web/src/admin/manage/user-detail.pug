@@ -1,0 +1,60 @@
+h3.title {{user.full_name}}'s detail info
+hr
+form(method='POST')
+  div.form-group
+    label(for='full_name') Full Name:
+    input#full_name.form-control(type='text', name='full_name', required='true', ng-model='user.full_name' )
+  div.form-group
+    label(for='username') Username:
+    input#username.form-control(type='text', name='full_name', required='true', ng-model='user.username' )
+  div.form-group
+    label(for='password') Password:
+    input#password.form-control(type='password', name='full_name', required='true', ng-model='user.password' )
+  div.form-group
+    label(for='email') Email:
+    input#email.form-control(type='text', name='email', required='true', ng-model='user.email' )
+  div.form-group
+    label(for='birthday') Birthday:
+    input.form-control.input-md.date-of-birth(data-ng-model="user.date_of_birth", id='birthday', name='birthday', type="date", data-on-set-time="onTimeSet(newDate, oldDate)")
+
+    ul.dropdown-menu(role='menu', aria-labelledby='dLabel')
+      datetimepicker(data-ng-model='user.date_of_birth', data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day' }")
+  div.form-group
+    label.ontrol-label(for='gender') Gender
+    label.radio-inline(for='gender-1')
+      input#Gender-1(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 1}}', value='1')
+      |       Male
+    label.radio-inline(for='Gender-2')
+      input#Gender-2(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 2}}', value='2')
+      |       Female
+    label.radio-inline(for='Gender-3')
+      input#Gender-3(type='radio', name='gender', ng-model="user.gender", ng-checked='{{user.gender == 3}}', value='3')
+      |      Others
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+    
+hr
+p
+  a(data-toggle="modal", data-target="#confirmation2") Delete User
+
+#confirmation2.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='deleteUser()') Yes
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='saveUser()') Yes
+

@@ -8,7 +8,7 @@ div.main-container
           list-articles(category="category", type="main")
       some-articles
   .col-md-4.side-bar
-    login
+    login(ng-if='!user')
     recent-posts
     tags
   .clearfix

@@ -42,8 +42,18 @@ angular.module('Onews')
         })
         .state('manage', {
           url: '/admin/manage',
-          templateUrl: 'admin/authentication.template.html',
-          controller: 'authenticationController'
+          templateUrl: 'admin/manage/layout.html',
+          // controller: 'authenticationController'
+        })
+        .state('manage.users', {
+          url: '/users',
+          templateUrl: 'admin/manage/user-list.html',
+          controller: 'userListController'
+        })
+        .state('manage.userDetail', {
+          url: '/user/:id',
+          templateUrl: 'admin/manage/user-detail.html',
+          controller: 'userDetailController'
         });
 
       $urlRouterProvider.otherwise('/');

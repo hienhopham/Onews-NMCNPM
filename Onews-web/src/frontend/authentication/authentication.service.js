@@ -18,10 +18,11 @@
 
     function Login(loginInfo, callback) {
       var password = md5.createHash(loginInfo.password);
+      var passwordBase64 = Base64Service.encode(loginInfo.password);
 
       $http.post('/user/authentication', { username: loginInfo.username, password: password })
         .then(function (response) {
-          callback(response);
+          callback(response, passwordBase64);
         });
 
     }
@@ -38,9 +39,9 @@
     function SetCredentials(currentUser) {
 
       $rootScope.globals.currentUser = currentUser;
-      if (currentUser.password) {
-        $rootScope.globals.currentUser.password = Base64Service.encode(currentUser.password);
-      }
+      // if (currentUser.password) {
+      //   $rootScope.globals.currentUser.password = Base64Service.encode(currentUser.password);
+      // }
 
       //$http.defaults.headers.common['Authorization'] = 'Basic ' + authdata;
 

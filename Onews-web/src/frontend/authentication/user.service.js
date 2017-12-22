@@ -9,14 +9,19 @@
   function UserService($http) {
     var service = {};
 
-    service.GetByUsername = GetByUsername;
+    service.GetAll = GetAll;
+    service.GetById = GetById;
     service.Create = Create;
     service.Update = Update;
 
     return service;
 
-    function GetByUsername(username) {
-      return $http.get('/user/' + username).then(handleSuccess, handleError('Error getting user by username'));
+    function GetAll() {
+      return $http.post('/user/user-list').then(handleSuccess, handleError('Error getting all users'));
+    }
+
+    function GetById(id) {
+      return $http.post('/user/user-by-id', {id: id}).then(handleSuccess, handleError('Error getting user by username'));
     }
 
     function Create(user) {

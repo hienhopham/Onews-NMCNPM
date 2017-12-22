@@ -13,6 +13,14 @@
             input.form-control.input-md(id='username', name='username', type='text', placeholder='Tên tài khoản', disabled, ng-model='user.username')
 
       .form-group
+        label.col-md-3.control-label(for='password') Mật khẩu
+        .col-md-8
+          .input-group
+            .input-group-addon
+              i.fa.fa-key
+            input.form-control.input-md(id='password', name='password', type='password', placeholder='Mật khẩu', ng-model='user.password')
+
+      .form-group
         label.col-md-3.control-label(for='fullName') Họ tên
         .col-md-8
           .input-group
