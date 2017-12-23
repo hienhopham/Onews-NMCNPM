@@ -50,6 +50,7 @@
             } else {
               self.error = "Không thể bình luận.";
             }
+            self.content = '';
 
           })
 

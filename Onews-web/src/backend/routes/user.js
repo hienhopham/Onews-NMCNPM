@@ -13,4 +13,6 @@ router.post('/user-list', user_controller.user_list);
 
 router.post('/user-by-id', user_controller.user_detail_id_post);
 
+router.post('/delete', user_controller.user_delete_post);
+
 module.exports = router;

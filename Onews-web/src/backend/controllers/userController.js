@@ -1,19 +1,29 @@
 var User = require('../models/user');
+var Comment = require('../models/comment');
 
 var async = require('async');
 
 exports.user_detail_id_post = function (req, res) {
 
-  User.findById(req.body.id)
-    .exec(function (err, user) {
-      if (err) { return next(err); }
-      if(user) {
-        res.send({ user: user, success: 'Successfully' });
-      } else {
-        res.send({error: 'No such user'});
-      }
-      
-    });
+  req.checkBody('id', 'Id must be specified.').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.send({ error: errors });
+  } else {
+
+    User.findById(req.body.id)
+      .exec(function (err, user) {
+        if (err) { return next(err); }
+        if (user) {
+          res.send({ user: user, success: 'Successfully' });
+        } else {
+          res.send({ error: 'No such user' });
+        }
+
+      });
+  }
 
 };
 
@@ -47,10 +57,17 @@ exports.user_create_post = function (req, res) {
       username: req.body.username,
       full_name: req.body.full_name,
       email: req.body.email,
-      date_of_birth: null,
-      gender: null,
       password: null
     });
+
+  if (req.body.date_of_birth && req.body.gender) {
+    req.sanitize('date_of_birth').toDate();
+    user.date_of_birth = req.body.date_of_birth;
+    user.gender = req.body.gender;
+  } else {
+    user.date_of_birth = null;
+    user.gender = null;
+  }
 
   if (req.body.type == 'f') {
     user.face_id = req.body.face_id;
@@ -83,9 +100,10 @@ exports.user_create_post = function (req, res) {
 
       function (callback) {
         if (!isExist) {
-          user.save(function (err) {
+          user.save(function (err, newUser) {
             if (err) { return callback(err); }
             response.success = 'Successfully';
+            response.user = newUser;
             callback();
           });
         } else {
@@ -102,24 +120,32 @@ exports.user_create_post = function (req, res) {
 
 };
 
-exports.user_authenticate_post = function (req, res) {
+exports.user_authenticate_post = function (req, res, next) {
+  req.checkBody('username', 'username must be specified.').notEmpty();
+  req.checkBody('password', 'password must be specified.').notEmpty();
 
-  User.find({ username: req.body.username, password: req.body.password })
-    .exec(function (err, user) {
-      if (err) { return next(err); }
+  var errors = req.validationErrors();
 
-      var isExist = user.length > 0 ? true : false;
+  if (errors) {
+    res.send({ error: errors });
+  } else {
+    User.find({ username: req.body.username, password: req.body.password })
+      .exec(function (err, user) {
+        if (err) { return next(err); }
 
-      if (isExist) {
-        res.send({ success: 'Successfully', user: user });
-      } else {
-        res.send({ error: 'Authentication failed' });
-      }
-    });
+        var isExist = user.length > 0 ? true : false;
+
+        if (isExist) {
+          res.send({ success: 'Successfully', user: user });
+        } else {
+          res.send({ error: 'Authentication failed' });
+        }
+      });
+  }
 
 };
 
-exports.user_update_post = function (req, res) {
+exports.user_update_post = function (req, res, next) {
 
   req.checkBody('username', 'Username must be specified.').notEmpty();
   req.checkBody('full_name', 'Full name must be specified.').notEmpty();
@@ -135,7 +161,7 @@ exports.user_update_post = function (req, res) {
 
     // User.findOneAndUpdate({ username: req.body.username }, user, {}, function(err, user) {
     //   if (err) { return next(err); }
-      
+
     //   res.send({user: user, success: 'Successfully'});
     // })
 
@@ -152,18 +178,18 @@ exports.user_update_post = function (req, res) {
               email: req.body.email,
               date_of_birth: req.body.date_of_birth,
               gender: req.body.gender,
-              _id : found_user.id
+              _id: found_user.id
             });
-          
+
           user.password = req.body.password ? req.body.password : found_user.password;
 
-          User.findByIdAndUpdate(found_user.id, user, {}, function (err,newUser) {
+          User.findByIdAndUpdate(found_user.id, user, {}, function (err, newUser) {
             if (err) { return next(err); }
-               res.send({user: newUser, success: 'Successfully'});
-            });
+            res.send({ user: newUser, success: 'Successfully' });
+          });
         }
         else {
-          res.send({error: 'User not found'});
+          res.send({ error: 'User not found' });
         }
 
       });
@@ -172,3 +198,26 @@ exports.user_update_post = function (req, res) {
 
 };
 
+exports.user_delete_post = function (req, res, next) {
+
+  req.checkBody('id', 'Id must be specified.').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.send({ error: errors });
+  } else {
+    async.parallel({
+      user: function (callback) {
+        User.findByIdAndRemove(req.body.id).exec(callback);
+      },
+      coments: function (callback) {
+        Comment.find({ user_id: req.body.id }).remove().exec(callback);
+      },
+    }, function (err, results) {
+      if (err) { return next(err); }
+      res.send({ user: results.user, success: 'Successfully' });
+    });
+  }
+
+};

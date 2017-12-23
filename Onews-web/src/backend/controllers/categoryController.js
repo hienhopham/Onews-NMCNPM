@@ -5,7 +5,6 @@ var async = require('async');
 exports.category_list_by_level = function (req, res, next) {
 
   Category.find({ level: req.body.level })
-    .populate('parent_id')
     .sort([['name', 'ascending']])
     // .limit(req.params.limit)
     .exec(function (err, list_categories) {
@@ -27,7 +26,7 @@ exports.category_list_all = function (req, res, next) {
 exports.category_by_id = function (req, res, next) {
 
   Category.findById(req.body.id)
-    .populate('parent_id')
+    // .populate('parent_id')
     .exec(function (err, category) {
       if (err) { return next(err); }
       res.send({ category: category, success: 'Successfully' });

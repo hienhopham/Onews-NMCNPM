@@ -5,26 +5,52 @@
     .module('Onews')
     .controller('authenticationController', authenticationController);
 
-  authenticationController.$inject = ['$scope', '$window', '$location', '$rootScope', 'UserService', 'AuthenticationService', 'FlashService'];
-  function authenticationController($scope, $window, $location, $rootScope, UserService, AuthenticationService, FlashService) {
+  authenticationController.$inject = ['$scope', '$cookies', '$rootScope', 'UserService'];
+  function authenticationController($scope, $cookies, $rootScope, UserService) {
     var self = this;
 
     self.$onInit = onInit;
     $scope.login = login;
+    $scope.logout = logout;
 
     function onInit() {
-      // reset login status
-      //AuthenticationService.ClearCredentials();
+      if(!$rootScope.admin.username) {
+        window.location.href = '/#/admin';
+      } else {
+        window.location.href = '/#/admin/manage';
+      }
     }
 
     function login() {
-      if($scope.user.username === "admin" && $scope.user.password === 'admin') {
-        $rootScope.admin = $scope.user;
+      var user = angular.copy($scope.user);
+
+      user.username = 'admin';
+      if (user.username === "admin" && user.password === 'admin') {
+        SetCredentials(user);
         window.location.href = '/#/admin/manage';
       } else {
         $scope.error = 'Tài khoản không đúng.';
       }
     };
+
+    function logout() {
+      ClearCredentials();
+      window.location.href = '/#/admin';
+    };
+
+    function SetCredentials(admin) {
+
+      $rootScope.admin = admin;
+
+      var cookieExp = new Date();
+      cookieExp.setDate(cookieExp.getDate() + 7);
+      $cookies.putObject('admin', $rootScope.admin, { expires: cookieExp });
+    }
+
+    function ClearCredentials() {
+      $rootScope.admin = {};
+      $cookies.remove('admin');
+    }
   }
 
 })();

@@ -13,6 +13,7 @@
     service.GetById = GetById;
     service.Create = Create;
     service.Update = Update;
+    service.Delete = Delete;
 
     return service;
 
@@ -30,6 +31,10 @@
 
     function Update(user) {
       return $http.post('/user/update', user).then(handleSuccess, handleError('Error updating user'));
+    }
+
+    function Delete(id) {
+      return $http.post('/user/delete', {id: id}).then(handleSuccess, handleError('Error creating user'));
     }
 
     function handleSuccess(res) {

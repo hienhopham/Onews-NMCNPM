@@ -19,13 +19,17 @@ div(class='container-fluid admin')
           li 
             hr
           li 
-            a(href='/catalog/author/create') Create new user
+            a(ui-sref=".userCreate") Create new user
           li 
             a(href='/catalog/genre/create') Create new category
           li 
             a(href='/catalog/book/create') Create new hot topic
           li 
             a(href='/catalog/bookinstance/create') Create comment
+          li 
+            hr
+          li 
+            a(ng-click='logout()') Logout
             
     div(class='col-sm-10')
       div(ui-view)
