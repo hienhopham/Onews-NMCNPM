@@ -28,11 +28,13 @@
     }
 
     function Register(user, callback) {
+      var passwordBase64 = Base64Service.encode(user.password);
       user.password = md5.createHash(user.password || '');
+      
 
       UserService.Create(user)
         .then(function (response) {
-          callback(response);
+          callback(response, passwordBase64);
         });
     }
 

@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('Onews')
-    .controller('userInfoController', ['$scope', '$rootScope', '$window', 'UserService', 'AuthenticationService', 'Base64Service', function ($scope, $rootScope, $window, UserService, AuthenticationService, Base64Service) {
+    .controller('userInfoController', ['$scope', '$rootScope', 'UserService', 'AuthenticationService', 'Base64Service', function ($scope, $rootScope, UserService, AuthenticationService, Base64Service) {
 
       var self = this;
 
@@ -29,7 +29,7 @@
           .then(function(response) {
             if (response.success) {
               AuthenticationService.SetCredentials(user);
-              $swindow.location.reload();
+              window.location.reload();
             }
           })
       }

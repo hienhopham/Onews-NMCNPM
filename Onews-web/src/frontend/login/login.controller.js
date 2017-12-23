@@ -34,6 +34,7 @@
           if(response.data.user[0].password) {
             response.data.user[0].password = passwordBase64;
           }
+
           setCurrentUser(response.data.user[0]);
         } else {
           self.dataLoading = false;

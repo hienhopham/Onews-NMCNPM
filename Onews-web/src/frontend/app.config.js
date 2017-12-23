@@ -43,7 +43,7 @@ angular.module('Onews')
         .state('manage', {
           url: '/admin/manage',
           templateUrl: 'admin/manage/layout.html',
-          // controller: 'authenticationController'
+          controller: 'authenticationController'
         })
         .state('manage.users', {
           url: '/users',
@@ -54,6 +54,11 @@ angular.module('Onews')
           url: '/user/:id',
           templateUrl: 'admin/manage/user-detail.html',
           controller: 'userDetailController'
+        })
+        .state('manage.userCreate', {
+          url: '/user/create',
+          templateUrl: 'admin/manage/user-create.html',
+          controller: 'userCreateController'
         });
 
       $urlRouterProvider.otherwise('/');

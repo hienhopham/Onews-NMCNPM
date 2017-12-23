@@ -15,6 +15,10 @@
     $scope.saveUser = saveUser;
 
     function onInit() {
+      if(!$rootScope.admin.username) {
+        window.location.href = '/#/admin';
+      }
+
       UserService.GetById($stateParams.id)
         .then(function(response) {
           if(response.success) {
@@ -35,13 +39,26 @@
     function saveUser() {
       UserService.Update($scope.user)
         .then(function(response) {
-          $scope.user = response.user;
-          window.location.reload();
+          if(response.success) {
+            $scope.user = response.user;
+            window.location.reload();
+          } else {
+            $scope.error = 'Can not update';
+          }
+
         });
     }
 
     function deleteUser() {
+      UserService.Delete($stateParams.id)
+        .then(function(response) {
+          if(response.success) {
+            window.location.reload('/#/admin/manage/users');
+          } else {
+            $scope.error = 'Can not delete';
+          }
 
+        });
     }
 
   }
