@@ -41,20 +41,6 @@ exports.article_list_by_category = function (req, res, next) {
           callback();
         });
 
-      // Article.aggregate(
-      //   {
-      //     $match: { "$or": category_id_list }
-      //   })
-      //   .sample(5)
-      //   .exec(function (err, result) {
-      //     if (err) {
-      //       console.log(err);
-      //       return;
-      //     }
-      //     response.article_list = result;
-      //     callback();
-      //   });
-
     }
 
   ], function (err) {

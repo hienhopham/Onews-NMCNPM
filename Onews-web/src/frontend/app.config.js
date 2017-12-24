@@ -59,6 +59,36 @@ angular.module('Onews')
           url: '/user/create',
           templateUrl: 'admin/manage/user-create.html',
           controller: 'userCreateController'
+        })
+        .state('manage.categories', {
+          url: '/categories',
+          templateUrl: 'admin/manage/category-list.html',
+          controller: 'categoryListController'
+        })
+        .state('manage.categoryDetail', {
+          url: '/category/:id',
+          templateUrl: 'admin/manage/category-detail.html',
+          controller: 'categoryDetailController'
+        })
+        .state('manage.categoryCreate', {
+          url: '/category/create',
+          templateUrl: 'admin/manage/category-create.html',
+          controller: 'categoryCreateController'
+        })
+        .state('manage.hotTopics', {
+          url: '/hot-topics',
+          templateUrl: 'admin/manage/hot-topic-list.html',
+          controller: 'hotTopicListController'
+        })
+        .state('manage.hotTopicDetail', {
+          url: '/hot-topic/:id',
+          templateUrl: 'admin/manage/hot-topic-detail.html',
+          controller: 'hotTopicDetailController'
+        })
+        .state('manage.hotTopicCreate', {
+          url: '/hot-topic/create',
+          templateUrl: 'admin/manage/hot-topic-create.html',
+          controller: 'hotTopicCreateController'
         });
 
       $urlRouterProvider.otherwise('/');

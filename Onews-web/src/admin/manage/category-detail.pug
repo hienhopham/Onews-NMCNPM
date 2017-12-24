@@ -1,0 +1,46 @@
+h3.title Category detail info
+hr
+form(method='POST')
+  div.form-group
+    label(for='name') Name:
+    input#name.form-control(type='text', name='name', required='true', ng-model='category.name' )
+  div.form-group.level
+    label(for='level') Level: 
+    //- span {{category.level}}
+    select(ng-model='category.level', ng-options='level for level in levels')
+
+  div.form-group.parent
+    label(for='parent') Parent: 
+    span.option {{category.parent_id.name}}
+    select(ng-model='category.parent_id', ng-options='parent.name disable when category.level == 1 for parent in parents')
+
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+
+h2.error(ng-if='error') {{error}}
+    
+hr
+p
+  a(data-toggle="modal", data-target="#confirmation2") Delete Category
+
+#confirmation2.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='deleteCategory()') Yes
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='saveCategory()') Yes
+

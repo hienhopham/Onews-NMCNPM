@@ -1,0 +1,6 @@
+h3.title List of categories
+hr
+ul
+  li(ng-repeat='category in category_list')
+    a(href='/#/admin/manage/category/{{category.id}}') Name: {{category.name}}, 
+    | Level: {{category.level}}

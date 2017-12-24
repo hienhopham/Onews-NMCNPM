@@ -19,6 +19,8 @@
           if ($scope.user.password) {
             $scope.user.password = Base64Service.decode($scope.user.password);
           }
+        } else {
+          window.location.href = '/#/';
         }
       }
 
