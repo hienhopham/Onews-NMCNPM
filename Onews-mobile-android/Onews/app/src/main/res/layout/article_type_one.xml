@@ -3,6 +3,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
     card_view:cardElevation="10dp">
 
     <FrameLayout
@@ -40,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
-                android:background="@color/blackblur"
+                android:background="@drawable/gradient"
                 android:orientation="vertical"
                 android:padding="3dp">
 

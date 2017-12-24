@@ -3,6 +3,9 @@ package com.example.dongson.onews.Common;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.Normalizer;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 /**
@@ -38,5 +41,18 @@ public final class FunctionCommon {
             return sb.toString();
         } catch (NoSuchAlgorithmException e) { e.printStackTrace(); }
         return null;
+    }
+
+    public static String parseDate(String date){
+        SimpleDateFormat in_put_time= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat out_put_time= new SimpleDateFormat("HH:mm:ss   dd-MM-yyyy");
+        Date d = null;
+        date = date.toUpperCase();
+        try {
+            d = in_put_time.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return out_put_time.format(d).toString();
     }
 }

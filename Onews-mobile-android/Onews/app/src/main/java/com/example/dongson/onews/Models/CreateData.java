@@ -5,26 +5,26 @@ import java.util.List;
 
 public final class CreateData {
 
-    public static List<Articles> getData() {
-        List<Articles> list = new ArrayList<>();
-        ArrayList<String> content = new ArrayList<>();
-        ArrayList<Comments> listComment = new ArrayList<>();
-
-
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
-        return list;
-    }
+//    public static List<Articles> getData() {
+//        List<Articles> list = new ArrayList<>();
+//        ArrayList<String> content = new ArrayList<>();
+//        ArrayList<Comments> listComment = new ArrayList<>();
+//
+//
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        list.add(new Articles("","","","Giet ng chat dau",content,listComment,"","dong son","20/12/2017",false));
+//        return list;
+//    }
 
     public static List<Comments> getCommentData() {
         List<Comments> list = new ArrayList<>();

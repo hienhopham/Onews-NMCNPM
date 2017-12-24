@@ -1,5 +1,6 @@
 package com.example.dongson.onews.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dongson.onews.Common.Constant;
+import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.Articles;
 import com.example.dongson.onews.Models.OnItemClickListener;
 import com.example.dongson.onews.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,10 +24,12 @@ import java.util.List;
 public class ArticleTwoAdapter extends RecyclerView.Adapter<ArticleTwoAdapter.ArticleTypeTwoViewHolder> {
     private List<Articles> articleList;
     private OnItemClickListener listener;
+    private Context context;
 
-    public ArticleTwoAdapter(List<Articles> articleList, OnItemClickListener listener) {
+    public ArticleTwoAdapter( Context context, List<Articles> articleList, OnItemClickListener listener) {
         this.articleList = articleList;
         this.listener = listener;
+        this.context = context;
 
     }
 
@@ -39,7 +45,7 @@ public class ArticleTwoAdapter extends RecyclerView.Adapter<ArticleTwoAdapter.Ar
     public void onBindViewHolder(ArticleTypeTwoViewHolder holder, int position) {
         Articles object = articleList.get(position);
         if (object != null) {
-            holder.bind(object, listener);
+            holder.bind(context,object, listener);
         }
 
 
@@ -62,8 +68,10 @@ public class ArticleTwoAdapter extends RecyclerView.Adapter<ArticleTwoAdapter.Ar
             img_article = (ImageView) itemView.findViewById(R.id.img_article_type_two);
         }
 
-        public void bind(final Articles item, final OnItemClickListener listener) {
+        public void bind(final Context context,final Articles item, final OnItemClickListener listener) {
             title.setText(item.getTitle());
+            Picasso.with(context).load(Constant.URL_BASE_IMG+item.getImg()).into(img_article);
+            created_time.setText(FunctionCommon.parseDate(item.getCreated_time().toString()));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {listener.onItemClick(item);}

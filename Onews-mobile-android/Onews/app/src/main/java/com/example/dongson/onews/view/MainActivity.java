@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dongson.onews.Adapters.SectionsPagerAdapter;
 import com.example.dongson.onews.Common.AlertDialogManager;
@@ -55,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     private AlertDialogManager alert = new AlertDialogManager();
     private GoogleApiClient mGoogleApiClient;
     private ArrayList<Categories> listCategories;
+    private ArrayList<MainFragment> listTabFragments;
 
 
     @Override
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         listTab = new ArrayList<>();
         listCategories = new ArrayList<>();
+        listTabFragments =new ArrayList<>();
         setTab();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -235,11 +240,17 @@ public class MainActivity extends AppCompatActivity
                     for (int i = 0; i < listCategories.size(); i++) {
                         listTab.add(new Tab(listCategories.get(i).getName(), listCategories.get(i).getId()));
                     }
-                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), listTab);
+                    for(int i=0;i<listTab.size();i++){
+                        Log.e("Son","dm "+listTab.get(i).getTab_url());
+                        listTabFragments.add(MainFragment.newInstance(listTab.get(i).getTab_url()));
+                    }
+                    Log.e("Son",listTabFragments.size()+"");
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),listTab,listTabFragments);
                     mViewPager = (ViewPager) findViewById(R.id.container);
                     mViewPager.setAdapter(mSectionsPagerAdapter);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                     tabLayout.setupWithViewPager(mViewPager);
+                    mSectionsPagerAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

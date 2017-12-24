@@ -50,6 +50,7 @@ exports.article_list_by_category = function (req, res, next) {
   ], function (err) {
     if (err) return next(err);
     res.send(response);
+	console.log({ response: response });
   });
 
 };

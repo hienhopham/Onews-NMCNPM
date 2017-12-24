@@ -95,15 +95,15 @@ public class EditInfoActivity extends AppCompatActivity {
                 String fullname = ed_full_name.getText().toString();
                 String birthday = ed_birthday.getText().toString();
                 String user_email = ed_user_email.getText().toString();
-                int selectedId = rg_gender.getCheckedRadioButtonId();
+                int selected_id = rg_gender.getCheckedRadioButtonId();
                 String sex = "";
-                if (selectedId == R.id.rb_gender_female_edit) {
+                if (selected_id == R.id.rb_gender_female_edit) {
                     sex = 2 + "";
                 }
-                if (selectedId == R.id.rb_gender_male_edit) {
+                if (selected_id == R.id.rb_gender_male_edit) {
                     sex = 1 + "";
                 }
-                if (selectedId == R.id.rb_gender_different_edit) {
+                if (selected_id == R.id.rb_gender_different_edit) {
                     sex = 3 + "";
                 }
 

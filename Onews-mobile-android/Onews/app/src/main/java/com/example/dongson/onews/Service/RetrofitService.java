@@ -1,5 +1,6 @@
 package com.example.dongson.onews.Service;
 
+import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Categories;
 import com.example.dongson.onews.Models.User;
 import com.google.gson.JsonObject;
@@ -26,5 +27,5 @@ public interface RetrofitService {
     Call<JsonObject> all_category(@Body Categories category);
 
     @POST("list-by-category")
-    Call<JsonObject> all_article_of_category(@Body Categories category);
+    Call<ArticleList> all_article_of_category(@Body Categories category);
 }

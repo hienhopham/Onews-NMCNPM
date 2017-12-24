@@ -1,35 +1,45 @@
 package com.example.dongson.onews.Models;
 
-import java.util.ArrayList;
-
 /**
  * Created by Dong Son on 01-Nov-17.
  */
 
-public class Articles {
-    private String id;
-    private String img;
-    private String category_id;
-    private String title;
-    private ArrayList<String> content;
-    private ArrayList<Comments> comments;
-    private String hot_topic_id;
-    private String author;
-    private String created_time;
-    private Boolean deleted;
 
-    public Articles(String id,String img, String category_id, String title, ArrayList<String> content, ArrayList<Comments> comments, String hot_topic_id, String author, String created_time, Boolean deleted) {
-        this.id=id;
-        this.img = img;
-        this.category_id = category_id;
-        this.title = title;
-        this.content = content;
-        this.comments = comments;
-        this.hot_topic_id = hot_topic_id;
-        this.author = author;
-        this.created_time = created_time;
-        this.deleted = deleted;
-    }
+import java.io.Serializable;
+import java.util.List;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+public class Articles implements Serializable{
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("img")
+    @Expose
+    private String img;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("category_id")
+    @Expose
+    private String category_id;
+    @SerializedName("hot_topic_id")
+    @Expose
+    private String hot_topic_id;
+    @SerializedName("author")
+    @Expose
+    private String author;
+    @SerializedName("created_time")
+    @Expose
+    private String created_time;
+    @SerializedName("comments")
+    @Expose
+    private List<Object> comments = null;
+    @SerializedName("content")
+    @Expose
+    private List<String> content = null;
 
     public String getId() {
         return id;
@@ -47,14 +57,6 @@ public class Articles {
         this.img = img;
     }
 
-    public String getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(String category_id) {
-        this.category_id = category_id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -63,20 +65,12 @@ public class Articles {
         this.title = title;
     }
 
-    public ArrayList<String> getContent() {
-        return content;
+    public String getCategory_id() {
+        return category_id;
     }
 
-    public void setContent(ArrayList<String> content) {
-        this.content = content;
-    }
-
-    public ArrayList<Comments> getComments() {
-        return comments;
-    }
-
-    public void setComments(ArrayList<Comments> comments) {
-        this.comments = comments;
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
     }
 
     public String getHot_topic_id() {
@@ -103,11 +97,19 @@ public class Articles {
         this.created_time = created_time;
     }
 
-    public Boolean getDeleted() {
-        return deleted;
+    public List<Object> getComments() {
+        return comments;
     }
 
-    public void setDeleted(Boolean deleted) {
-        this.deleted = deleted;
+    public void setComments(List<Object> comments) {
+        this.comments = comments;
+    }
+
+    public List<String> getContent() {
+        return content;
+    }
+
+    public void setContent(List<String> content) {
+        this.content = content;
     }
 }
