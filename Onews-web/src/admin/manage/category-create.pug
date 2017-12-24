@@ -1,0 +1,31 @@
+h3.title Create Category
+hr
+form(method='POST')
+  div.form-group
+    label(for='name') Name:
+    input#name.form-control(type='text', name='name', required='true', ng-model='category.name' )
+  div.form-group.level
+    label(for='level') Level: 
+    //- span {{category.level}}
+    select(ng-model='category.level', ng-options='level for level in levels')
+
+  div.form-group.parent
+    label(for='parent') Parent: 
+    span.option {{category.parent_id.name}}
+    select(ng-model='category.parent_id', ng-options='parent.name disable when category.level == 1 for parent in parents')
+
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+
+h2.error(ng-if='error') {{error}}
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='createCategory()') Yes
+

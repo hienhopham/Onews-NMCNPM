@@ -14,6 +14,7 @@
     service.GetById = GetById;
     service.Create = Create;
     service.Update = Update;
+    service.Delete = Delete;
 
     return service;
 
@@ -30,11 +31,15 @@
     }
 
     function Create(category) {
-      return $http.post('/category/create', article).then(handleSuccess, handleError('Error creating category'));
+      return $http.post('/category/create', category).then(handleSuccess, handleError('Error creating category'));
     }
 
     function Update(category) {
-      return $http.post('/category/update', user).then(handleSuccess, handleError('Error updating category'));
+      return $http.post('/category/update', category).then(handleSuccess, handleError('Error updating category'));
+    }
+
+    function Delete(id) {
+      return $http.post('/category/delete', {id: id}).then(handleSuccess, handleError('Error delete category'));
     }
 
     function handleSuccess(res) {

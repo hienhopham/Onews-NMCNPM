@@ -1,0 +1,5 @@
+h3.title List of hot topics
+hr
+ul
+  li(ng-repeat='hotTopic in hot_topic_list')
+    a(href='/#/admin/manage/hot-topic/{{hotTopic._id}}') Name: {{hotTopic.name}}

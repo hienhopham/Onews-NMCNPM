@@ -1,0 +1,37 @@
+h3.title Hot topic detail info
+hr
+form(method='POST')
+  div.form-group
+    label(for='name') Name:
+    input#name.form-control(type='text', name='name', required='true', ng-model='hotTopic.name' )
+
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+
+h2.error(ng-if='error') {{error}}
+    
+hr
+p
+  a(data-toggle="modal", data-target="#confirmation2") Delete hot topic
+
+#confirmation2.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='deleteHotTopic()') Yes
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='saveHotTopic()') Yes
+

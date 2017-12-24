@@ -9,11 +9,11 @@ div(class='container-fluid admin')
           li 
             a(ui-sref=".users") All users
           li 
-            a(href='/catalog/authors') All categories
+            a(ui-sref='.categories') All categories
           li 
             a(href='/catalog/genres') All articles
           li 
-            a(href='/catalog/bookinstances') All hot topics
+            a(ui-sref='.hotTopics') All hot topics
           li 
             a(href='/catalog/bookinstances') All comments
           li 
@@ -21,9 +21,9 @@ div(class='container-fluid admin')
           li 
             a(ui-sref=".userCreate") Create new user
           li 
-            a(href='/catalog/genre/create') Create new category
+            a(ui-sref=".categoryCreate") Create new category
           li 
-            a(href='/catalog/book/create') Create new hot topic
+            a(ui-sref=".hotTopicCreate") Create new hot topic
           li 
             a(href='/catalog/bookinstance/create') Create comment
           li 

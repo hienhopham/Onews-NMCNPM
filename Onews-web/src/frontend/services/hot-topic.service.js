@@ -13,6 +13,7 @@
     service.GetById = GetById;
     service.Create = Create;
     service.Update = Update;
+    service.Delete = Delete;
 
     return service;
 
@@ -24,12 +25,16 @@
       return $http.post('/hottopic/find-by-id', {id: id}).then(handleSuccess, handleError('Error getting hot topic by id'));
     }
 
-    function Create(category) {
-      return $http.post('/category/create', article).then(handleSuccess, handleError('Error creating hot topic'));
+    function Create(hotTopic) {
+      return $http.post('/hottopic/create', hotTopic).then(handleSuccess, handleError('Error creating hot topic'));
     }
 
-    function Update(category) {
-      return $http.post('/category/update', user).then(handleSuccess, handleError('Error updating hot topic'));
+    function Update(hotTopic) {
+      return $http.post('/hottopic/update', hotTopic).then(handleSuccess, handleError('Error updating hot topic'));
+    }
+
+    function Delete(id) {
+      return $http.post('/hottopic/delete', { id: id }).then(handleSuccess, handleError('Error delete hot topic'));
     }
 
     function handleSuccess(res) {

@@ -9,4 +9,10 @@ router.post('/list-all', category_controller.category_list_all);
 
 router.post('/find-by-id', category_controller.category_by_id);
 
+router.post('/create', category_controller.category_create_post);
+
+router.post('/update', category_controller.category_update_post);
+
+router.post('/delete', category_controller.category_delete_post);
+
 module.exports = router;
