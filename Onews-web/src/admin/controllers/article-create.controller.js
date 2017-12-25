@@ -21,7 +21,7 @@
 
     function onInit() {
       if (!$rootScope.admin.username) {
-        window.location.href = '/#/admin';
+        window.location.href = '/#/admin/manage';
       }
 
       CategoryService.GetAll()
@@ -76,14 +76,11 @@
         article.hot_topic_id = null;
       }
 
-      console.log(article);
-
       ArticleService.Create(article)
         .then(function(response) {
           console.log(response);
           if(response.success) {
-            console.log(response);
-            // window.location.reload('/#/admin/manage/articles');
+            window.location.reload('/#/admin/manage/articles');
           } else {
             $scope.error = 'Can not create article';
           }

@@ -20,7 +20,7 @@
 
     function onInit() {
       if (!$rootScope.admin.username) {
-        window.location.href = '/#/admin';
+        window.location.href = '/#/admin/manage';
       } else {
 
         ArticleService.GetById($stateParams.id)
@@ -35,7 +35,7 @@
               $scope.article = article;
 
             } else {
-              window.location.href = '/#/admin/manage/categories';
+              window.location.href = '/#/admin/manage';
             }
           });
 
