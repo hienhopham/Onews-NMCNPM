@@ -43,16 +43,14 @@ public class MainFragment extends Fragment {
     String category_id;
     private RecyclerView mRecyclerView;
 
-
     public MainFragment() {
     }
 
     public static MainFragment newInstance(String id) {
         MainFragment fragment = new MainFragment();
-        Bundle args = new Bundle();
+        final Bundle args = new Bundle();
         args.putString("category_id", id);
         fragment.setArguments(args);
-        fragment.setRetainInstance(true);
         return fragment;
     }
 
@@ -78,7 +76,6 @@ public class MainFragment extends Fragment {
     private void getArticle(Categories category) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_ARTICLE).create(RetrofitService.class);
         Call<ArticleList> call = retrofit.all_article_of_category(category);
-        Log.e("Son",category.getId());
         call.enqueue(new Callback<ArticleList>() {
             @Override
             public void onResponse(Call<ArticleList> call, Response<ArticleList> response) {

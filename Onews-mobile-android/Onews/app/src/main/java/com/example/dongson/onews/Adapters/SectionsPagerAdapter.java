@@ -3,14 +3,11 @@ package com.example.dongson.onews.Adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.ListFragment;
+import android.util.Log;
 
 import com.example.dongson.onews.Models.Tab;
-import com.example.dongson.onews.view.MainActivity;
-import com.example.dongson.onews.view.MainFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Dong Son on 06-Nov-17.
@@ -18,20 +15,27 @@ import java.util.List;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Tab> listTab;
-    private ArrayList<MainFragment> fragments;
+    private ArrayList<Fragment> fragments;
 
 
-    public SectionsPagerAdapter(FragmentManager fm, ArrayList<Tab> list,ArrayList<MainFragment> fragments) {
+
+    public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
-        this.listTab=list;
-        this.fragments=fragments;
+        listTab = new ArrayList<>();
+        fragments = new ArrayList<>();
 
+    }
+
+    public void addFrag(Fragment fragment, Tab tab) {
+        fragments.add(fragment);
+        listTab.add(tab);
     }
 
     @Override
-    public MainFragment getItem(int position) {
+    public Fragment getItem(int position) {
         return fragments.get(position);
     }
+
 
     @Override
     public int getCount() {

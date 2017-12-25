@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity
     private AlertDialogManager alert = new AlertDialogManager();
     private GoogleApiClient mGoogleApiClient;
     private ArrayList<Categories> listCategories;
-    private ArrayList<MainFragment> listTabFragments;
+    private ArrayList<Fragment> listTabFragments;
 
 
     @Override
@@ -236,16 +236,11 @@ public class MainActivity extends AppCompatActivity
                         Categories category = new Categories(id, name, Integer.parseInt(level), parent_id, "");
                         listCategories.add(category);
                     }
-
+                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
                     for (int i = 0; i < listCategories.size(); i++) {
-                        listTab.add(new Tab(listCategories.get(i).getName(), listCategories.get(i).getId()));
+                        Log.e("Son",listCategories.get(i).getId());
+                        mSectionsPagerAdapter.addFrag(MainFragment.newInstance(listCategories.get(i).getId()),new Tab(listCategories.get(i).getName(), listCategories.get(i).getId()));
                     }
-                    for(int i=0;i<listTab.size();i++){
-                        Log.e("Son","dm "+listTab.get(i).getTab_url());
-                        listTabFragments.add(MainFragment.newInstance(listTab.get(i).getTab_url()));
-                    }
-                    Log.e("Son",listTabFragments.size()+"");
-                    mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),listTab,listTabFragments);
                     mViewPager = (ViewPager) findViewById(R.id.container);
                     mViewPager.setAdapter(mSectionsPagerAdapter);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -263,6 +258,8 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+
+
     }
 
 }
