@@ -17,7 +17,7 @@
 
     function onInit() {
       if (!$rootScope.admin.username) {
-        window.location.href = '/#/admin';
+        window.location.href = '/#/admin/manage';
       } else {
 
         $scope.levels = [1, 2];

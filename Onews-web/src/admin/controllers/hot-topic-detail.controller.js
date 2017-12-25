@@ -17,7 +17,7 @@
 
     function onInit() {
       if (!$rootScope.admin.username) {
-        window.location.href = '/#/admin';
+        window.location.href = '/#/admin/manage';
       } else {
 
         HotTopicService.GetById($stateParams.id)
@@ -28,7 +28,7 @@
               $scope.hotTopic = hotTopic;
 
             } else {
-              window.location.href = '/#/admin/manage/categories';
+              window.location.href = '/#/admin/manage/';
             }
           });
       }
@@ -55,8 +55,7 @@
       HotTopicService.Delete($stateParams.id)
         .then(function(response) {
           if(response.success) {
-            console.log(response);
-            // window.location.reload('/#/admin/manage/users');
+            window.location.reload('/#/admin/manage/users');
           } else {
             $scope.error = 'Can not delete';
           }
