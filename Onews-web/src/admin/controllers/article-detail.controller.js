@@ -62,7 +62,7 @@
     }
 
     function uploadPic(file) {
-      if (typeof file == 'object') {
+      if (typeof file == 'object' && file != null) {
 
       file.upload = Upload.upload({
         url: 'http://localhost:8585/article/upload',
@@ -82,6 +82,8 @@
       }, function (evt) {
         file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
       });
+    } else if (file == null) {
+      $scope.error = 'Thumbnail is required';
     } else {
       saveArticle();
     }

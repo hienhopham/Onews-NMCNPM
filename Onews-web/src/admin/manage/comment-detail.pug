@@ -1,0 +1,49 @@
+h3.title Hot topic detail info
+hr
+form(method='POST')
+  div.form-group
+    label(for='content') Content:
+    textarea#name.form-control(name='content', required='true', ng-model='comment.content' )
+
+  div.form-group
+    label(for='createdTime') Created time:
+    span.option {{comment.created_time_string}}
+  
+  div.form-group
+    label(for='createdTime') Article:
+    span.option {{comment.article_id.title}}
+
+  div.form-group
+    label(for='createdTime') User:
+    span.option {{comment.user_id.username}}
+
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+
+h2.error(ng-if='error') {{error}}
+    
+hr
+p
+  a(data-toggle="modal", data-target="#confirmation2") Delete comment
+
+#confirmation2.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='deleteComment()') Yes
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='saveComment()') Yes
+
