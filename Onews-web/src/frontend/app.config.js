@@ -104,6 +104,16 @@ angular.module('Onews')
           url: '/article/create',
           templateUrl: 'admin/manage/article-create.html',
           controller: 'articleCreateController'
+        })
+        .state('manage.comments', {
+          url: '/comments',
+          templateUrl: 'admin/manage/comment-list.html',
+          controller: 'commentListController'
+        })
+        .state('manage.commentDetail', {
+          url: '/comment/:id',
+          templateUrl: 'admin/manage/comment-detail.html',
+          controller: 'commentDetailController'
         });
 
       $urlRouterProvider.otherwise('/');

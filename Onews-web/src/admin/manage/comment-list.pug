@@ -1,0 +1,11 @@
+h3.title List of comments
+hr
+div.form-group
+  label(for='search') Search:
+  input#search.form-control(type='text', name='search', required='true', ng-model='searchKey', place-holder='User or Article' )
+hr
+ul
+  li(ng-repeat='comment in comment_list')
+    a(href='/#/admin/manage/comment/{{comment._id}}') Article: {{comment.article_id.title}}, 
+    | By: {{comment.user_id.username}},
+    | Time: {{comment.created_time_string}},
