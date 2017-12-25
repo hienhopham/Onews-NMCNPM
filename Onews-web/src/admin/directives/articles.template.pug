@@ -1,0 +1,6 @@
+span {{ctrl.category.name}}
+p
+  ul
+    li(ng-repeat='article in ctrl.article_list')
+      a(href='/#/admin/manage/article/{{article.id}}') {{article.title}}, 
+      | Category: {{article.category_id.name}}

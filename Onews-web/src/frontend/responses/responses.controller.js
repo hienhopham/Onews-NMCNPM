@@ -16,7 +16,7 @@
         $timeout(function() {
           CommentService.GetByArticle(self.article)
           .then(function(response) {
-            self.responses = response.comment_list;
+            self.responses = angular.copy(response.comment_list);
           });
         });
 
@@ -36,7 +36,7 @@
           .then(function(response) {
             if(response.success) {
 
-              self.addedComment = response.comment;
+              self.addedComment = angular.copy(response.comment);
 
               elem = angular.element('<response></response>');
               elem.attr({

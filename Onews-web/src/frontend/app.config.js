@@ -89,6 +89,21 @@ angular.module('Onews')
           url: '/hot-topic/create',
           templateUrl: 'admin/manage/hot-topic-create.html',
           controller: 'hotTopicCreateController'
+        })
+        .state('manage.articles', {
+          url: '/articles',
+          templateUrl: 'admin/manage/article-list.html',
+          controller: 'articleListController'
+        })
+        .state('manage.articleDetail', {
+          url: '/article/:id',
+          templateUrl: 'admin/manage/article-detail.html',
+          controller: 'articleDetailController'
+        })
+        .state('manage.articleCreate', {
+          url: '/article/create',
+          templateUrl: 'admin/manage/article-create.html',
+          controller: 'articleCreateController'
         });
 
       $urlRouterProvider.otherwise('/');

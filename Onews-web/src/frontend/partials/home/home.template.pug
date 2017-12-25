@@ -5,7 +5,7 @@ div.main-container
     .col-md-8.content-left
       div(ui-view)
         .articles(ng-repeat="category in categories")
-          list-articles(category="category", type="main")
+          list-articles(category="category", type="main", limit='5')
       some-articles
   .col-md-4.side-bar
     login(ng-if='!user')

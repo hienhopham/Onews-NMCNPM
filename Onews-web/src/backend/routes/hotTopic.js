@@ -11,4 +11,6 @@ router.post('/create', hot_topic_controller.hot_topic_create_post);
 
 router.post('/update', hot_topic_controller.hot_topic_update_post);
 
+router.post('/delete', hot_topic_controller.hot_topic_delete_post);
+
 module.exports = router;

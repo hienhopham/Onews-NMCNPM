@@ -16,17 +16,18 @@
     service.GetListBySearchKey = GetListBySearchKey;
     service.Create = Create;
     service.Update = Update;
+    service.Delete = Delete;
 
     return service;
 
     function GetByCategory(categoryID, limit) {
-      limit = limit ? limit : 5;
+      // limit = limit ? limit : 5;
 
       return $http.post('/article/list-by-category', {category_id: categoryID, limit: limit}).then(handleSuccess, handleError('Error getting article list by category'));
     }
 
     function GetByHotTopic(hotTopicID, limit) {
-      limit = limit ? limit : 5;
+      // limit = limit ? limit : 5;
 
       return $http.post('/article/list-by-hot-topic', {hot_topic_id: hotTopicID, limit: limit}).then(handleSuccess, handleError('Error getting article list by hot topic'));
     }
@@ -42,7 +43,7 @@
     }
 
     function GetListBySearchKey(searchKey, limit) {
-      limit = limit ? limit : 5;
+      // limit = limit ? limit : 5;
 
       return $http.post('/article/find-by-search-key', {searchKey: searchKey,limit: limit}).then(handleSuccess, handleError('Error getting articles'));
     }
@@ -51,8 +52,12 @@
       return $http.post('/article/create', article).then(handleSuccess, handleError('Error creating article'));
     }
 
-    function Update(user) {
-      return $http.post('/user/update', user).then(handleSuccess, handleError('Error updating article'));
+    function Update(article) {
+      return $http.post('/article/update', article).then(handleSuccess, handleError('Error updating article'));
+    }
+
+    function Delete(id) {
+      return $http.post('/article/delete', {id: id}).then(handleSuccess, handleError('Error delete article'));
     }
 
     function handleSuccess(res) {

@@ -17,8 +17,8 @@
 
     return service;
 
-    function GetAll() {
-      return $http.post('/hottopic/list-all').then(handleSuccess, handleError('Error getting all hot topics'));
+    function GetAll(limit) {
+      return $http.post('/hottopic/list-all', {limit: limit}).then(handleSuccess, handleError('Error getting all hot topics'));
     }
 
     function GetById(id) {

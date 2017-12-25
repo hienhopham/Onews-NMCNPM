@@ -52,15 +52,16 @@
     }
 
     function deleteHotTopic() {
-      // CategoryService.Delete($stateParams.id)
-      //   .then(function(response) {
-      //     if(response.success) {
-      //       window.location.reload('/#/admin/manage/users');
-      //     } else {
-      //       $scope.error = 'Can not delete';
-      //     }
+      HotTopicService.Delete($stateParams.id)
+        .then(function(response) {
+          if(response.success) {
+            console.log(response);
+            // window.location.reload('/#/admin/manage/users');
+          } else {
+            $scope.error = 'Can not delete';
+          }
 
-      //   });
+        });
     }
 
   }

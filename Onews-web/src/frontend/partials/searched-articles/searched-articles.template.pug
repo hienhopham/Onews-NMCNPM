@@ -1,3 +1,16 @@
 .articles
   article-info(ng-repeat="article in articles", article='article')
   h3.error(ng-if="error") {{error}}
+
+div.pages
+  ul.pagination(ng-if='pager.pages.length')
+    li(ng-class='{disabled:pager.currentPage === 1}')
+      a(ng-click='setPage(1)', scroll-to="") Đầu
+    li(ng-class='{disabled:pager.currentPage === 1}')
+      a(ng-click='setPage(pager.currentPage - 1)', scroll-to="") Trước
+    li(ng-repeat='page in pager.pages', ng-class='{active:pager.currentPage === page}')
+      a(ng-click='setPage(page)', scroll-to="") {{page}}
+    li(ng-class='{disabled:pager.currentPage === pager.totalPages}')
+      a(ng-click='setPage(pager.currentPage + 1)', scroll-to="") Tiếp
+    li(ng-class='{disabled:pager.currentPage === pager.totalPages}')
+      a(ng-click='setPage(pager.totalPages)', scroll-to="") Cuối

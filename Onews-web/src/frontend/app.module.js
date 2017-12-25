@@ -3,5 +3,6 @@ angular.module('Onews', [
   'ngCookies',
   'ui.bootstrap.datetimepicker',
   'angular-md5',
-  'ngScrollTo'
+  'ngScrollTo',
+  'ngFileUpload'
 ]);

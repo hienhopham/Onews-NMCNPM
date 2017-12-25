@@ -1,9 +1,9 @@
 .media.response-info
   .media-left.response-text-left
     h5
-      a(href='#') {{ctrl.response.user_id.full_name}}
+      a(href='#') {{ctrl.comment.user_id.full_name}}
   .media-body.response-text-right
-    p {{ctrl.response.content}}
+    p {{ctrl.comment.content}}
     ul
-      li {{ctrl.response.created_time_string}}
+      li {{ctrl.comment.created_time_string}}
   .clearfix 
