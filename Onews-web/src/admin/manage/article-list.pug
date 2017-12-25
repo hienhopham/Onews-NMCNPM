@@ -1,0 +1,12 @@
+h3.title List of articles
+hr
+
+ul.nav.nav-tabs
+  li(ng-repeat='category in category_list', ng-class='{active:now === $index}')
+    a(ng-click='activeTab($index)', data-toggle='tab') {{category.name}}
+
+.tab-content
+  .tab-pane(ng-repeat='category in category_list', ng-class='{active:now === $index}', id='{{$index}}')
+    articles(category='category')
+
+h3.error(ng-if='error') {{error}}

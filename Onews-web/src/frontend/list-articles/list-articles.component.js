@@ -5,7 +5,9 @@
     .component('listArticles', {
       bindings: {
         category: '=',
-        type: '@' // there are two types of list
+        type: '@', // there are two types of list
+        limit: '=',
+        pagination: '='
       },
       controller: 'listArticlesController',
       controllerAs: 'ctrl',

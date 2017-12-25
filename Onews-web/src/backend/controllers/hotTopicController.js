@@ -7,7 +7,7 @@ exports.hot_topic_list_all = function (req, res, next) {
 
   HotTopic.find()
     .sort([['created_time', 'descending']])
-    .limit(5)
+    .limit(req.body.limit)
     .exec(function (err, list_hot_topics) {
       if (err) { return next(err); }
       res.send({ hot_topic_list: list_hot_topics, success: 'Successfully' });

@@ -13,7 +13,7 @@
     self.$onInit = onInit;
 
     function onInit() {
-      HotTopicService.GetAll()
+      HotTopicService.GetAll(5)
         .then(function (response) {
           if (response.success) {
             self.hotTopics = response.hot_topic_list;

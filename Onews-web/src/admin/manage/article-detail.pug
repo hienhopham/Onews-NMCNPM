@@ -1,0 +1,89 @@
+h3.title Article detail info
+hr
+form(method='POST', name="myForm")
+  div.form-group
+    label(for='title') Title:
+    textarea#name.form-control(name='title', required='true', ng-model='article.title' )
+
+  div.form-group.category
+    label(for='category') Category: 
+    span.option {{article.category_id.name}}
+    select(ng-model='article.category_id', ng-options='category.name for category in categories')
+
+  div.form-group.category
+    label(for='hotTopic') Hot topic: 
+    span.option {{article.hot_topic_id.name}}
+    select(ng-model='article.hot_topic_id', ng-options='hotTopic.name for hotTopic in hot_topic_list')
+      option(value ='') No hot topic
+
+  div.form-group
+    label(for='createdTime') Created time:
+    span.option {{article.created_time_string}}
+
+  div.form-group
+    label(for='thumbnail') Thumbnail:
+    input(type='file', ngf-select='', ng-model='article.img', name='file', accept='image/*', ngf-max-size='8MB', ngf-model-invalid='errorFile')
+    i(ng-show='myForm.file.$error.required') *required
+    i(ng-show='myForm.file.$error.maxSize')
+      | File too large
+      | {{errorFile.size / 1000000|number:1}}MB: max 2M
+    img.thumb(ng-show='myForm.file.$valid', ngf-thumbnail='article.img')
+    button(ng-click='article.img = null', ng-show='article.img') Remove
+
+    span.progress(ng-show='article.img.progress >= 0')
+      div(style='width:{{article.img.progress}}%', ng-bind="article.img.progress + '%'")
+    span(ng-show='article.img.result') Upload Successful
+    span.err(ng-show='errorMsg') {{errorMsg}}
+  
+  div.form-group
+    label(for='content') Content:
+    div.article-content(ng-repeat='content in article.content')
+      textarea.form-control(name='content', required='true', ng-model='content')
+      a.btn.btn-danger.delete-content(ng-click='deleteContent($index)') Delete -
+    div.add-content
+      a.btn.btn-success.add-content(data-toggle="modal", data-target="#confirmation3") Add content +
+
+  div.form-group
+    label(for='author') Author:
+    input#name.form-control(name='author', type='text', ng-model='article.author' )
+
+  button.btn.btn-primary(data-toggle="modal", data-target="#confirmation1") Submit
+
+h2.error(ng-if='error') {{error}}
+    
+hr
+p
+  a(data-toggle="modal", data-target="#confirmation2") Delete Article
+
+#confirmation2.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='deleteArticle()') Yes
+
+#confirmation1.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Are you sure ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='uploadPic(article.img)') Yes
+
+#confirmation3.modal.fade(role='dialog')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        textarea.form-control(name='content', required='true', ng-model='newContent')
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') No
+        button.btn.btn-success(ng-click='addContent()', data-dismiss='modal') Yes
+

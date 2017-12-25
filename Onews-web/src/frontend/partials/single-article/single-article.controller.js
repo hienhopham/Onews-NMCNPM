@@ -22,7 +22,7 @@
                   }
                 });
             } else {
-              console.log('err');
+              window.location.href = '/#/';
             }
           });
 

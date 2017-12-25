@@ -8,8 +8,7 @@
       self.$onInit = $onInit;
 
       function $onInit() {
-
-
+        self.comment = angular.copy(self.response);
       }
     }]);
 })();
