@@ -245,7 +245,6 @@ public class MainActivity extends AppCompatActivity
                     mViewPager.setAdapter(mSectionsPagerAdapter);
                     TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
                     tabLayout.setupWithViewPager(mViewPager);
-                    mSectionsPagerAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

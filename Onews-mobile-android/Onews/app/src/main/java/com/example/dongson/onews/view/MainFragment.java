@@ -2,37 +2,24 @@ package com.example.dongson.onews.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dongson.onews.Adapters.DifferentRowAdapter;
-import com.example.dongson.onews.Adapters.SectionsPagerAdapter;
 import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Articles;
 import com.example.dongson.onews.Models.Categories;
-import com.example.dongson.onews.Models.CreateData;
 import com.example.dongson.onews.Models.OnItemClickListener;
-import com.example.dongson.onews.Models.Tab;
 import com.example.dongson.onews.R;
 import com.example.dongson.onews.Service.BaseRetrofit;
 import com.example.dongson.onews.Service.RetrofitService;
-import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -75,7 +62,7 @@ public class MainFragment extends Fragment {
 
     private void getArticle(Categories category) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_ARTICLE).create(RetrofitService.class);
-        Call<ArticleList> call = retrofit.all_article_of_category(category);
+        Call<ArticleList> call = retrofit.all_article_of_category(category.getId());
         call.enqueue(new Callback<ArticleList>() {
             @Override
             public void onResponse(Call<ArticleList> call, Response<ArticleList> response) {

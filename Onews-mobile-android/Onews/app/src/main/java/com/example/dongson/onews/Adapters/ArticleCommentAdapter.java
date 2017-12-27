@@ -44,21 +44,23 @@ public class ArticleCommentAdapter extends RecyclerView.Adapter<ArticleCommentAd
 
     @Override
     public int getItemCount() {
-        return 4;
+        return commentList.size();
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        private TextView content_comment;
+        private TextView content_comment,user_comment;
         private ImageView img_profile_comment;
 
         public CommentViewHolder(View itemView) {
             super(itemView);
             content_comment = (TextView) itemView.findViewById(R.id.tv_content_comment);
+            user_comment = (TextView) itemView.findViewById(R.id.tv_user_comment);
             img_profile_comment = (ImageView) itemView.findViewById(R.id.img_profile_comment);
         }
 
         public void bind(final Comments item, final OnItemClickListener listener) {
             content_comment.setText(item.getContent());
+            user_comment.setText(item.getUser_id().getFull_name());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

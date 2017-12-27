@@ -54,6 +54,7 @@
                     android:textStyle="bold"
                     android:paddingLeft="5dp"
                     android:text="Nạn nhân tử vong do chấn thương sọ não"
+                    android:textSize="@dimen/text_article_size"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -63,7 +64,7 @@
                     android:layout_marginTop="5dp"
                     android:paddingLeft="5dp"
                     android:text="10h15-8/10/2017"
-                    android:textSize="11dp"
+                    android:textSize="@dimen/text_created_time_article_size"
                     android:textColor="@color/white" />
 
             </LinearLayout>

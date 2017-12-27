@@ -24,7 +24,7 @@ public class Articles implements Serializable{
     private String title;
     @SerializedName("category_id")
     @Expose
-    private String category_id;
+    private CategoryId category_id;
     @SerializedName("hot_topic_id")
     @Expose
     private String hot_topic_id;
@@ -65,11 +65,11 @@ public class Articles implements Serializable{
         this.title = title;
     }
 
-    public String getCategory_id() {
+    public CategoryId getCategory_id() {
         return category_id;
     }
 
-    public void setCategory_id(String category_id) {
+    public void setCategory_id(CategoryId category_id) {
         this.category_id = category_id;
     }
 

@@ -2,6 +2,7 @@ package com.example.dongson.onews.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class ArticleTwoAdapter extends RecyclerView.Adapter<ArticleTwoAdapter.Ar
     private OnItemClickListener listener;
     private Context context;
 
-    public ArticleTwoAdapter( Context context, List<Articles> articleList, OnItemClickListener listener) {
+    public ArticleTwoAdapter(Context context, List<Articles> articleList, OnItemClickListener listener) {
         this.articleList = articleList;
         this.listener = listener;
         this.context = context;
@@ -44,37 +45,38 @@ public class ArticleTwoAdapter extends RecyclerView.Adapter<ArticleTwoAdapter.Ar
     @Override
     public void onBindViewHolder(ArticleTypeTwoViewHolder holder, int position) {
         Articles object = articleList.get(position);
-        if (object != null) {
-            holder.bind(context,object, listener);
-        }
-
-
+        holder.bind(context, object, listener);
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return articleList.size();
     }
 
     public static class ArticleTypeTwoViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView created_time;
+        private TextView category;
         private ImageView img_article;
 
         public ArticleTypeTwoViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title_type_two);
             created_time = (TextView) itemView.findViewById(R.id.tv_created_time_type_two);
+            category = (TextView) itemView.findViewById(R.id.tv_category_type_two);
             img_article = (ImageView) itemView.findViewById(R.id.img_article_type_two);
         }
 
-        public void bind(final Context context,final Articles item, final OnItemClickListener listener) {
+        public void bind(Context context, final Articles item, final OnItemClickListener listener) {
             title.setText(item.getTitle());
-            Picasso.with(context).load(Constant.URL_BASE_IMG+item.getImg()).into(img_article);
+            category.setText(item.getCategory_id().getName());
+            Picasso.with(context).load(Constant.URL_BASE_IMG + item.getImg()).into(img_article);
             created_time.setText(FunctionCommon.parseDate(item.getCreated_time().toString()));
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {listener.onItemClick(item);}
+                public void onClick(View v) {
+                    listener.onItemClick(item);
+                }
 
             });
         }

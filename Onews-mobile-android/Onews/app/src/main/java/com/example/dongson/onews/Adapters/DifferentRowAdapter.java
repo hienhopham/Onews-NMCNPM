@@ -78,17 +78,20 @@ public class DifferentRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class ArticleTypeOneViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView created_time;
+        private TextView category;
         private ImageView img_article;
 
         public ArticleTypeOneViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title_type_one);
+            category = (TextView) itemView.findViewById(R.id.tv_category_type_one);
             created_time = (TextView) itemView.findViewById(R.id.tv_created_time_type_one);
             img_article = (ImageView) itemView.findViewById(R.id.img_article_type_one);
         }
 
         public void bind(final Context context, final Articles item, final OnItemClickListener listener) {
             title.setText(item.getTitle());
+            category.setText(item.getCategory_id().getName());
             created_time.setText(FunctionCommon.parseDate(item.getCreated_time().toString()));
             Picasso.with(context).load(Constant.URL_BASE_IMG+item.getImg()).into(img_article);
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -102,17 +105,20 @@ public class DifferentRowAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class ArticleTypeTwoViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView created_time;
+        private TextView category;
         private ImageView img_article;
 
         public ArticleTypeTwoViewHolder(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.tv_title_type_two);
+            category = (TextView) itemView.findViewById(R.id.tv_category_type_two);
             created_time = (TextView) itemView.findViewById(R.id.tv_created_time_type_two);
             img_article = (ImageView) itemView.findViewById(R.id.img_article_type_two);
         }
 
         public void bind(final Context context, final Articles item, final OnItemClickListener listener) {
             title.setText(item.getTitle());
+            category.setText(item.getCategory_id().getName());
             Picasso.with(context).load(Constant.URL_BASE_IMG+item.getImg()).into(img_article);
             created_time.setText(FunctionCommon.parseDate(item.getCreated_time().toString()));
             itemView.setOnClickListener(new View.OnClickListener() {
