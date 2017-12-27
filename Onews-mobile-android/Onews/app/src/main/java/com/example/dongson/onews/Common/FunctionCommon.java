@@ -55,4 +55,36 @@ public final class FunctionCommon {
         }
         return out_put_time.format(d).toString();
     }
+
+
+    public static String parseDate1(String date){
+        SimpleDateFormat in_put_time= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat out_put_time= new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        date = date.toUpperCase();
+        try {
+            d = in_put_time.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return out_put_time.format(d).toString();
+    }
+
+    public static String parseBirthday(String date){
+        SimpleDateFormat out_put_time= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat in_put_time= new SimpleDateFormat("dd/MM/yyyy");
+        Date d = null;
+        date = date.toUpperCase();
+        try {
+            d = in_put_time.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return out_put_time.format(d).toString();
+    }
+
+    public static String saveDate(Date date){
+        SimpleDateFormat out_put_time= new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return out_put_time.format(date).toString();
+    }
 }

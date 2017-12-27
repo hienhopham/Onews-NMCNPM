@@ -2,6 +2,7 @@ package com.example.dongson.onews.Service;
 
 import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Categories;
+import com.example.dongson.onews.Models.CommentCreated;
 import com.example.dongson.onews.Models.CommentList;
 import com.example.dongson.onews.Models.User;
 import com.google.gson.JsonObject;
@@ -36,4 +37,8 @@ public interface RetrofitService {
     @FormUrlEncoded
     @POST("comment-by-article")
     Call<CommentList> comments_of_article(@Field("article_id") String id);
+
+    @FormUrlEncoded
+    @POST("create")
+    Call<CommentCreated>comment_created(@Field("user_id") String user_id, @Field("article_id") String article_id, @Field("content") String content, @Field("created_time") String created_time);
 }

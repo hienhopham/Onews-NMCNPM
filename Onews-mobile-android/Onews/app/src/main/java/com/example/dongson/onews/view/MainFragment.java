@@ -73,7 +73,7 @@ public class MainFragment extends Fragment {
                 mRecyclerView.setAdapter(new DifferentRowAdapter(getContext(),articles, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Articles item) {
-                        Intent intent = new Intent(getActivity(), ArticleContentActivity.class);
+                        Intent intent = new Intent(getContext(), ArticleContentActivity.class);
                         intent.putExtra("data", item);
                         startActivity(intent);
                     }

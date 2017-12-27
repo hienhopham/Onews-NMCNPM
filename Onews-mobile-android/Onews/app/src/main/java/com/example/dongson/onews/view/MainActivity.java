@@ -112,12 +112,11 @@ public class MainActivity extends AppCompatActivity
             nav_ava.setVisibility(View.VISIBLE);
             HashMap<String, String> user = session.getUserDetails();
             String name = user.get(SessionManager.KEY_NAME);
+            String full_name = user.get(SessionManager.KEY_FULL_NAME);
             String email = user.get(SessionManager.KEY_EMAIL);
             String img = user.get(SessionManager.KEY_IMAGE);
             String with = user.get(SessionManager.KEY_WITH);
-
-
-            nav_user.setText(name);
+            nav_user.setText(full_name);
             nav_email.setText(email);
             if (with != getString(R.string.login_register)) {
                 Picasso.with(this).load(img).into(nav_ava);

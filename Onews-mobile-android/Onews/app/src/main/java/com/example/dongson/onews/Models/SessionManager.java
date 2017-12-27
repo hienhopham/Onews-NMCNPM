@@ -21,6 +21,7 @@ public class SessionManager {
     // Sharedpref file name
     private static final String PREF_NAME = "Son";
     private static final String IS_LOGIN = "IsLoggedIn";
+    public static final String KEY_ID = "id";
     public static final String KEY_NAME = "name";
     public static final String KEY_FULL_NAME = "full_name";
     public static final String KEY_EMAIL = "email";
@@ -28,8 +29,6 @@ public class SessionManager {
     public static final String KEY_BIRTHDAY = "birthday";
     public static final String KEY_GENDER = "gender";
     public static final String KEY_PASS = "password";
-
-    // login with (make variable public to access from outside)
     public static final String KEY_WITH = "with";
 
     // Constructor
@@ -42,7 +41,8 @@ public class SessionManager {
     /**
      * Create login session
      */
-    public void createLoginSession(String name,String full_name, String email,String image_url,String with,String birthday,String gender, String password) {
+    public void createLoginSession(String id,String name,String full_name, String email,String image_url,String with,String birthday,String gender, String password) {
+        editor.putString(KEY_ID,id);
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, name);
         editor.putString(KEY_FULL_NAME, full_name);
@@ -76,6 +76,7 @@ public class SessionManager {
         user.put(KEY_BIRTHDAY, pref.getString(KEY_BIRTHDAY, null));
         user.put(KEY_GENDER, pref.getString(KEY_GENDER, null));
         user.put(KEY_PASS, pref.getString(KEY_PASS, null));
+        user.put(KEY_ID, pref.getString(KEY_ID, null));
         return user;
     }
 

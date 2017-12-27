@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -16,6 +17,10 @@ import com.example.dongson.onews.R;
 import com.example.dongson.onews.Service.BaseRetrofit;
 import com.example.dongson.onews.Service.RetrofitService;
 import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,7 +68,6 @@ public class RegisterActivity extends AppCompatActivity implements
                 if (username.trim().length() > 0 && password.trim().length() > 0 && fullname.trim().length() > 0 && confirmpassword.trim().length() > 0 && useremail.trim().length() > 0) {
                     if (confirmpassword.equals(password)) {
                         User user = new User(username, useremail, FunctionCommon.md5(password), fullname, "", "", "", "", "");
-                        session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), "", "",FunctionCommon.md5(password));
                         createUserInServer(user);
                     } else {
                         alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Password and confirm password is not same", false);
@@ -77,16 +81,30 @@ public class RegisterActivity extends AppCompatActivity implements
     }
 
     private void createUserInServer(User user) {
+        final User user1 = user;
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_USER).create(RetrofitService.class);
         Call<JsonObject> call = retrofit.create(user);
         call.enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.body().toString().contains("success") || response.body().toString().contains("User already existed")) {
-                    Intent main = new Intent(getApplicationContext(), MainActivity.class);
-                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(main);
-                    finish();
+                    try {
+                        JSONObject jObject = new JSONObject(String.valueOf(response.body()));
+                        JSONArray jArray = jObject.getJSONArray("user");
+                        JSONObject oneObject = jArray.getJSONObject(0);
+                        String id = oneObject.getString("id");
+                        Log.e("Son",id);
+
+                        session.createLoginSession(id, user1.getUsername(), user1.getFull_name(), user1.getEmail(), "", getString(R.string.login_register), "", "", user1.getPassword());
+                        Intent main = new Intent(getApplicationContext(), MainActivity.class);
+                        main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(main);
+                        finish();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
                     alert.showAlertDialog(RegisterActivity.this, "Login fail", "", false);
                 }

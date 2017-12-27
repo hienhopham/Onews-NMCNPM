@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Articles;
 import com.example.dongson.onews.Models.Categories;
+import com.example.dongson.onews.Models.CommentCreated;
 import com.example.dongson.onews.Models.CommentList;
 import com.example.dongson.onews.Models.Comments;
 import com.example.dongson.onews.Models.OnItemClickListener;
@@ -30,12 +32,16 @@ import com.example.dongson.onews.Service.RetrofitService;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.dongson.onews.Common.FunctionCommon.saveDate;
 
 public class ArticleContentActivity extends AppCompatActivity {
     private TextView tv_title, tv_created_time, tv_content, tv_author, tv_category;
@@ -65,7 +71,7 @@ public class ArticleContentActivity extends AppCompatActivity {
         tv_author = (TextView) findViewById(R.id.tv_author_content);
         img_article = (ImageView) findViewById(R.id.img_toolbar);
         img_profile_image_content = (ImageView) findViewById(R.id.profile_image_content);
-        ed_comment_content =(EditText)findViewById(R.id.ed_comment_content);
+        ed_comment_content = (EditText) findViewById(R.id.ed_comment_content);
         bt_comment_post = (Button) findViewById(R.id.bt_comment_post);
 
         tv_author.setText("Đưa tin: " + article.getAuthor());
@@ -82,21 +88,41 @@ public class ArticleContentActivity extends AppCompatActivity {
 
         CommentRecyclerView = (RecyclerView) findViewById(R.id.recycler_View_Comment_content);
         getComment(article);
-        setComment();
+        setComment(article);
+
     }
 
-    public void setComment(){
+    public void setComment(final Articles article) {
         if (session.checkLogin() == false) {
             img_profile_image_content.setImageResource(R.drawable.if_ninja_479478);
             ed_comment_content.setEnabled(false);
-        }else{
+            bt_comment_post.setEnabled(false);
+        } else {
             HashMap<String, String> user = session.getUserDetails();
+            final String id = user.get(SessionManager.KEY_ID);
             String name = user.get(SessionManager.KEY_NAME);
             String email = user.get(SessionManager.KEY_EMAIL);
             String img = user.get(SessionManager.KEY_IMAGE);
             String with = user.get(SessionManager.KEY_WITH);
-            Picasso.with(this).load(img).into(img_profile_image_content);
+            if (with != getString(R.string.login_register)) {
+                Picasso.with(this).load(img).into(img_profile_image_content);
+            } else {
+                img_profile_image_content.setImageResource(R.drawable.if_ninja_479478);
+            }
+
             ed_comment_content.setEnabled(true);
+            bt_comment_post.setEnabled(true);
+            bt_comment_post.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String content = ed_comment_content.getText().toString();
+                    Date date = Calendar.getInstance().getTime();
+
+                    if (content.trim().length() > 0) {
+                        addComment(id, article, content, saveDate(date));
+                    }
+                }
+            });
         }
     }
 
@@ -152,16 +178,36 @@ public class ArticleContentActivity extends AppCompatActivity {
                 List<Comments> comments = commentlist.getCommentList();
                 CommentRecyclerView.setLayoutManager(new LinearLayoutManager(ArticleContentActivity.this));
                 CommentRecyclerView.setItemAnimator(new DefaultItemAnimator());
-                CommentRecyclerView.setAdapter(new ArticleCommentAdapter(comments, new OnItemClickListener() {
+                ArticleCommentAdapter a = new ArticleCommentAdapter(getBaseContext(), comments, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Articles item) {
                         Toast.makeText(ArticleContentActivity.this, "Item Clicked", Toast.LENGTH_LONG).show();
                     }
-                }));
+                });
+                CommentRecyclerView.setAdapter(a);
+                a.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<CommentList> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void addComment(String user_id, Articles article, String content, String created_time) {
+        final Articles article1 = article;
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_COMMENT).create(RetrofitService.class);
+        Call<CommentCreated> call = retrofit.comment_created(user_id, article.getId(), content, created_time);
+        call.enqueue(new Callback<CommentCreated>() {
+            @Override
+            public void onResponse(Call<CommentCreated> call, Response<CommentCreated> response) {
+                CommentCreated commentlist = response.body();
+                getComment(article1);
+            }
+
+            @Override
+            public void onFailure(Call<CommentCreated> call, Throwable t) {
 
             }
         });
