@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.dongson.onews.Adapters.ArticleCommentAdapter;
 import com.example.dongson.onews.Adapters.ArticleTwoAdapter;
+import com.example.dongson.onews.Common.AlertDialogManager;
 import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Common.FunctionCommon;
 import com.example.dongson.onews.Models.ArticleList;
@@ -51,6 +53,8 @@ public class ArticleContentActivity extends AppCompatActivity {
     private EditText ed_comment_content;
     private Button bt_comment_post;
     private SessionManager session;
+    private AlertDialogManager alert = new AlertDialogManager();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,6 +161,11 @@ public class ArticleContentActivity extends AppCompatActivity {
                         intent.putExtra("data", item);
                         startActivity(intent);
                     }
+
+                    @Override
+                    public void onItemClick(Comments item) {
+
+                    }
                 }));
             }
 
@@ -168,7 +177,7 @@ public class ArticleContentActivity extends AppCompatActivity {
     }
 
 
-    private void getComment(Articles article) {
+    private void getComment(final Articles article) {
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_COMMENT).create(RetrofitService.class);
         Call<CommentList> call = retrofit.comments_of_article(article.getId());
         call.enqueue(new Callback<CommentList>() {
@@ -181,7 +190,24 @@ public class ArticleContentActivity extends AppCompatActivity {
                 ArticleCommentAdapter a = new ArticleCommentAdapter(getBaseContext(), comments, new OnItemClickListener() {
                     @Override
                     public void onItemClick(Articles item) {
-                        Toast.makeText(ArticleContentActivity.this, "Item Clicked", Toast.LENGTH_LONG).show();
+
+                    }
+                    @Override
+                    public void onItemClick(Comments item) {
+                        if (session.checkLogin() == true) {
+                            HashMap<String, String> user = session.getUserDetails();
+                            final String id = user.get(SessionManager.KEY_ID);
+                            if(id.equals(item.getUser_id().getId())){
+                                Boolean delete = alert.showAlertDialog(ArticleContentActivity.this, "Comment", "You want to delete this comment", true);
+                                if (delete == true) {
+                                    deleteComment(item.getId(),article);
+                                }
+                            }else{
+                                Toast.makeText(ArticleContentActivity.this, "It is not your comment",
+                                        Toast.LENGTH_LONG).show();
+                            }
+
+                        }
                     }
                 });
                 CommentRecyclerView.setAdapter(a);
@@ -198,7 +224,25 @@ public class ArticleContentActivity extends AppCompatActivity {
     private void addComment(String user_id, Articles article, String content, String created_time) {
         final Articles article1 = article;
         RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_COMMENT).create(RetrofitService.class);
-        Call<CommentCreated> call = retrofit.comment_created(user_id, article.getId(), content, created_time);
+        Call<CommentCreated> call = retrofit.add_comment(user_id, article.getId(), content, created_time);
+        call.enqueue(new Callback<CommentCreated>() {
+            @Override
+            public void onResponse(Call<CommentCreated> call, Response<CommentCreated> response) {
+                CommentCreated commentlist = response.body();
+                getComment(article1);
+            }
+
+            @Override
+            public void onFailure(Call<CommentCreated> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void deleteComment(String id_comment, Articles article) {
+        final Articles article1 = article;
+        RetrofitService retrofit = BaseRetrofit.getRetrofit(Constant.URL_BASE_COMMENT).create(RetrofitService.class);
+        Call<CommentCreated> call = retrofit.delete_comment(id_comment);
         call.enqueue(new Callback<CommentCreated>() {
             @Override
             public void onResponse(Call<CommentCreated> call, Response<CommentCreated> response) {

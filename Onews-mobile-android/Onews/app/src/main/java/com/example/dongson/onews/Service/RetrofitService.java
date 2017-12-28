@@ -40,5 +40,9 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("create")
-    Call<CommentCreated>comment_created(@Field("user_id") String user_id, @Field("article_id") String article_id, @Field("content") String content, @Field("created_time") String created_time);
+    Call<CommentCreated>add_comment(@Field("user_id") String user_id, @Field("article_id") String article_id, @Field("content") String content, @Field("created_time") String created_time);
+
+    @FormUrlEncoded
+    @POST("delete")
+    Call<CommentCreated>delete_comment(@Field("id") String id);
 }

@@ -7,7 +7,9 @@ package com.example.dongson.onews.Models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Comments {
+import java.io.Serializable;
+
+public class Comments implements Serializable{
 
     @SerializedName("id")
     @Expose

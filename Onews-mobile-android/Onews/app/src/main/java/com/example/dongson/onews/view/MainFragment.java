@@ -15,6 +15,7 @@ import com.example.dongson.onews.Common.Constant;
 import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Articles;
 import com.example.dongson.onews.Models.Categories;
+import com.example.dongson.onews.Models.Comments;
 import com.example.dongson.onews.Models.OnItemClickListener;
 import com.example.dongson.onews.R;
 import com.example.dongson.onews.Service.BaseRetrofit;
@@ -76,6 +77,11 @@ public class MainFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ArticleContentActivity.class);
                         intent.putExtra("data", item);
                         startActivity(intent);
+                    }
+
+                    @Override
+                    public void onItemClick(Comments item) {
+
                     }
                 }));
             }

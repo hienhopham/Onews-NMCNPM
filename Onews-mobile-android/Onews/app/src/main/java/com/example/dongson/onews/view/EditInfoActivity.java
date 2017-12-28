@@ -94,7 +94,6 @@ public class EditInfoActivity extends AppCompatActivity {
                 }
             }
         }
-        int gender = Integer.parseInt(user.get(SessionManager.KEY_GENDER));
         if (!birthday.contains(":")) {
             ed_birthday.setText("");
         } else {
