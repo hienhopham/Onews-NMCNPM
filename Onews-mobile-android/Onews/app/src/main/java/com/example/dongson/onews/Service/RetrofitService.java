@@ -1,16 +1,17 @@
 package com.example.dongson.onews.Service;
 
+import com.example.dongson.onews.Models.ArticleList;
 import com.example.dongson.onews.Models.Categories;
+import com.example.dongson.onews.Models.CommentCreated;
+import com.example.dongson.onews.Models.CommentList;
 import com.example.dongson.onews.Models.User;
 import com.google.gson.JsonObject;
 
-import okhttp3.Request;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * Created by Dong Son on 11-Nov-17.
@@ -19,10 +20,29 @@ import retrofit2.http.Query;
 public interface RetrofitService {
     @POST("create")
     Call<JsonObject> create(@Body User user);
+
     @POST("authentication")
     Call<JsonObject> authentication(@Body User user);
+
     @POST("update")
     Call<JsonObject> update(@Body User user);
-    @POST(".")
+
+    @POST("list-by-level")
     Call<JsonObject> all_category(@Body Categories category);
+
+    @FormUrlEncoded
+    @POST("list-by-category")
+    Call<ArticleList> all_article_of_category(@Field("category_id") String id);
+
+    @FormUrlEncoded
+    @POST("comment-by-article")
+    Call<CommentList> comments_of_article(@Field("article_id") String id);
+
+    @FormUrlEncoded
+    @POST("create")
+    Call<CommentCreated>add_comment(@Field("user_id") String user_id, @Field("article_id") String article_id, @Field("content") String content, @Field("created_time") String created_time);
+
+    @FormUrlEncoded
+    @POST("delete")
+    Call<CommentCreated>delete_comment(@Field("id") String id);
 }

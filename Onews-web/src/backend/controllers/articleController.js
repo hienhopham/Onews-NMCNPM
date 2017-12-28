@@ -50,6 +50,7 @@ exports.article_list_by_category = function (req, res, next) {
   ], function (err) {
     if (err) return next(err);
     res.send(response);
+	console.log({ response: response });
   });
 
 };
@@ -65,6 +66,7 @@ exports.article_list_by_hot_topic = function (req, res, next) {
       if (err) { return callback(err); }
       response.success = 'Successfully';
       response.article_list = list_articles;
+	  console.log({ success: 'Successfully', article_list: list_articles });
       res.send(response);
     });
 

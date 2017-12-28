@@ -1,10 +1,15 @@
 package com.example.dongson.onews.Models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Dong Son on 03-Nov-17.
  */
 
 public class Tab {
+
+
     private String tab_name;
     private String tab_url;
 

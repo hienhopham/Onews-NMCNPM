@@ -3,6 +3,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
     card_view:cardElevation="10dp">
 
     <FrameLayout
@@ -40,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="bottom"
-                android:background="@color/blackblur"
+                android:background="@drawable/gradient"
                 android:orientation="vertical"
                 android:padding="3dp">
 
@@ -53,6 +54,7 @@
                     android:textStyle="bold"
                     android:paddingLeft="5dp"
                     android:text="Nạn nhân tử vong do chấn thương sọ não"
+                    android:textSize="@dimen/text_article_size"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -62,7 +64,7 @@
                     android:layout_marginTop="5dp"
                     android:paddingLeft="5dp"
                     android:text="10h15-8/10/2017"
-                    android:textSize="11dp"
+                    android:textSize="@dimen/text_created_time_article_size"
                     android:textColor="@color/white" />
 
             </LinearLayout>

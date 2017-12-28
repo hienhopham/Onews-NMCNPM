@@ -6,5 +6,6 @@ package com.example.dongson.onews.Models;
 
 public interface OnItemClickListener {
     void onItemClick(Articles item);
+    void onItemClick(Comments item);
 
 }

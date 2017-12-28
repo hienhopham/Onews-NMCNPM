@@ -236,12 +236,22 @@ public class LoginActivity extends AppCompatActivity implements
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.body().toString().contains("success")) {
-                    if (account.getType().equals(getString(R.string.login_google))) {
-                        session.createLoginSession(user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_google), "", "","");
+                    try {
+                        JSONObject jObject = new JSONObject(String.valueOf(response.body()));
+                        JSONArray jArray = jObject.getJSONArray("user");
+                        JSONObject oneObject = jArray.getJSONObject(0);
+                        String id = oneObject.getString("id");
 
-                    } else {
-                        session.createLoginSession(user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_facebook), "", "","");
+                        if (account.getType().equals(getString(R.string.login_google))) {
+                            session.createLoginSession(id,user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_google), "", "","");
+
+                        } else {
+                            session.createLoginSession(id,user.getFull_name(), user.getFull_name(), user.getEmail(), "" + user_photo, getString(R.string.login_facebook), "", "","");
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+
                     Intent main = new Intent(getApplicationContext(), MainActivity.class);
                     main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(main);
@@ -253,6 +263,7 @@ public class LoginActivity extends AppCompatActivity implements
                             JSONObject jObject = new JSONObject(String.valueOf(response.body()));
                             JSONArray jArray = jObject.getJSONArray("user");
                             JSONObject oneObject = jArray.getJSONObject(0);
+                            String id = oneObject.getString("id");
                             String username = oneObject.getString("username");
                             String fullname = oneObject.getString("full_name");
                             String useremail = oneObject.getString("email");
@@ -260,9 +271,9 @@ public class LoginActivity extends AppCompatActivity implements
                             String gender = oneObject.getString("gender");
 
                             if (account.getType().equals(getString(R.string.login_google))) {
-                                session.createLoginSession(fullname, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
+                                session.createLoginSession(id,username, fullname, useremail,"" + user_photo , getString(R.string.login_google), birthday, gender,"");
                             } else {
-                                session.createLoginSession(fullname, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
+                                session.createLoginSession(id,username, fullname, useremail, "" + user_photo, getString(R.string.login_facebook), birthday, gender,"");
                             }
 
                         } catch (JSONException e) {
@@ -301,13 +312,14 @@ public class LoginActivity extends AppCompatActivity implements
                         if (response.body().toString().contains("success")) {
                             JSONArray jArray = jObject.getJSONArray("user");
                             JSONObject oneObject = jArray.getJSONObject(0);
+                            String id = oneObject.getString("id");
                             String username = oneObject.getString("username");
                             String fullname = oneObject.getString("full_name");
                             String useremail = oneObject.getString("email");
                             String birthday = oneObject.getString("date_of_birth");
                             String gender = oneObject.getString("gender");
                             String password = oneObject.getString("password");
-                            session.createLoginSession(username, fullname, useremail, "", getString(R.string.login_register), birthday, gender,password);
+                            session.createLoginSession(id,username, fullname, useremail, "", getString(R.string.login_register), birthday, gender,password);
                             Intent main = new Intent(getApplicationContext(), MainActivity.class);
                             main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(main);

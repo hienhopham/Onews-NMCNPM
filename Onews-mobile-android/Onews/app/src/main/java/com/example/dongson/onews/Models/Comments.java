@@ -4,26 +4,41 @@ package com.example.dongson.onews.Models;
  * Created by Dong Son on 01-Nov-17.
  */
 
-public class Comments {
-    private String user_id;
-    private String article_id;
-    private String content;
-    private String created_time;
-    private String deleted;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Comments(String user_id, String article_id, String content, String created_time, String deleted) {
-        this.user_id = user_id;
-        this.article_id = article_id;
-        this.content = content;
-        this.created_time = created_time;
-        this.deleted = deleted;
+import java.io.Serializable;
+
+public class Comments implements Serializable{
+
+    @SerializedName("id")
+    @Expose
+    private String id;
+    @SerializedName("user_id")
+    @Expose
+    private UserId user_id;
+    @SerializedName("article_id")
+    @Expose
+    private String article_id;
+    @SerializedName("content")
+    @Expose
+    private String content;
+    @SerializedName("created_time")
+    @Expose
+    private String created_time;
+
+    public String getId() {
+        return id;
     }
 
-    public String getUser_id() {
+    public void setId(String id) {
+        this.id = id;
+    }
+    public UserId getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(String user_id) {
+    public void setUser_id(UserId user_id) {
         this.user_id = user_id;
     }
 
@@ -51,22 +66,6 @@ public class Comments {
         this.created_time = created_time;
     }
 
-    public String getDeleted() {
-        return deleted;
-    }
 
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
-    }
 
-    @Override
-    public String toString() {
-        return "Comments{" +
-                "user_id='" + user_id + '\'' +
-                ", article_id='" + article_id + '\'' +
-                ", content='" + content + '\'' +
-                ", created_time='" + created_time + '\'' +
-                ", deleted='" + deleted + '\'' +
-                '}';
-    }
 }

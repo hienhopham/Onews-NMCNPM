@@ -5,24 +5,25 @@ package com.example.dongson.onews.Models;
  */
 
 public class Categories {
-    private Integer id;
+    private String id;
     private String name;
     private int level;
-    private Integer parents_id;
+    private String parents_id;
     private String deleted;
 
-    public Categories(String name, int level, Integer parents_id, String deleted) {
+    public Categories(String id, String name, int level, String parents_id, String deleted) {
+        this.id = id;
         this.name = name;
         this.level = level;
         this.parents_id = parents_id;
         this.deleted = deleted;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -42,11 +43,11 @@ public class Categories {
         this.level = level;
     }
 
-    public Integer getParents_id() {
+    public String getParents_id() {
         return parents_id;
     }
 
-    public void setParents_id(Integer parents_id) {
+    public void setParents_id(String parents_id) {
         this.parents_id = parents_id;
     }
 
@@ -58,14 +59,4 @@ public class Categories {
         this.deleted = deleted;
     }
 
-    @Override
-    public String toString() {
-        return "Categories{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", level='" + level + '\'' +
-                ", parents_id=" + parents_id +
-                ", deleted='" + deleted + '\'' +
-                '}';
-    }
 }

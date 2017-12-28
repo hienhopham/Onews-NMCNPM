@@ -3,6 +3,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
     card_view:cardElevation="10dp">
 
     <FrameLayout
@@ -52,11 +53,12 @@
                     android:id="@+id/tv_title_type_two"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_article_size"
                     android:layout_below="@+id/tv_category_type_two"
                     android:layout_marginLeft="6dp"
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
-                    android:maxLines="3"
+                    android:maxLines="2"
                     android:text="Nạn nhân chấn thương sọ não đang nguy kịch tại bệnh viện Bạch Mai"
                     android:textColor="@color/black"
                     android:textStyle="bold" />
@@ -68,8 +70,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginLeft="6dp"
                     android:text="10h15-8/10/2017"
-                    android:textColor="@color/black"
-                    android:textSize="11dp" />
+                    android:textColor="@color/blackblur"
+                    android:textSize="@dimen/text_created_time_article_size" />
             </RelativeLayout>
 
         </LinearLayout>
