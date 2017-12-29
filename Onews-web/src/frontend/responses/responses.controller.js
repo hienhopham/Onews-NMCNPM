@@ -45,7 +45,7 @@
               template = angular.element(elem);
               newElt = $compile(template)($scope);
       
-              $element.find('.response').append(newElt);
+              $element.find('.response').prepend(newElt);
 
             } else {
               self.error = "Không thể bình luận.";

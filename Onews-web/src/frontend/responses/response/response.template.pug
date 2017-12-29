@@ -5,5 +5,32 @@
   .media-body.response-text-right
     p {{ctrl.comment.content}}
     ul
+      li(ng-if='ctrl.available')
+        a.action(data-target="#{{ctrl.comment.id}}", data-toggle="modal") Xóa
+      li(ng-if='ctrl.available')
+        a.action(data-target="#{{ctrl.comment.id}}1", data-toggle="modal") Chỉnh sửa
       li {{ctrl.comment.created_time_string}}
-  .clearfix 
+
+  .clearfix
+
+div.modal.fade(id='{{ctrl.comment.id}}', role='dialog', ng-if='ctrl.available')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        button.close(type='button', data-dismiss='modal') ×
+        h4.modal-title Bạn có chắc chắn muốn xóa bình luận ?
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') Không
+        button.btn.btn-success(ng-click='ctrl.deleteComment()') Có
+
+
+div.modal.fade(id='{{ctrl.comment.id}}1', role='dialog', ng-if='ctrl.available')
+  .modal-dialog
+    // Modal content
+    .modal-content
+      .modal-header
+        textarea.form-control(required='true', ng-model='ctrl.newContent')
+      .modal-body
+        button.btn.btn-danger(data-dismiss='modal') Hủy
+        button.btn.btn-success(ng-click='ctrl.saveComment()', data-dismiss='modal') Lưu

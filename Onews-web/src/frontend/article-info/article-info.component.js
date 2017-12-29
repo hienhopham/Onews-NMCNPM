@@ -6,6 +6,7 @@
       bindings: {
         article: '='
       },
+      controller: 'articleInfoController',
       controllerAs: 'ctrl',
       templateUrl: 'frontend/article-info/article-info.template.html'
     });
