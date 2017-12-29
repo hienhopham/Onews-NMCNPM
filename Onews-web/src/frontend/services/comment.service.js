@@ -15,6 +15,7 @@
     service.Create = Create;
     service.Update = Update;
     service.Delete = Delete;
+    service.CountByArticle = CountByArticle;
 
     return service;
 
@@ -40,6 +41,10 @@
 
     function Delete(id) {
       return $http.post('/comment/delete', { id: id }).then(handleSuccess, handleError('Error delete comment'));
+    }
+
+    function CountByArticle(article_id) {
+      return $http.post('/comment/count-by-article', { article_id: article_id }).then(handleSuccess, handleError('Error delete comment'));      
     }
 
     function handleSuccess(res) {

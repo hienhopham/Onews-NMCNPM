@@ -58,6 +58,23 @@ exports.comment_by_article = function (req, res, next) {
       res.send({ comment_list: list_comments, success: 'Successfully' });
     });
 }
+exports.comment_count_by_article = function (req, res, next) {
+
+  req.checkBody('article_id', 'Id must be specified.').notEmpty();
+
+  var errors = req.validationErrors();
+
+  if (errors) {
+    res.send({ error: errors });
+    return;
+  } else {
+    Comment.count({ article_id: req.body.article_id })
+      .exec(function (err, number_of_comments) {
+        if (err) { return next(err); }
+        res.send({ number_of_comments: number_of_comments, success: 'Successfully' });
+      });
+  }
+}
 
 exports.comment_by_id = function (req, res, next) {
   req.checkBody('id', 'Id must be specified.').notEmpty();
@@ -67,8 +84,7 @@ exports.comment_by_id = function (req, res, next) {
   if (errors) {
     res.send({ error: errors });
     return;
-  }
-  else {
+  } else {
     Comment.findById(req.body.id)
       .populate('article_id')
       .populate('user_id')
@@ -121,7 +137,7 @@ exports.comment_delete_post = function (req, res, next) {
 
     Comment.findByIdAndRemove(req.body.id).exec(function (err, comment) {
       if (err) { return next(err); }
-      res.send({comment: comment, success: 'Successfully'});
+      res.send({ comment: comment, success: 'Successfully' });
     });
 
 

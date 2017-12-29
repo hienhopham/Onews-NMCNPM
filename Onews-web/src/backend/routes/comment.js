@@ -15,4 +15,6 @@ router.post('/update', comment_controller.comment_update_post);
 
 router.post('/delete', comment_controller.comment_delete_post);
 
+router.post('/count-by-article', comment_controller.comment_count_by_article);
+
 module.exports = router;
